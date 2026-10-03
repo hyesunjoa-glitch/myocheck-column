@@ -108,8 +108,6 @@ def publish_problems(col: dict, products: dict, categories: dict, characters: di
         if not ch:
             p.append(f"답하는 캐릭터 '{char_key}'가 characters.yml에 없어요")
         else:
-            if PLACEHOLDER_RE.search(str(ch.get("bio", ""))):
-                p.append(f"캐릭터 '{ch.get('name')}' 소개 문구가 비어 있어요 (characters.yml)")
             if ch.get("tone") not in TONES:
                 p.append(f"캐릭터 '{ch.get('name')}' 말투(존댓말/반말)가 정해지지 않았어요 (characters.yml)")
     for field in ("title", "summary", "description", "date", "reviewer"):

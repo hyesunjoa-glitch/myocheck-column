@@ -49,7 +49,7 @@
     <a href="#body">본문</a>
     <a href="#saju">사주로 보면</a>
     {% if product.report %}<a href="#report">결과지</a>{% endif %}
-    {% if product.info %}<a href="#ready">준비물</a>{% endif %}
+    {% if others %}<a href="#others">함께 볼 사주</a>{% endif %}
     <a href="#faq">질문</a>
     <a href="#more">더 보기</a>
   </nav>
@@ -132,47 +132,21 @@
     </section>
     {% endif %}
 
-    {# ── 🧭 이렇게 진행돼요 ── #}
-    {% if product.process %}
-    <section class="block" aria-labelledby="flow-h">
-      <h2 class="sec-h" id="flow-h"><span aria-hidden="true">🧭</span> 이렇게 진행돼요</h2>
-      <ol class="flow">
-        {% for p in product.process %}
-        <li><span class="flow-ico" aria-hidden="true">{{ p.icon }}</span><div><p class="flow-step">{{ p.step }}</p><p class="flow-text">{% if '대기]' in p.text %}<span class="pending">{{ p.text }}</span>{% else %}{{ p.text }}{% endif %}</p></div></li>
+    {# ── 🔗 함께 보면 좋은 사주 ── #}
+    {% if others %}
+    <section class="block" id="others" aria-labelledby="others-h">
+      <h2 class="sec-h" id="others-h"><span aria-hidden="true">🔗</span> 함께 보면 좋은 사주</h2>
+      <div class="rail">
+        {% for o in others %}
+        <a class="tile" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
+          {% if o.image %}<img class="tile-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
+          {% else %}<span class="tile-art tile-name" aria-hidden="true">{{ o.name }}</span>{% endif %}
+          <span class="tile-cat">{{ o.tag }}</span>
+          <span class="tile-title">{{ o.name }}</span>
+          <span class="tile-sub">{{ o.hook }}</span>
+          {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
+        </a>
         {% endfor %}
-      </ol>
-    </section>
-    {% endif %}
-
-    {# ── 🔒 준비물과 안심 정보 ── #}
-    {% if product.info %}
-    <section class="block" id="ready" aria-labelledby="ready-h">
-      <h2 class="sec-h" id="ready-h"><span aria-hidden="true">🔒</span> 준비물과 안심 정보</h2>
-      <dl class="ready">
-        {% for i in product.info %}
-        <div><dt><span aria-hidden="true">{{ i.icon }}</span> {{ i.label }}</dt><dd>{% if '대기]' in i.text %}<span class="pending">{{ i.text }}</span>{% else %}{{ i.text }}{% endif %}</dd></div>
-        {% endfor %}
-      </dl>
-    </section>
-    {% endif %}
-
-    {# ── 🙋 답하는 사람 + 칼럼 원칙 ── #}
-    {% if character %}
-    <section class="block" id="writer" aria-labelledby="writer-h">
-      <h2 class="sec-h" id="writer-h"><span aria-hidden="true">🙋</span> 이 글에 답한 사람</h2>
-      <div class="writer">
-        <div class="writer-top">
-          <img src="{{ root }}{{ character.image }}" alt="{{ character.name }}" width="64" height="64" loading="lazy">
-          <p><strong>{{ character.name }}</strong><span>{{ character.role }}</span></p>
-        </div>
-        <p class="writer-bio">{% if '대기]' in character.bio %}<span class="pending">{{ character.bio }}</span>{% else %}{{ character.bio }}{% endif %}</p>
-        <ul class="rules">
-          <li>실제로 올라온 고민에서 출발해요</li>
-          <li>사주 풀이는 묘책 감수 기준을 따라요</li>
-          <li>사람이 읽고 승인한 글만 올라가요{% if col.reviewer %} · 검수 {{ col.reviewer }}{% endif %}</li>
-          <li>지어낸 사연과 후기는 싣지 않아요</li>
-        </ul>
-        <a class="writer-more" href="{{ root }}about/">칼럼 원칙 자세히 보기</a>
       </div>
     </section>
     {% endif %}
@@ -206,7 +180,13 @@
       {% if product.buy_faq %}
       <div class="faq" data-faq-panel="b" hidden>
         {% for f in product.buy_faq %}
-        <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">{% if '대기]' in f.a %}<span class="pending">{{ f.a }}</span>{% else %}{{ f.a }}{% endif %}</div></details>
+        <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">
+          {% if f.steps %}
+          <ol class="flow">
+            {% for p in f.steps %}<li><span class="flow-ico" aria-hidden="true">{{ p.icon }}</span><div><p class="flow-step">{{ p.step }}</p><p class="flow-text">{% if '대기]' in p.text %}<span class="pending">{{ p.text }}</span>{% else %}{{ p.text }}{% endif %}</p></div></li>{% endfor %}
+          </ol>
+          {% elif '대기]' in f.a %}<span class="pending">{{ f.a }}</span>{% else %}{{ f.a }}{% endif %}
+        </div></details>
         {% endfor %}
       </div>
       {% endif %}
@@ -214,10 +194,9 @@
 
     {# ── 👀 같이 궁금해한 것 ── #}
     <section class="block" id="more" aria-labelledby="more-h">
-      <h2 class="sec-h" id="more-h"><span aria-hidden="true">👀</span> 이 글을 본 분들이 같이 궁금해한 것</h2>
+      <h2 class="sec-h" id="more-h"><span aria-hidden="true">👀</span> 이 글을 본 분들이 다음으로 궁금해한 것</h2>
 
       {% if related or col.next_questions %}
-      <p class="rail-h">다음 질문</p>
       <div class="rail">
         {% for r in related %}
         <a class="tile" href="{{ root }}{{ r.url_path }}">
@@ -237,21 +216,6 @@
       </div>
       {% endif %}
 
-      {% if others %}
-      <p class="rail-h">함께 보면 좋은 사주</p>
-      <div class="rail">
-        {% for o in others %}
-        <a class="tile" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
-          {% if o.image %}<img class="tile-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
-          {% else %}<span class="tile-art tile-name" aria-hidden="true">{{ o.name }}</span>{% endif %}
-          <span class="tile-cat">{{ o.tag }}</span>
-          <span class="tile-title">{{ o.name }}</span>
-          <span class="tile-sub">{{ o.hook }}</span>
-          {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
-        </a>
-        {% endfor %}
-      </div>
-      {% endif %}
     </section>
 
     {% if col.keywords %}
