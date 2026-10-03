@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-tone="{{ tone|default('formal') }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -26,8 +26,12 @@
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% if preview %}
-<div class="preview-bar" role="note">시안이에요. 아직 공개되지 않았고, 검색엔진에도 보이지 않아요.</div>
+<div class="preview-bar" role="note">
+  <span>시안이에요. 아직 공개되지 않았고, 검색엔진에도 보이지 않아요.</span>
+  {% if character is defined and character %}<span class="tone-switch" role="group" aria-label="{{ character.name }} 말투 미리보기">{{ character.name }} 말투 <button type="button" data-set-tone="formal">존댓말</button><button type="button" data-set-tone="casual">반말</button></span>{% endif %}
+</div>
 {% endif %}
+<div class="progress" aria-hidden="true"><span></span></div>
 <header class="site-head">
   <div class="head-row">
     <a class="brand" href="{{ root }}" aria-label="{{ site.name }} 첫 화면"><img src="{{ root }}static/img/logo.png" alt="MYO:" width="96" height="26"><span>칼럼</span></a>
@@ -49,6 +53,23 @@
 </footer>
 {% block after %}{% endblock %}
 <script>
+/* 읽은 만큼 차는 줄 */
+(function () {
+  var bar = document.querySelector('.progress span');
+  function upd() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+  }
+  window.addEventListener('scroll', upd, { passive: true }); upd();
+  /* 시안 전용: 말투 바꿔 보기 */
+  [].forEach.call(document.querySelectorAll('[data-set-tone]'), function (b) {
+    b.setAttribute('aria-pressed', document.documentElement.dataset.tone === b.dataset.setTone);
+    b.addEventListener('click', function () {
+      document.documentElement.dataset.tone = b.dataset.setTone;
+      [].forEach.call(document.querySelectorAll('[data-set-tone]'), function (o) { o.setAttribute('aria-pressed', o === b); });
+    });
+  });
+})();
 /* 상품 버튼 클릭 기록 — GA4가 연결돼 있으면 어느 글의 어느 버튼인지 남아요 */
 document.addEventListener('click', function (e) {
   var a = e.target.closest('[data-cta]');

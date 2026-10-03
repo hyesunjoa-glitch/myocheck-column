@@ -35,6 +35,8 @@ OUT = ROOT / "_site"
 #   [감수 자료 대기], [실제 고민 수집 대기], [상품 링크 대기] … 처럼 '대기'로 끝나는 자리 표시
 PLACEHOLDER_RE = re.compile(r"\[[^\[\]\n]{0,30}대기\]")
 MID_CTA_MARK = "[[상품버튼]]"
+BUBBLE_RE = re.compile(r"\[\[(?P<who>[^\[\]|]+)\|(?P<formal>[^\[\]|]+)\|(?P<casual>[^\[\]|]+)\]\]")
+TONES = ("formal", "casual")
 SAJU_MARK = "[[사주해석]]"
 APPROVED = "승인"
 
@@ -67,6 +69,17 @@ def read_column(path: Path) -> dict:
 
 # ─────────────────────────── 안전검사 ───────────────────────────
 
+def all_strings(x) -> list[str]:
+    """설정 안의 모든 글자를 꺼내요 (빈자리 검사용)."""
+    if isinstance(x, str):
+        return [x]
+    if isinstance(x, dict):
+        return [t for v in x.values() for t in all_strings(v)]
+    if isinstance(x, list):
+        return [t for v in x for t in all_strings(v)]
+    return []
+
+
 def publish_problems(col: dict, products: dict, categories: dict, characters: dict) -> list[str]:
     """발행하면 안 되는 이유 목록. 비어 있으면 발행 가능."""
     p: list[str] = []
@@ -79,6 +92,10 @@ def publish_problems(col: dict, products: dict, categories: dict, characters: di
         p.append("연결 상품(product)이 없어요 — 칼럼마다 상품을 하나 정해야 해요")
     elif not (prod.get("url") or "").strip():
         p.append(f"상품 '{prod.get('name')}' 링크가 비어 있어요 (products.yml)")
+    if prod:
+        for ph in sorted(set(PLACEHOLDER_RE.findall("\n".join(all_strings(prod))))):
+            if ph != "[상품 링크 대기]":
+                p.append(f"상품 '{prod.get('name')}'에 아직 채우지 않은 자리: {ph}")
     concerns = col.get("concerns") or []
     if not concerns:
         p.append("실제 고민(concerns)이 없어요 — 글감은 실제 댓글·DM·커뮤니티 글에서 가져와요")
@@ -90,8 +107,11 @@ def publish_problems(col: dict, products: dict, categories: dict, characters: di
         ch = characters.get(char_key)
         if not ch:
             p.append(f"답하는 캐릭터 '{char_key}'가 characters.yml에 없어요")
-        elif PLACEHOLDER_RE.search(str(ch.get("bio", ""))):
-            p.append(f"캐릭터 '{ch.get('name')}' 소개 문구가 비어 있어요 (characters.yml)")
+        else:
+            if PLACEHOLDER_RE.search(str(ch.get("bio", ""))):
+                p.append(f"캐릭터 '{ch.get('name')}' 소개 문구가 비어 있어요 (characters.yml)")
+            if ch.get("tone") not in TONES:
+                p.append(f"캐릭터 '{ch.get('name')}' 말투(존댓말/반말)가 정해지지 않았어요 (characters.yml)")
     for field in ("title", "summary", "description", "date", "reviewer"):
         if not col.get(field):
             p.append(f"'{field}' 항목이 비어 있어요")
@@ -99,6 +119,7 @@ def publish_problems(col: dict, products: dict, categories: dict, characters: di
     texts += [f"{f.get('q', '')} {f.get('a', '')}" for f in col.get("faq") or []]
     texts += [str((c or {}).get("text", "")) for c in concerns]
     texts += [str(a) for a in col.get("audience") or []]
+    texts += all_strings(col.get("situations")) + all_strings(col.get("cover_say"))
     texts += [f"{s.get('label', '')} {s.get('text', '')}" for s in col.get("steps") or []]
     joined = "\n".join(texts)
     if SAJU_MARK in joined:
@@ -128,8 +149,9 @@ def tracked_url(url: str, *, position: str, slug: str, product_key: str) -> str:
 # ─────────────────────────── 본문 변환 ───────────────────────────
 
 def render_body(col: dict, env: Environment, ctx: dict) -> str:
+    from markdown.extensions.toc import slugify_unicode
     md = markdown.Markdown(extensions=["extra", "sane_lists", "toc"],
-                           extension_configs={"toc": {"permalink": False}})
+                           extension_configs={"toc": {"permalink": False, "slugify": slugify_unicode}})
     body = col["body_md"]
 
     saju_html = env.get_template("partials/saju_pending.html").render(**ctx)
@@ -137,6 +159,11 @@ def render_body(col: dict, env: Environment, ctx: dict) -> str:
 
     # 표시를 임시 토큰으로 바꿔 두었다가, 마크다운 변환 뒤에 블록으로 교체
     body = body.replace(SAJU_MARK, "\n\nMYOSAJUTOKEN\n\n")
+    bubbles = []
+    def _bub(m):
+        bubbles.append(m.groupdict())
+        return f"\n\nMYOBUBBLE{len(bubbles) - 1}TOKEN\n\n"
+    body = BUBBLE_RE.sub(_bub, body)
     if MID_CTA_MARK in body:
         body = body.replace(MID_CTA_MARK, "\n\nMYOCTATOKEN\n\n", 1).replace(MID_CTA_MARK, "")
     else:
@@ -150,6 +177,9 @@ def render_body(col: dict, env: Environment, ctx: dict) -> str:
     out = md.convert(body)
     col["toc"] = md.toc_tokens
     out = out.replace("<p>MYOSAJUTOKEN</p>", saju_html).replace("<p>MYOCTATOKEN</p>", mid_html)
+    say = env.get_template("partials/say.html")
+    for i, b in enumerate(bubbles):
+        out = out.replace(f"<p>MYOBUBBLE{i}TOKEN</p>", say.render(**ctx, formal=b["formal"].strip(), casual=b["casual"].strip()))
     return out
 
 
@@ -244,6 +274,9 @@ def build(preview: bool) -> list[dict]:
         canonical = f"{base}/{cat['key']}/{c['slug']}/"
         ctx = dict(common, root=root_for(rel), col=c, cat=cat, product=prod, product_key=prod_key,
                    character=characters.get(c.get("character") or ""),
+                   tone=(characters.get(c.get("character") or "") or {}).get("tone") if (characters.get(c.get("character") or "") or {}).get("tone") in TONES else "formal",
+                   others=[dict(v, key=k, track=tracked_url(v.get("url", ""), position="rail", slug=c["slug"], product_key=k))
+                           for k, v in products.items() if k != prod_key and (v.get("url") or preview)],
                    read_min=max(1, round(len(plain(markdown.markdown(c["body_md"]))) / 500)),
                    cta_url={pos: tracked_url(prod.get("url", ""), position=pos, slug=c["slug"], product_key=prod_key)
                             for pos in ("cta_mid", "cta_sticky")})

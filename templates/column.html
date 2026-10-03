@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block og_type %}article{% endblock %}
-{% block body_class %}has-bar{% endblock %}
+{% block body_class %}has-float{% endblock %}
 {% block og_image %}{% if product.image %}<meta property="og:image" content="{{ site.base_url }}/{{ product.image }}">{% endif %}{% endblock %}
 {% block head %}
 <meta property="article:published_time" content="{{ col.date }}">
@@ -17,187 +17,321 @@
   </details>
   {% endif %}
 
-  {# ── 1. 표지: 격자 상자 ── #}
+  {# ── 표지: 질문 그대로의 제목 + 묘화 한마디 ── #}
   <header class="cover">
-    <div class="cover-top">
-      <div class="cover-text">
-        <a class="cover-cat" href="{{ root }}{{ cat.key }}/">{{ cat.name }}</a>
-        <h1 class="cover-title">{{ col.title }}</h1>
-        {% if col.subtitle %}<p class="cover-sub">{{ col.subtitle }}</p>{% endif %}
-      </div>
-      {% if product.image %}<div class="cover-art"><img src="{{ root }}{{ product.image }}" alt="" width="698" height="998"></div>{% endif %}
+    <a class="cover-cat" href="{{ root }}{{ cat.key }}/">{{ cat.name }}</a>
+    <h1 class="cover-title">{{ col.title }}</h1>
+    {% if col.subtitle %}<p class="cover-sub">{{ col.subtitle }}</p>{% endif %}
+    {% if character and col.cover_say %}
+    <div class="cover-say">
+      <img src="{{ root }}{{ character.image }}" alt="{{ character.name }}" width="52" height="52">
+      <p><span class="say-name">{{ character.name }}</span><span class="t-formal">{{ col.cover_say.formal }}</span><span class="t-casual">{{ col.cover_say.casual }}</span></p>
     </div>
-    <div class="cover-byline">
-      <p class="cover-mark" aria-hidden="true">MYO:CHECK</p>
-      {% if character %}
-      <img class="cover-face" src="{{ root }}{{ character.image }}" alt="{{ character.name }}" width="360" height="360">
-      <p class="cover-who"><span>답하는 사람</span>{{ character.role }}<br><strong>{{ character.name }}</strong></p>
-      {% else %}
-      <p class="cover-who"><span>답하는 사람</span><strong>{{ site.brand }} 편집팀</strong></p>
-      {% endif %}
-    </div>
+    {% endif %}
   </header>
 
-  {# ── 2. 짧은 답 + 정보 줄 ── #}
+  {# ── 짧은 답 ── #}
   <section class="answer" id="answer" aria-labelledby="answer-h">
-    <p class="chip" id="answer-h">짧은 답</p>
+    <h2 class="answer-h" id="answer-h"><span aria-hidden="true">✅</span> 짧은 답</h2>
     <p class="answer-body">{{ col.summary | trim }}</p>
-    <dl class="facts">
-      <div><dt>분류</dt><dd>{{ cat.name }}</dd></div>
-      <div><dt>읽는 시간</dt><dd>약 {{ read_min }}분</dd></div>
-      <div><dt>작성</dt><dd><time datetime="{{ col.date }}">{{ col.date | kdate }}</time>{% if col.updated and col.updated != col.date %} · <time datetime="{{ col.updated }}">{{ col.updated | kdate }} 고침</time>{% endif %}</dd></div>
-      <div><dt>이어지는 사주</dt><dd>{{ product.name }}</dd></div>
-    </dl>
+    <ul class="meta">
+      <li><span aria-hidden="true">⏱️</span> 약 {{ read_min }}분</li>
+      <li><span aria-hidden="true">🗓️</span> <time datetime="{{ col.date }}">{{ col.date | kdate }}</time>{% if col.updated and col.updated != col.date %} · {{ col.updated | kdate }} 고침{% endif %}</li>
+      {% if preview %}<li><span aria-hidden="true">👀</span> 오늘 읽은 사람 <span class="pending">[실제 집계 연결 후 표시]</span></li>{% endif %}
+      <li><button type="button" class="share-btn" data-share><span aria-hidden="true">🔗</span> 친구에게 보내기</button></li>
+    </ul>
   </section>
 
-  {# ── 3. 붙어 다니는 메뉴 ── #}
+  {# ── 붙어 다니는 메뉴 ── #}
   <nav class="tabs" aria-label="이 글의 차례">
-    <a href="#answer">짧은 답</a>
     {% if col.concerns %}<a href="#concerns">고민</a>{% endif %}
+    {% if col.situations %}<a href="#pick">내 상황</a>{% endif %}
     <a href="#body">본문</a>
     <a href="#saju">사주로 보면</a>
-    {% if character %}<a href="#writer">답하는 사람</a>{% endif %}
-    {% if col.faq %}<a href="#faq">자주 묻는 질문</a>{% endif %}
+    {% if product.report %}<a href="#report">결과지</a>{% endif %}
+    {% if product.info %}<a href="#ready">준비물</a>{% endif %}
+    <a href="#faq">질문</a>
+    <a href="#more">더 보기</a>
   </nav>
 
   <div class="sheet">
 
-    {# ── 4. 실제 고민 ── #}
+    {# ── 💬 실제 고민 (메시지 모양) ── #}
     {% if col.concerns %}
     <section class="block" id="concerns" aria-labelledby="concerns-h">
-      <p class="sec-label" id="concerns-h">이 고민에서 시작했어요</p>
-      <h2 class="sec-title">이런 질문이 실제로 올라왔어요</h2>
-      {% for c in col.concerns %}
-      <figure class="quote">
-        <blockquote>{{ c.text }}</blockquote>
-        <figcaption>{% if c.link %}<a href="{{ c.link }}" rel="nofollow noopener" target="_blank">{{ c.source }}</a>{% else %}{{ c.source }}{% endif %}</figcaption>
-      </figure>
-      {% endfor %}
-    </section>
-    {% endif %}
-
-    {# ── 5. 이런 분께 ── #}
-    {% if col.audience %}
-    <section class="block" aria-labelledby="aud-h">
-      <h2 class="sec-title" id="aud-h">이런 분께 필요한 글이에요</h2>
-      <ul class="audience">{% for a in col.audience %}<li>{{ a }}</li>{% endfor %}</ul>
-    </section>
-    {% endif %}
-
-    {# ── 6. 읽기 전에 ── #}
-    {% if site.notice %}
-    <section class="block block-tight" aria-labelledby="notice-h">
-      <h2 class="mini-title" id="notice-h">읽기 전에</h2>
-      <div class="notice" data-open="false">
-        <ul>{% for n in site.notice %}<li{% if loop.index > 2 %} class="more"{% endif %}>{{ n }}</li>{% endfor %}</ul>
-        {% if site.notice|length > 2 %}<button type="button" class="notice-toggle" aria-expanded="false">더 보기</button>{% endif %}
-      </div>
-    </section>
-    {% endif %}
-
-    {# ── 7. 가늠하는 순서 ── #}
-    {% if col.steps %}
-    <section class="block" aria-labelledby="steps-h">
-      <p class="sec-label" id="steps-h">연락 올지 가늠하는 순서</p>
-      <ol class="steps" style="--n: {{ col.steps|length }}">
-        {% for s in col.steps %}<li><span class="step-no">{{ loop.index }}</span><span class="step-label">{{ s.label }}</span><span class="step-text">{{ s.text }}</span></li>{% endfor %}
-      </ol>
-    </section>
-    {% endif %}
-
-    {# ── 8. 본문 (사주 해석 자리와 상품 상자가 본문 안에 들어가요) ── #}
-    <section class="block" id="body" aria-labelledby="body-h">
-      <p class="sec-label" id="body-h">본문</p>
-      <div class="prose">{{ col.body_html | safe }}</div>
-    </section>
-
-    {# ── 9. 답하는 사람 ── #}
-    {% if character %}
-    <section class="block writer" id="writer" aria-labelledby="writer-h">
-      <h2 class="sec-title center" id="writer-h">답하는 사람, {{ character.name }}를 소개해요</h2>
-      <img class="writer-face" src="{{ root }}{{ character.image }}" alt="{{ character.name }}" width="360" height="360" loading="lazy">
-      <p class="writer-role">{{ character.role }}</p>
-      <p class="writer-bio">{% if '대기]' in character.bio %}<span class="pending">{{ character.bio }}</span>{% else %}{{ character.bio }}{% endif %}</p>
-      <p class="writer-note">글은 {{ site.brand }} 편집팀이 쓰고{% if col.reviewer %}, {{ col.reviewer }}님이 검수했어요{% else %}, 사람이 검수한 뒤에 올라가요{% endif %}. <a href="{{ root }}about/">칼럼 원칙 보기</a></p>
-    </section>
-    {% endif %}
-
-    {# ── 10. 키워드 ── #}
-    {% if col.keywords %}
-    <section class="block" aria-labelledby="kw-h">
-      <h2 class="mini-title" id="kw-h">이 글의 키워드</h2>
-      <ul class="tags">{% for k in col.keywords %}<li>#{{ k }}</li>{% endfor %}</ul>
-    </section>
-    {% endif %}
-
-    {# ── 11. 자주 묻는 질문 ── #}
-    {% if col.faq %}
-    <section class="block" id="faq" aria-labelledby="faq-h">
-      <p class="sec-label" id="faq-h">자주 묻는 질문</p>
-      <div class="faq">
-        {% for f in col.faq %}
-        <details{% if loop.first %} open{% endif %}>
-          <summary>{{ f.q }}</summary>
-          <div class="faq-a">{{ f.a }}</div>
-        </details>
+      <h2 class="sec-h" id="concerns-h"><span aria-hidden="true">💬</span> 이런 고민이 실제로 올라왔어요</h2>
+      <div class="msgs">
+        {% for c in col.concerns %}
+        <figure class="msg">
+          <blockquote>{{ c.text }}</blockquote>
+          <figcaption>익명 · {% if c.link %}<a href="{{ c.link }}" rel="nofollow noopener" target="_blank">{{ c.source }}</a>{% else %}{{ c.source }}{% endif %}</figcaption>
+        </figure>
         {% endfor %}
       </div>
     </section>
     {% endif %}
 
-    {# ── 12. 더 읽기 ── #}
-    <section class="block" aria-labelledby="more-h">
-      <p class="sec-label" id="more-h">{% if related %}{{ cat.name }} 칼럼 더 읽기{% else %}다른 고민도 둘러보기{% endif %}</p>
-      <div class="rail">
-        {% if related %}
-          {% for r in related %}<a class="rail-item" href="{{ root }}{{ r.url_path }}"><span class="rail-cat">{{ r.cat.name }}</span><span class="rail-title">{{ r.title }}</span></a>{% endfor %}
-        {% else %}
-          {% for c in categories %}<a class="rail-item" href="{{ root }}{{ c.key }}/"><span class="rail-cat">{{ c.name }}</span><span class="rail-title">{{ c.intro }}</span></a>{% endfor %}
-        {% endif %}
+    {# ── 🔍 내 상황 고르기 ── #}
+    {% if col.situations %}
+    <section class="block" id="pick" aria-labelledby="pick-h">
+      <h2 class="sec-h" id="pick-h"><span aria-hidden="true">🔍</span> 내 상황을 골라 보세요</h2>
+      <p class="sec-sub">내 경우에 맞는 이야기부터 보여드릴게요.</p>
+      <div class="picks" role="tablist" aria-label="내 상황">
+        {% for s in col.situations %}
+        <button type="button" class="pick" role="tab" id="pick-{{ loop.index }}" aria-controls="pick-panel-{{ loop.index }}" aria-selected="false"><span class="pick-ico" aria-hidden="true">{{ s.icon }}</span>{{ s.label }}</button>
+        {% endfor %}
+      </div>
+      <p class="pick-hint">위에서 하나를 눌러 보세요.</p>
+      {% for s in col.situations %}
+      {% set target = col.toc[s.go - 1] if col.toc and s.go and col.toc|length >= s.go else none %}
+      <div class="pick-panel" id="pick-panel-{{ loop.index }}" role="tabpanel" aria-labelledby="pick-{{ loop.index }}" hidden>
+        <p>{{ s.text }}</p>
+        {% if target %}<a class="pick-go" href="#{{ target.id }}">「{{ target.name }}」부터 읽기 <span aria-hidden="true">↓</span></a>{% endif %}
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {# ── 본문 (묘화 말풍선 · 사주로 보면 · 상품 상자가 본문 안에) ── #}
+    <section class="block" id="body" aria-label="본문">
+      <div class="prose">{{ col.body_html | safe }}</div>
+    </section>
+
+    {# ── 📄 결과지 미리보기 ── #}
+    {% if product.report %}
+    <section class="block" id="report" aria-labelledby="report-h">
+      <h2 class="sec-h" id="report-h"><span aria-hidden="true">📄</span> 결과지 미리보기</h2>
+      <p class="sec-sub">「{{ product.name }}」에서 받게 되는 결과지예요.</p>
+      <div class="chapters" role="tablist" aria-label="결과지 장">
+        {% for r in product.report %}<button type="button" class="chapter" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" data-ch="{{ loop.index0 }}"><span>결과지</span>{{ r.chapter }}</button>{% endfor %}
+      </div>
+      <div class="stage">
+        {% if product.image %}<div class="stage-bg" style="background-image:url('{{ root }}{{ product.image }}')"></div>{% endif %}
+        {% for r in product.report %}
+        <div class="stage-item" data-ch="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
+          <p class="stage-cap">{{ product.name }} · {{ r.chapter }}</p>
+          <div class="rpage">
+            {% if r.page_image %}<img src="{{ root }}{{ r.page_image }}" alt="{{ r.chapter }} {{ r.title }} 결과지 미리보기">
+            {% else %}
+            <p class="rpage-ch">{{ r.chapter }}</p>
+            <p class="rpage-title">{% if '대기]' in r.title %}<span class="pending">{{ r.title }}</span>{% else %}{{ r.title }}{% endif %}</p>
+            <span class="rpage-line"></span><span class="rpage-line"></span><span class="rpage-line short"></span><span class="rpage-line"></span><span class="rpage-line"></span><span class="rpage-line short"></span>
+            {% endif %}
+            <p class="rpage-lock"><span aria-hidden="true">🔒</span> 나머지는 결과지에서 볼 수 있어요</p>
+          </div>
+          <p class="stage-title">{{ r.title if '대기]' not in r.title else '[결과지 샘플 대기]' }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% if col.related_reel or preview %}
+      <a class="reel" href="{{ col.related_reel or '#' }}" {% if col.related_reel %}target="_blank" rel="noopener"{% endif %}>
+        <span class="reel-play" aria-hidden="true"></span>
+        <span class="reel-text"><strong><span aria-hidden="true">🎬</span> 영상으로 먼저 보기</strong>{% if col.related_reel %}<span>묘화 인스타그램 릴스</span>{% else %}<span class="pending">[릴스 링크 대기]</span>{% endif %}</span>
+      </a>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {# ── 🧭 이렇게 진행돼요 ── #}
+    {% if product.process %}
+    <section class="block" aria-labelledby="flow-h">
+      <h2 class="sec-h" id="flow-h"><span aria-hidden="true">🧭</span> 이렇게 진행돼요</h2>
+      <ol class="flow">
+        {% for p in product.process %}
+        <li><span class="flow-ico" aria-hidden="true">{{ p.icon }}</span><div><p class="flow-step">{{ p.step }}</p><p class="flow-text">{% if '대기]' in p.text %}<span class="pending">{{ p.text }}</span>{% else %}{{ p.text }}{% endif %}</p></div></li>
+        {% endfor %}
+      </ol>
+    </section>
+    {% endif %}
+
+    {# ── 🔒 준비물과 안심 정보 ── #}
+    {% if product.info %}
+    <section class="block" id="ready" aria-labelledby="ready-h">
+      <h2 class="sec-h" id="ready-h"><span aria-hidden="true">🔒</span> 준비물과 안심 정보</h2>
+      <dl class="ready">
+        {% for i in product.info %}
+        <div><dt><span aria-hidden="true">{{ i.icon }}</span> {{ i.label }}</dt><dd>{% if '대기]' in i.text %}<span class="pending">{{ i.text }}</span>{% else %}{{ i.text }}{% endif %}</dd></div>
+        {% endfor %}
+      </dl>
+    </section>
+    {% endif %}
+
+    {# ── 🙋 답하는 사람 + 칼럼 원칙 ── #}
+    {% if character %}
+    <section class="block" id="writer" aria-labelledby="writer-h">
+      <h2 class="sec-h" id="writer-h"><span aria-hidden="true">🙋</span> 이 글에 답한 사람</h2>
+      <div class="writer">
+        <div class="writer-top">
+          <img src="{{ root }}{{ character.image }}" alt="{{ character.name }}" width="64" height="64" loading="lazy">
+          <p><strong>{{ character.name }}</strong><span>{{ character.role }}</span></p>
+        </div>
+        <p class="writer-bio">{% if '대기]' in character.bio %}<span class="pending">{{ character.bio }}</span>{% else %}{{ character.bio }}{% endif %}</p>
+        <ul class="rules">
+          <li>실제로 올라온 고민에서 출발해요</li>
+          <li>사주 풀이는 묘책 감수 기준을 따라요</li>
+          <li>사람이 읽고 승인한 글만 올라가요{% if col.reviewer %} · 검수 {{ col.reviewer }}{% endif %}</li>
+          <li>지어낸 사연과 후기는 싣지 않아요</li>
+        </ul>
+        <a class="writer-more" href="{{ root }}about/">칼럼 원칙 자세히 보기</a>
       </div>
     </section>
+    {% endif %}
+
+    {# ── ⭐ 후기 (실제 후기만, 없으면 정식 사이트에선 숨김) ── #}
+    {% if product.reviews or preview %}
+    <section class="block" aria-labelledby="rev-h">
+      <h2 class="sec-h" id="rev-h"><span aria-hidden="true">⭐</span> 먼저 본 분들의 후기</h2>
+      {% if product.reviews %}
+      <div class="rail">{% for r in product.reviews %}<figure class="review"><blockquote>{{ r.text }}</blockquote><figcaption>{{ r.who }}</figcaption></figure>{% endfor %}</div>
+      {% else %}
+      <p class="empty-box">실제 후기가 쌓이면 여기에 보여드려요. 지어낸 후기는 싣지 않아요.<br><span class="pending">[실제 후기 대기 — 비어 있으면 정식 사이트에선 이 칸이 숨겨져요]</span></p>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {# ── ❓ 질문 두 묶음 ── #}
+    <section class="block" id="faq" aria-labelledby="faq-h">
+      <h2 class="sec-h" id="faq-h"><span aria-hidden="true">❓</span> 자주 묻는 질문</h2>
+      {% if product.buy_faq %}
+      <div class="seg" role="tablist" aria-label="질문 묶음">
+        <button type="button" role="tab" aria-selected="true" data-faq="a">고민 질문</button>
+        <button type="button" role="tab" aria-selected="false" data-faq="b">사주 보기 전 질문</button>
+      </div>
+      {% endif %}
+      <div class="faq" data-faq-panel="a">
+        {% for f in col.faq %}
+        <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">{{ f.a }}</div></details>
+        {% endfor %}
+      </div>
+      {% if product.buy_faq %}
+      <div class="faq" data-faq-panel="b" hidden>
+        {% for f in product.buy_faq %}
+        <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">{% if '대기]' in f.a %}<span class="pending">{{ f.a }}</span>{% else %}{{ f.a }}{% endif %}</div></details>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+
+    {# ── 👀 같이 궁금해한 것 ── #}
+    <section class="block" id="more" aria-labelledby="more-h">
+      <h2 class="sec-h" id="more-h"><span aria-hidden="true">👀</span> 이 글을 본 분들이 같이 궁금해한 것</h2>
+
+      {% if related or col.next_questions %}
+      <p class="rail-h">다음 질문</p>
+      <div class="rail">
+        {% for r in related %}
+        <a class="tile" href="{{ root }}{{ r.url_path }}">
+          <span class="tile-art tile-q" aria-hidden="true"><b>Q.</b><i>새 칼럼</i></span>
+          <span class="tile-cat">{{ r.cat.name }}</span>
+          <span class="tile-title">{{ r.title }}</span>
+        </a>
+        {% endfor %}
+        {% for q in col.next_questions %}
+        <div class="tile is-soon">
+          <span class="tile-art tile-q" aria-hidden="true"><b>Q.</b><i>준비 중</i></span>
+          <span class="tile-cat">{{ categories | selectattr('key', 'equalto', q.category) | map(attribute='name') | first }}</span>
+          <span class="tile-title">{{ q.title }}</span>
+          <span class="tile-sub">{{ q.source }}에 실제로 올라온 질문</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if others %}
+      <p class="rail-h">함께 보면 좋은 사주</p>
+      <div class="rail">
+        {% for o in others %}
+        <a class="tile" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
+          {% if o.image %}<img class="tile-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
+          {% else %}<span class="tile-art tile-name" aria-hidden="true">{{ o.name }}</span>{% endif %}
+          <span class="tile-cat">{{ o.tag }}</span>
+          <span class="tile-title">{{ o.name }}</span>
+          <span class="tile-sub">{{ o.hook }}</span>
+          {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+
+    {% if col.keywords %}
+    <ul class="tags" aria-label="이 글의 키워드">{% for k in col.keywords %}<li>#{{ k }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <div class="share-end">
+      <p>이 글이 도움이 됐다면, 같은 고민을 하는 친구에게 보내 주세요.</p>
+      <button type="button" class="share-btn big" data-share><span aria-hidden="true">💌</span> 친구에게 보내기</button>
+    </div>
 
   </div>
 </article>
 {% endblock %}
 
 {% block after %}
-{# ── 13. 아래 고정 띠 ── #}
-<div class="bar" role="region" aria-label="이어지는 사주">
-  <p class="bar-line">{{ product.hook }}</p>
-  <div class="bar-row">
-    <button type="button" class="bar-share" aria-label="이 글 주소 복사하기"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    <a class="bar-btn" href="{{ cta_url['cta_sticky'] }}" data-cta="cta_sticky" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ product.button }}</a>
-  </div>
-  <p class="bar-toast" role="status" hidden>주소를 복사했어요</p>
+{# ── 떠 있는 버튼: 짧은 답을 지나면 나타나요 ── #}
+<div class="float" aria-hidden="true" data-show="false">
+  <a class="float-in" href="{{ cta_url['cta_sticky'] }}" data-cta="cta_sticky" data-product="{{ product_key }}" data-column="{{ col.slug }}" tabindex="-1">
+    {% if character %}<img src="{{ root }}{{ character.image }}" alt="" width="40" height="40">{% endif %}
+    <span class="float-text"><span>{{ product.name }}</span>{{ product.float_line or product.hook }}</span>
+    <span class="float-go">보러 가기</span>
+  </a>
 </div>
+<p class="toast" role="status" hidden>주소를 복사했어요</p>
 <script>
 (function () {
-  /* 읽기 전에 — 더 보기 */
-  var n = document.querySelector('.notice');
-  var t = document.querySelector('.notice-toggle');
-  if (n && t) t.addEventListener('click', function () {
-    var open = n.dataset.open !== 'true';
-    n.dataset.open = open; t.setAttribute('aria-expanded', open); t.textContent = open ? '접기' : '더 보기';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+
+  /* 내 상황 고르기 */
+  $$('.pick').forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      $$('.pick').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
+      $$('.pick-panel').forEach(function (p, j) { p.hidden = j !== i; });
+      var h = $('.pick-hint'); if (h) h.hidden = true;
+    });
   });
-  /* 메뉴 — 지금 읽는 곳 표시 */
-  var links = [].slice.call(document.querySelectorAll('.tabs a'));
-  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-  function mark() {
-    var y = window.scrollY + 120, cur = 0;
+
+  /* 결과지 장 바꾸기 */
+  $$('.chapter').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('.chapter').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
+      $$('.stage-item').forEach(function (s) { s.hidden = s.dataset.ch !== b.dataset.ch; });
+    });
+  });
+
+  /* 질문 묶음 */
+  $$('[data-faq]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('[data-faq]').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
+      $$('[data-faq-panel]').forEach(function (p) { p.hidden = p.dataset.faqPanel !== b.dataset.faq; });
+    });
+  });
+
+  /* 메뉴: 지금 읽는 곳 표시 + 떠 있는 버튼 */
+  var links = $$('.tabs a');
+  var secs = links.map(function (a) { return $(a.getAttribute('href')); });
+  var answer = $('#answer'), fl = $('.float'), flA = $('.float-in');
+  function onScroll() {
+    var y = window.scrollY + 130, cur = -1;
     secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top + window.scrollY <= y) cur = i; });
     links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
-    var on = links[cur]; if (on && on.scrollIntoView && on.parentNode.scrollWidth > on.parentNode.clientWidth) {
-      on.parentNode.scrollLeft = on.offsetLeft - 16;
+    if (cur >= 0 && links[cur].parentNode.scrollWidth > links[cur].parentNode.clientWidth) {
+      links[cur].parentNode.scrollLeft = links[cur].offsetLeft - 20;
     }
+    var show = answer && answer.getBoundingClientRect().bottom < 0;
+    fl.dataset.show = show; fl.setAttribute('aria-hidden', !show); flA.tabIndex = show ? 0 : -1;
   }
-  window.addEventListener('scroll', mark, { passive: true }); mark();
-  /* 주소 복사 */
-  var share = document.querySelector('.bar-share'), toast = document.querySelector('.bar-toast');
-  if (share) share.addEventListener('click', function () {
-    var url = document.querySelector('link[rel=canonical]').href;
-    function done() { toast.hidden = false; setTimeout(function () { toast.hidden = true; }, 1600); }
-    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { window.prompt('주소를 복사하세요', url); });
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* 친구에게 보내기: 핸드폰은 공유 창(카톡 포함), 안 되면 주소 복사 */
+  var toast = $('.toast');
+  function copied() { toast.hidden = false; setTimeout(function () { toast.hidden = true; }, 1800); }
+  $$('[data-share]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var url = $('link[rel=canonical]').href, title = document.title;
+      if (navigator.share) { navigator.share({ title: title, url: url }).catch(function () {}); return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(copied, function () {});
+    });
   });
 })();
 </script>
