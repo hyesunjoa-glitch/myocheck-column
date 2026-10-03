@@ -2,10 +2,8 @@
 name: 칼럼 사이트 배포
 
 on:
-  # 시안 승인·GitHub Pages 설정 전까지는 자동 배포를 꺼 둠 (수동 실행만 가능)
-  # 정식 오픈 때 아래 두 줄의 # 을 지워서 다시 켬
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch: {}
 
 permissions:
