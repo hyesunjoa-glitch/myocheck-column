@@ -151,20 +151,27 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .product-btn { display: block; text-align: center; text-decoration: none; background: var(--mint); color: var(--ink); font-weight: 800; font-size: 15px; border-radius: 10px; padding: 12px 10px; }
 .pending-line { margin: 12px 0 0; text-align: center; }
 
-/* 📑 결과지 목차 */
-.toc { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
-.toc-item { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; background: var(--ground); border-radius: 14px; padding: 14px 16px 14px 14px; }
-.toc-no { font-weight: 800; font-size: 15px; color: var(--soft); padding-top: 2px; }
-.toc-body { min-width: 0; }
-.toc-title { margin: 0; font-weight: 800; font-size: 16px; line-height: 1.4; }
-.toc-gives { margin: 6px 0 0; padding-left: 16px; font-size: 14px; color: #444; display: grid; gap: 2px; }
+/* 📑 결과지 목차 — 답하는 장만 펼치고 나머지는 접어요 */
+.toc { margin: 16px 0 0; display: grid; gap: 8px; }
+.toc-item { background: var(--ground); border-radius: 14px; }
+.toc-item summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 52px 1fr 20px; gap: 10px; align-items: start; padding: 13px 14px; }
+.toc-item summary::-webkit-details-marker { display: none; }
+.toc-item summary::after { content: ""; width: 8px; height: 8px; border-right: 2px solid var(--soft); border-bottom: 2px solid var(--soft); transform: rotate(45deg); margin-top: 7px; justify-self: end; transition: transform .2s; }
+.toc-item[open] summary::after { transform: rotate(-135deg); margin-top: 11px; }
+.toc-no { font-weight: 800; font-size: 15px; color: var(--soft); padding-top: 1px; }
+.toc-title { font-weight: 800; font-size: 16px; line-height: 1.4; min-width: 0; }
+.toc-body { padding: 0 14px 14px 76px; }
+.toc-gives { margin: 0; padding-left: 16px; font-size: 14px; color: #444; display: grid; gap: 3px; }
 .toc-gives li::marker { color: var(--mint-text); }
 .toc-item.is-hit { background: var(--ink); color: #fff; box-shadow: 0 0 0 2px var(--mint); }
 .toc-item.is-hit .toc-no { color: var(--mint); }
+.toc-item.is-hit summary::after { border-color: var(--mint); }
 .toc-item.is-hit .toc-gives { color: #E2E2E2; }
 .toc-item.is-hit .toc-gives li::marker { color: var(--mint); }
-.toc-flag { display: inline-block; background: var(--mint); color: var(--ink); font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 10px; margin-bottom: 6px; }
-.toc-note { margin: 14px 0 0; font-size: 14px; color: var(--soft); }
+.toc-flag { display: block; width: max-content; background: var(--mint); color: var(--ink); font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 10px; margin-bottom: 6px; }
+.toc-lock { margin: 10px 0 0; font-size: 14px; font-weight: 700; color: var(--mint); }
+.toc-note { margin: 14px 0 10px; font-size: 14px; color: var(--soft); }
+.toc-btn { display: block; text-align: center; text-decoration: none; background: var(--mint); color: var(--ink); font-weight: 800; font-size: 16px; border-radius: 12px; padding: 14px 12px; }
 .reel { margin-top: 12px; display: flex; align-items: center; gap: 14px; text-decoration: none; background: var(--ground); border-radius: 14px; padding: 12px 14px; }
 .reel-play { flex: 0 0 44px; height: 44px; border-radius: 50%; background: var(--ink); position: relative; }
 .reel-play::after { content: ""; position: absolute; left: 17px; top: 13px; border-left: 14px solid var(--mint); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }

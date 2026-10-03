@@ -137,7 +137,7 @@ def tracked_url(url: str, *, position: str, slug: str, product_key: str) -> str:
     q = dict(parse_qsl(parts.query))
     q.update({
         "utm_source": "myocheck_column",
-        "utm_medium": position,          # cta_mid / cta_bottom
+        "utm_medium": position,          # cta_mid / cta_toc / cta_sticky / rail
         "utm_campaign": slug,            # 어느 칼럼인지
         "utm_content": product_key,      # 어느 상품 버튼인지
     })
@@ -277,7 +277,7 @@ def build(preview: bool) -> list[dict]:
                            for k, v in products.items() if k != prod_key and (v.get("url") or preview)],
                    read_min=max(1, round(len(plain(markdown.markdown(c["body_md"]))) / 500)),
                    cta_url={pos: tracked_url(prod.get("url", ""), position=pos, slug=c["slug"], product_key=prod_key)
-                            for pos in ("cta_mid", "cta_sticky")})
+                            for pos in ("cta_mid", "cta_sticky", "cta_toc")})
         c["body_html"] = render_body(c, env, ctx)
         c["url_path"] = f"{cat['key']}/{c['slug']}/"
         c["cat"] = cat

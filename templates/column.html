@@ -103,19 +103,23 @@
     <section class="block" id="report" aria-labelledby="report-h">
       <h2 class="sec-h" id="report-h"><span aria-hidden="true">📑</span> 이 질문, 결과지에서는 여기서 답해요</h2>
       <p class="sec-sub">「{{ product.name }}」 결과지 목차예요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 이어져요.{% endif %}</p>
-      <ol class="toc">
+      <div class="toc">
         {% for t in product.toc %}
-        <li class="toc-item{% if hit and t.chapter == hit.chapter %} is-hit{% endif %}">
-          <span class="toc-no">{{ t.chapter }}장</span>
+        {% set on = hit and t.chapter == hit.chapter %}
+        <details class="toc-item{% if on %} is-hit{% endif %}"{% if on %} open{% endif %}>
+          <summary>
+            <span class="toc-no">{{ t.chapter }}장</span>
+            <span class="toc-title">{% if on %}<span class="toc-flag">이 글의 질문 → 여기서</span>{% endif %}{% if '대기]' in t.title %}<span class="pending">{{ t.title }}</span>{% else %}{{ t.title }}{% endif %}</span>
+          </summary>
           <div class="toc-body">
-            {% if hit and t.chapter == hit.chapter %}<span class="toc-flag">이 글의 질문 → 여기서</span>{% endif %}
-            <p class="toc-title">{% if '대기]' in t.title %}<span class="pending">{{ t.title }}</span>{% else %}{{ t.title }}{% endif %}</p>
             {% if t.gives %}<ul class="toc-gives">{% for g in t.gives %}<li>{{ g }}</li>{% endfor %}</ul>{% endif %}
+            {% if on %}<p class="toc-lock"><span aria-hidden="true">🔒</span> 이건 내 사주와 그 사람 사주를 넣어야 나와요.</p>{% endif %}
           </div>
-        </li>
+        </details>
         {% endfor %}
-      </ol>
+      </div>
       {% if product.delivery %}<p class="toc-note"><span aria-hidden="true">📩</span> {{ product.delivery }}</p>{% endif %}
+      <a class="toc-btn" href="{{ cta_url['cta_toc'] }}" data-cta="cta_toc" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ product.button }}</a>
       {% if col.related_reel or preview %}
       <a class="reel" href="{{ col.related_reel or '#' }}" {% if col.related_reel %}target="_blank" rel="noopener"{% endif %}>
         <span class="reel-play" aria-hidden="true"></span>
