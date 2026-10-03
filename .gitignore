@@ -2,3 +2,6 @@ _site/
 .indexnow-plan.json
 __pycache__/
 .DS_Store
+
+# 수집한 댓글 원문 — 공개 저장소에 올리지 않음 (노션에만 보관)
+research/
