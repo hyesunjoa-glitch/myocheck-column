@@ -8,6 +8,7 @@ category: reunion            # reunion(재회) / breakup(이별 원인) / gungha
 product: reunion             # products.yml 의 상품 키 — 글마다 연결 상품 하나
 status: 초안                 # 초안 → 검수중 → 승인  (승인만 발행)
 character: myohwa            # 답하는 캐릭터 (characters.yml)
+report_chapter:              # 이 글의 질문에 답하는 결과지 장 번호 (products.yml 의 toc)
 date: 2026-10-05
 updated:                     # 고친 날 (고치면 적기)
 reviewer:                    # 검수한 사람 (비어 있으면 발행 안 됨)

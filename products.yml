@@ -15,17 +15,32 @@ reunion:
   float_line: 그 사람 연락, 언제쯤일까?
   url: "https://www.myocheck.kr/f/cmujwoetf000104lfp1dzc61l?step=step_intro"
 
-  # 📄 결과지 미리보기 — 장마다 실제 결과지 한 페이지 (이미지가 생기면 page_image 에 경로)
-  report:
-    - chapter: 1장
+  # 📑 결과지 목차 — 상품마다 한 번만 적어요. 칼럼은 report_chapter: 숫자 로 "이 질문에 답하는 장"만 가리켜요.
+  #    gives: 그 장에서 실제로 받는 것 (결과지 소제목 그대로)
+  toc:
+    - chapter: 1
       title: 왜 매번 여기서 멈추나
-      page_image: static/img/report-ch1.jpg
-    - chapter: 2장
+      gives:
+        - 헤어지던 그 날 무슨 일이 있었는지
+        - 그 전에도 똑같은 일이 있었는지
+    - chapter: 2
       title: 잘 맞던 자리, 깨지던 자리
-      page_image: static/img/report-ch2.jpg
-    - chapter: 5장
+      gives:
+        - 두 사람이 원래 잘 통하던 부분
+        - 늘 같은 말에서 틀어지던 부분
+        - 서로 부딪히기 쉬운 방식의 차이
+    - chapter: 3
+      title: "[3장 제목 대기]"
+      gives: []
+    - chapter: 4
+      title: "[4장 제목 대기]"
+      gives: []
+    - chapter: 5
       title: 첫 마디와 하면 안 되는 것
-      page_image: static/img/report-ch5.jpg
+      gives:
+        - 첫 연락에 뭐라고 보낼지 (문장 그대로)
+        - 답이 왔을 때 / 안 왔을 때 다음 한마디
+  delivery: 결제 후 10분 안에 결과지 전달
 
   # ❓ 사주 보기 전 질문 — 진행 순서·준비물·가격·개인정보를 여기서 한 번에 답해요
   buy_faq:

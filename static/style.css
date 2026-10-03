@@ -151,27 +151,20 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .product-btn { display: block; text-align: center; text-decoration: none; background: var(--mint); color: var(--ink); font-weight: 800; font-size: 15px; border-radius: 10px; padding: 12px 10px; }
 .pending-line { margin: 12px 0 0; text-align: center; }
 
-/* 📄 결과지 미리보기 */
-.chapters { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -20px 14px; padding: 2px 20px; }
-.chapters::-webkit-scrollbar { display: none; }
-.chapter { flex: 0 0 auto; border: 0; border-radius: 12px; background: var(--ground); padding: 8px 16px; font-size: 17px; font-weight: 800; cursor: pointer; line-height: 1.2; text-align: center; }
-.chapter span { display: block; font-size: 11px; font-weight: 600; color: var(--soft); margin-bottom: 2px; }
-.chapter[aria-selected="true"] { background: var(--ink); color: var(--mint); }
-.chapter[aria-selected="true"] span { color: #9A9A9A; }
-.stage { position: relative; border-radius: 18px; overflow: hidden; background: #1A1A1A; padding: 22px 18px 20px; isolation: isolate; }
-.stage-bg { position: absolute; inset: -40px; background-size: cover; background-position: center; filter: blur(28px) saturate(1.2); opacity: .55; z-index: -1; }
-.stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(10,10,10,.25), rgba(10,10,10,.65)); z-index: -1; }
-.stage-cap { margin: 0 0 14px; text-align: center; color: #fff; font-weight: 700; font-size: 15px; }
-.rpage { width: min(78%, 300px); margin: 0 auto; background: #FCFCFA; border-radius: 6px; padding: 22px 18px 14px; box-shadow: 0 18px 40px -16px rgba(0,0,0,.7); position: relative; overflow: hidden; aspect-ratio: 3 / 4; display: flex; flex-direction: column; }
-.rpage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.rpage.has-img { padding: 0; }
-.rpage.has-img .rpage-lock { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; color: #fff; background: linear-gradient(rgba(10,10,10,0), rgba(10,10,10,.85) 55%); }
-.rpage-ch { margin: 0; font-size: 12px; font-weight: 800; color: var(--mint-text); }
-.rpage-title { margin: 4px 0 14px; font-size: 16px; font-weight: 800; line-height: 1.4; }
-.rpage-line { display: block; height: 9px; border-radius: 5px; background: #E7E7E3; margin-bottom: 10px; }
-.rpage-line.short { width: 62%; }
-.rpage-lock { margin: auto -18px -14px; padding: 46px 12px 14px; text-align: center; font-size: 13px; font-weight: 700; color: var(--ink); background: linear-gradient(rgba(252,252,250,0), #FCFCFA 55%); }
-.stage-title { margin: 14px 0 0; text-align: center; color: #EDEDED; font-size: 15px; font-weight: 600; }
+/* 📑 결과지 목차 */
+.toc { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.toc-item { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; background: var(--ground); border-radius: 14px; padding: 14px 16px 14px 14px; }
+.toc-no { font-weight: 800; font-size: 15px; color: var(--soft); padding-top: 2px; }
+.toc-body { min-width: 0; }
+.toc-title { margin: 0; font-weight: 800; font-size: 16px; line-height: 1.4; }
+.toc-gives { margin: 6px 0 0; padding-left: 16px; font-size: 14px; color: #444; display: grid; gap: 2px; }
+.toc-gives li::marker { color: var(--mint-text); }
+.toc-item.is-hit { background: var(--ink); color: #fff; box-shadow: 0 0 0 2px var(--mint); }
+.toc-item.is-hit .toc-no { color: var(--mint); }
+.toc-item.is-hit .toc-gives { color: #E2E2E2; }
+.toc-item.is-hit .toc-gives li::marker { color: var(--mint); }
+.toc-flag { display: inline-block; background: var(--mint); color: var(--ink); font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 10px; margin-bottom: 6px; }
+.toc-note { margin: 14px 0 0; font-size: 14px; color: var(--soft); }
 .reel { margin-top: 12px; display: flex; align-items: center; gap: 14px; text-decoration: none; background: var(--ground); border-radius: 14px; padding: 12px 14px; }
 .reel-play { flex: 0 0 44px; height: 44px; border-radius: 50%; background: var(--ink); position: relative; }
 .reel-play::after { content: ""; position: absolute; left: 17px; top: 13px; border-left: 14px solid var(--mint); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }

@@ -5,6 +5,7 @@ slug: will-my-ex-contact-me
 category: reunion
 product: reunion
 character: myohwa
+report_chapter: 5          # 이 글의 질문에 답하는 결과지 장
 
 # 표지 말풍선 — 두 말투 모두 적어 둬요
 cover_say:

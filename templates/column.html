@@ -48,7 +48,7 @@
     {% if col.situations %}<a href="#pick">내 상황</a>{% endif %}
     <a href="#body">본문</a>
     <a href="#saju">사주로 보면</a>
-    {% if product.report %}<a href="#report">결과지</a>{% endif %}
+    {% if product.toc %}<a href="#report">결과지</a>{% endif %}
     {% if others %}<a href="#others">함께 볼 사주</a>{% endif %}
     <a href="#faq">질문</a>
     <a href="#more">더 보기</a>
@@ -97,32 +97,25 @@
       <div class="prose">{{ col.body_html | safe }}</div>
     </section>
 
-    {# ── 📄 결과지 미리보기 ── #}
-    {% if product.report %}
+    {# ── 📑 결과지 목차: 이 질문은 어디서 답하나 ── #}
+    {% if product.toc %}
+    {% set hit = (product.toc | selectattr('chapter', 'equalto', col.report_chapter) | list | first) if col.report_chapter else none %}
     <section class="block" id="report" aria-labelledby="report-h">
-      <h2 class="sec-h" id="report-h"><span aria-hidden="true">📄</span> 결과지 미리보기</h2>
-      <p class="sec-sub">「{{ product.name }}」에서 받게 되는 결과지예요.</p>
-      <div class="chapters" role="tablist" aria-label="결과지 장">
-        {% for r in product.report %}<button type="button" class="chapter" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" data-ch="{{ loop.index0 }}"><span>결과지</span>{{ r.chapter }}</button>{% endfor %}
-      </div>
-      <div class="stage">
-        {% if product.image %}<div class="stage-bg" style="background-image:url('{{ root }}{{ product.image }}')"></div>{% endif %}
-        {% for r in product.report %}
-        <div class="stage-item" data-ch="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
-          <p class="stage-cap">{{ product.name }} · {{ r.chapter }}</p>
-          <div class="rpage{% if r.page_image %} has-img{% endif %}">
-            {% if r.page_image %}<img src="{{ root }}{{ r.page_image }}" alt="{{ r.chapter }} {{ r.title }} 결과지 미리보기">
-            {% else %}
-            <p class="rpage-ch">{{ r.chapter }}</p>
-            <p class="rpage-title">{% if '대기]' in r.title %}<span class="pending">{{ r.title }}</span>{% else %}{{ r.title }}{% endif %}</p>
-            <span class="rpage-line"></span><span class="rpage-line"></span><span class="rpage-line short"></span><span class="rpage-line"></span><span class="rpage-line"></span><span class="rpage-line short"></span>
-            {% endif %}
-            <p class="rpage-lock"><span aria-hidden="true">🔒</span> 나머지는 결과지에서 볼 수 있어요</p>
+      <h2 class="sec-h" id="report-h"><span aria-hidden="true">📑</span> 이 질문, 결과지에서는 여기서 답해요</h2>
+      <p class="sec-sub">「{{ product.name }}」 결과지 목차예요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 이어져요.{% endif %}</p>
+      <ol class="toc">
+        {% for t in product.toc %}
+        <li class="toc-item{% if hit and t.chapter == hit.chapter %} is-hit{% endif %}">
+          <span class="toc-no">{{ t.chapter }}장</span>
+          <div class="toc-body">
+            {% if hit and t.chapter == hit.chapter %}<span class="toc-flag">이 글의 질문 → 여기서</span>{% endif %}
+            <p class="toc-title">{% if '대기]' in t.title %}<span class="pending">{{ t.title }}</span>{% else %}{{ t.title }}{% endif %}</p>
+            {% if t.gives %}<ul class="toc-gives">{% for g in t.gives %}<li>{{ g }}</li>{% endfor %}</ul>{% endif %}
           </div>
-          <p class="stage-title">{{ r.chapter }} · {{ r.title }}</p>
-        </div>
+        </li>
         {% endfor %}
-      </div>
+      </ol>
+      {% if product.delivery %}<p class="toc-note"><span aria-hidden="true">📩</span> {{ product.delivery }}</p>{% endif %}
       {% if col.related_reel or preview %}
       <a class="reel" href="{{ col.related_reel or '#' }}" {% if col.related_reel %}target="_blank" rel="noopener"{% endif %}>
         <span class="reel-play" aria-hidden="true"></span>
@@ -252,14 +245,6 @@
       $$('.pick').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
       $$('.pick-panel').forEach(function (p, j) { p.hidden = j !== i; });
       var h = $('.pick-hint'); if (h) h.hidden = true;
-    });
-  });
-
-  /* 결과지 장 바꾸기 */
-  $$('.chapter').forEach(function (b) {
-    b.addEventListener('click', function () {
-      $$('.chapter').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
-      $$('.stage-item').forEach(function (s) { s.hidden = s.dataset.ch !== b.dataset.ch; });
     });
   });
 
