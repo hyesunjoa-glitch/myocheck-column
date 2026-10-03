@@ -38,10 +38,10 @@ next_questions:
     link: https://www.a-ha.io/questions/4be8c739b7d646669b8f6a6bddc96f70
 
 keywords: [헤어진 연락, 재회 가능성, 이별 후 미련, 스토리 확인, 먼저 연락, 재회 타이밍]
-status: 초안
+status: 승인
 date: 2026-10-05
 updated:
-reviewer:
+reviewer: 공혜진
 
 summary: >
   올 수도, 안 올 수도 있어요. 정답을 정해 주는 신호는 없어요.

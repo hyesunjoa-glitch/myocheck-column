@@ -28,7 +28,7 @@
 {% if preview %}
 <div class="preview-bar" role="note">
   <span>시안이에요. 아직 공개되지 않았고, 검색엔진에도 보이지 않아요.</span>
-  {% if character is defined and character %}<span class="tone-switch" role="group" aria-label="{{ character.name }} 말투 미리보기">{{ character.name }} 말투 <button type="button" data-set-tone="formal">존댓말</button><button type="button" data-set-tone="casual">반말</button></span>{% endif %}
+  {% if character is defined and character and character.tone not in ('formal', 'casual') %}<span class="tone-switch" role="group" aria-label="{{ character.name }} 말투 미리보기">{{ character.name }} 말투 <button type="button" data-set-tone="formal">존댓말</button><button type="button" data-set-tone="casual">반말</button></span>{% endif %}
 </div>
 {% endif %}
 <div class="progress" aria-hidden="true"><span></span></div>

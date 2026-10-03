@@ -316,6 +316,7 @@ def build(preview: bool) -> list[dict]:
     write("sitemap.xml", env.get_template("sitemap.xml").render(urls=urls))
     write("llms.txt", env.get_template("llms.txt").render(**common, items=live, products=products))
     write("feed.xml", env.get_template("feed.xml").render(**common, items=live[:30]))
+    write("CNAME", base.split("://", 1)[1])
     if site.get("indexnow_key"):
         write(f"{site['indexnow_key']}.txt", site["indexnow_key"])
     write("published.json", json.dumps(

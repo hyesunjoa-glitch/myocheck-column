@@ -7,6 +7,7 @@ slug: english-url-name
 category: reunion            # reunion(재회) / breakup(이별 원인) / gunghap(궁합) / newyear-2027
 product: reunion             # products.yml 의 상품 키 — 글마다 연결 상품 하나
 status: 초안                 # 초안 → 검수중 → 승인  (승인만 발행)
+character: myohwa            # 답하는 캐릭터 (characters.yml)
 date: 2026-10-05
 updated:                     # 고친 날 (고치면 적기)
 reviewer:                    # 검수한 사람 (비어 있으면 발행 안 됨)
@@ -46,6 +47,7 @@ related_reel:                # 이 글과 짝인 릴스 링크 (릴스 1개 → 
 본문.
 
 [[사주해석]]
+<!-- 「사주로 보면」은 감수 자료가 오면 채워요. 항상 3~4줄 이내로 짧게. -->
 
 ## 마지막 소제목
 

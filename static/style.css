@@ -163,7 +163,9 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(10,10,10,.25), rgba(10,10,10,.65)); z-index: -1; }
 .stage-cap { margin: 0 0 14px; text-align: center; color: #fff; font-weight: 700; font-size: 15px; }
 .rpage { width: min(78%, 300px); margin: 0 auto; background: #FCFCFA; border-radius: 6px; padding: 22px 18px 14px; box-shadow: 0 18px 40px -16px rgba(0,0,0,.7); position: relative; overflow: hidden; aspect-ratio: 3 / 4; display: flex; flex-direction: column; }
-.rpage img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.rpage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.rpage.has-img { padding: 0; }
+.rpage.has-img .rpage-lock { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; color: #fff; background: linear-gradient(rgba(10,10,10,0), rgba(10,10,10,.85) 55%); }
 .rpage-ch { margin: 0; font-size: 12px; font-weight: 800; color: var(--mint-text); }
 .rpage-title { margin: 4px 0 14px; font-size: 16px; font-weight: 800; line-height: 1.4; }
 .rpage-line { display: block; height: 9px; border-radius: 5px; background: #E7E7E3; margin-bottom: 10px; }

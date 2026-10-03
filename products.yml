@@ -13,22 +13,19 @@ reunion:
   button: 묘화의 재회막차 보러 가기
   hook: 다시 연락이 올 시기와 가능성, 사주로 확인해 보세요.
   float_line: 그 사람 연락, 언제쯤일까?
-  url: ""          # [상품 링크 대기]
+  url: "https://www.myocheck.kr/f/cmujwoetf000104lfp1dzc61l?step=step_intro"
 
   # 📄 결과지 미리보기 — 장마다 실제 결과지 한 페이지 (이미지가 생기면 page_image 에 경로)
   report:
     - chapter: 1장
-      title: "[결과지 1장 제목 대기]"
-      page_image: ""
+      title: 왜 매번 여기서 멈추나
+      page_image: static/img/report-ch1.jpg
     - chapter: 2장
-      title: "[결과지 2장 제목 대기]"
-      page_image: ""
-    - chapter: 3장
-      title: "[결과지 3장 제목 대기]"
-      page_image: ""
-    - chapter: 4장
-      title: "[결과지 4장 제목 대기]"
-      page_image: ""
+      title: 잘 맞던 자리, 깨지던 자리
+      page_image: static/img/report-ch2.jpg
+    - chapter: 5장
+      title: 첫 마디와 하면 안 되는 것
+      page_image: static/img/report-ch5.jpg
 
   # ❓ 사주 보기 전 질문 — 진행 순서·준비물·가격·개인정보를 여기서 한 번에 답해요
   buy_faq:
@@ -36,23 +33,23 @@ reunion:
       steps:
         - icon: "✍️"
           step: 정보 넣기
-          text: "[입력하는 정보 안내 대기]"
-        - icon: "🔮"
-          step: 사주 풀이
-          text: "[풀이 방식 안내 대기]"
+          text: 이름, 생년월일, 태어난 시간, 성별을 넣어요. 1분이면 돼요.
+        - icon: "💳"
+          step: 결제
+          text: 결제하면 바로 풀이가 시작돼요.
         - icon: "📩"
-          step: 결과 확인
-          text: "[결과 받는 방법·걸리는 시간 대기]"
+          step: 결과지 받기
+          text: 결제 후 10분 안에 결과지가 바로 전달돼요.
     - q: 어떤 정보가 필요한가요?
-      a: "[필요한 정보 대기]"
+      a: 내 이름, 생년월일(양력·음력 선택), 태어난 시간, 성별이에요. 그다음 화면에서 상대와 상황에 대한 질문이 이어져요.
     - q: 태어난 시간을 몰라도 볼 수 있나요?
-      a: "[시간 모를 때 안내 대기]"
+      a: 네. 입력 화면에서 "시간 모름"을 고르면 돼요. 시간을 알면 조금 더 자세히 볼 수 있어요.
     - q: 그 사람 생일을 모르면 어떻게 해요?
       a: "[답변 대기]"
     - q: 가격은 얼마인가요?
       a: "[가격 대기]"
     - q: 내 정보는 어떻게 보관되나요?
-      a: "[개인정보 보관·삭제 안내 대기]"
+      a: 입력한 정보는 결과지를 만드는 데만 쓰고, 다른 곳에 보내지 않아요. 자세한 내용은 묘책 개인정보 보호방침에서 볼 수 있어요.
 
   # ⭐ 실제 후기만 — 비어 있으면 정식 사이트에서는 후기 칸을 숨겨요
   reviews: []

@@ -9,4 +9,4 @@ myohwa:
   name: 묘화
   role: 묘책 재회 담당
   image: static/img/myohwa.jpg
-  tone: "[말투 대기]"
+  tone: formal     # 존댓말 (2026-10-03 확정)

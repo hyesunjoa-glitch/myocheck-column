@@ -110,7 +110,7 @@
         {% for r in product.report %}
         <div class="stage-item" data-ch="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
           <p class="stage-cap">{{ product.name }} · {{ r.chapter }}</p>
-          <div class="rpage">
+          <div class="rpage{% if r.page_image %} has-img{% endif %}">
             {% if r.page_image %}<img src="{{ root }}{{ r.page_image }}" alt="{{ r.chapter }} {{ r.title }} 결과지 미리보기">
             {% else %}
             <p class="rpage-ch">{{ r.chapter }}</p>
@@ -119,7 +119,7 @@
             {% endif %}
             <p class="rpage-lock"><span aria-hidden="true">🔒</span> 나머지는 결과지에서 볼 수 있어요</p>
           </div>
-          <p class="stage-title">{{ r.title if '대기]' not in r.title else '[결과지 샘플 대기]' }}</p>
+          <p class="stage-title">{{ r.chapter }} · {{ r.title }}</p>
         </div>
         {% endfor %}
       </div>
