@@ -10,3 +10,9 @@ myohwa:
   role: 묘책 재회 담당
   image: static/img/myohwa.jpg
   tone: formal     # 존댓말 (2026-10-03 확정)
+
+yuri:
+  name: 유리
+  role: 묘책 이별 원인 담당
+  image: static/img/yuri-placeholder.jpg   # [유리 이미지 대기] — 임시 표시, 실제 얼굴 컷으로 바꿔야 함
+  tone: formal     # 존댓말, 묘화와 같게 (2026-10-04 확정)
