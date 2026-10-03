@@ -67,7 +67,7 @@ def read_column(path: Path) -> dict:
 
 # ─────────────────────────── 안전검사 ───────────────────────────
 
-def publish_problems(col: dict, products: dict, categories: dict) -> list[str]:
+def publish_problems(col: dict, products: dict, categories: dict, characters: dict) -> list[str]:
     """발행하면 안 되는 이유 목록. 비어 있으면 발행 가능."""
     p: list[str] = []
     if col.get("status") != APPROVED:
@@ -85,12 +85,21 @@ def publish_problems(col: dict, products: dict, categories: dict) -> list[str]:
     for i, c in enumerate(concerns, 1):
         if not (c or {}).get("source"):
             p.append(f"고민 {i}번에 출처(source)가 없어요")
+    char_key = col.get("character")
+    if char_key:
+        ch = characters.get(char_key)
+        if not ch:
+            p.append(f"답하는 캐릭터 '{char_key}'가 characters.yml에 없어요")
+        elif PLACEHOLDER_RE.search(str(ch.get("bio", ""))):
+            p.append(f"캐릭터 '{ch.get('name')}' 소개 문구가 비어 있어요 (characters.yml)")
     for field in ("title", "summary", "description", "date", "reviewer"):
         if not col.get(field):
             p.append(f"'{field}' 항목이 비어 있어요")
     texts = [col.get("body_md", ""), str(col.get("summary", "")), str(col.get("description", ""))]
     texts += [f"{f.get('q', '')} {f.get('a', '')}" for f in col.get("faq") or []]
     texts += [str((c or {}).get("text", "")) for c in concerns]
+    texts += [str(a) for a in col.get("audience") or []]
+    texts += [f"{s.get('label', '')} {s.get('text', '')}" for s in col.get("steps") or []]
     joined = "\n".join(texts)
     if SAJU_MARK in joined:
         p.append("사주 해석 자리가 비어 있어요 [감수 자료 대기] — 해석 기준 문서가 오기 전엔 발행 안 해요")
@@ -192,6 +201,7 @@ def jsonld_for_column(col, site, cat, canonical) -> str:
 def build(preview: bool) -> list[dict]:
     site = load_yaml(ROOT / "site.yml")
     products = load_yaml(ROOT / "products.yml")
+    characters = load_yaml(ROOT / "characters.yml") if (ROOT / "characters.yml").exists() else {}
     categories = {c["key"]: c for c in site["categories"]}
     base = site["base_url"].rstrip("/")
     site["base_url"] = base
@@ -199,7 +209,7 @@ def build(preview: bool) -> list[dict]:
 
     columns = [read_column(p) for p in sorted(CONTENT.glob("*.md")) if not p.name.startswith("_")]
     for c in columns:
-        c["problems"] = publish_problems(c, products, categories)
+        c["problems"] = publish_problems(c, products, categories, characters)
     live = columns if preview else [c for c in columns if not c["problems"]]
     live.sort(key=lambda c: (c.get("date") or dt.date.min), reverse=True)
 
@@ -233,12 +243,14 @@ def build(preview: bool) -> list[dict]:
         rel = f"{cat['key']}/{c['slug']}/index.html"
         canonical = f"{base}/{cat['key']}/{c['slug']}/"
         ctx = dict(common, root=root_for(rel), col=c, cat=cat, product=prod, product_key=prod_key,
+                   character=characters.get(c.get("character") or ""),
+                   read_min=max(1, round(len(plain(markdown.markdown(c["body_md"]))) / 500)),
                    cta_url={pos: tracked_url(prod.get("url", ""), position=pos, slug=c["slug"], product_key=prod_key)
-                            for pos in ("cta_mid", "cta_bottom")})
+                            for pos in ("cta_mid", "cta_sticky")})
         c["body_html"] = render_body(c, env, ctx)
         c["url_path"] = f"{cat['key']}/{c['slug']}/"
         c["cat"] = cat
-        related = [o for o in live if o is not c and o.get("category") == c.get("category")][:3]
+        related = [o for o in live if o is not c and o.get("category") == c.get("category")][:6]
         page = env.get_template("column.html").render(
             **ctx, related=related, canonical=canonical,
             jsonld=jsonld_for_column(c, site, cat, canonical),

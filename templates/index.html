@@ -3,12 +3,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","url":"{{ site.base_url }}/","inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"{{ site.brand }}","url":"{{ site.main_site }}"}}</script>
 {% endblock %}
 {% block main %}
-<section class="wrap home-hero">
-  <h1>헤어진 그 사람,<br>지금 무슨 생각을 할까.</h1>
+<div class="page">
+<section class="page-head">
+  <h1>{{ site.tagline }}</h1>
   <p>{{ site.description }}</p>
 </section>
 
-<section class="wrap home-cats" aria-label="분류">
+<section class="home-cats" aria-label="분류">
   {% for c in categories %}
   <a class="home-cat" href="{{ root }}{{ c.key }}/">
     <span class="home-cat-name">{{ c.name }}</span>
@@ -17,7 +18,7 @@
   {% endfor %}
 </section>
 
-<section class="wrap list" aria-labelledby="new-h">
+<section class="list" aria-labelledby="new-h">
   <h2 id="new-h">새로 올라온 칼럼</h2>
   {% if items %}
   <ul class="col-list">
@@ -29,4 +30,5 @@
   <p class="empty">첫 칼럼을 준비하고 있어요. 실제로 올라온 고민부터 차례로 답할게요.</p>
   {% endif %}
 </section>
+</div>
 {% endblock %}

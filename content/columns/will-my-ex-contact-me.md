@@ -1,8 +1,28 @@
 ---
-title: 헤어진 사람, 연락 올까? 기다리기 전에 먼저 볼 세 가지
+title: 헤어진 사람, 연락 올까?
+subtitle: 기다리기 전에 먼저 볼 세 가지
 slug: will-my-ex-contact-me
 category: reunion
 product: reunion
+character: myohwa
+
+# "이런 분께 필요한 글이에요"
+audience:
+  - 헤어진 뒤 하루에도 몇 번씩 휴대폰을 확인하는 분
+  - 헤어질 때 들은 "연락할게" 한마디를 붙잡고 있는 분
+  - 내가 이별을 말했는데, 오히려 차인 기분이 드는 분
+  - 헤어진 뒤에도 가끔 오는 연락이 무슨 뜻인지 헷갈리는 분
+
+# "연락 올지 가늠하는 순서" — 본문 소제목 순서와 같게
+steps:
+  - label: 누가 정리했나
+    text: 헤어질 때 마음을 먼저 정리한 사람
+  - label: 마지막 말
+    text: 헤어지는 날 상대가 남긴 말
+  - label: 지금 오는 연락
+    text: 헤어진 뒤 오가는 연락의 종류
+
+keywords: [헤어진 연락, 재회 가능성, 이별 후 미련, 스토리 확인, 먼저 연락, 재회 타이밍]
 status: 초안
 date: 2026-10-05
 updated:

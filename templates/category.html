@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
-<section class="wrap cat-head">
+<div class="page">
+<section class="page-head">
   <h1>{{ cat.name }}</h1>
   <p>{{ cat.intro }}</p>
 </section>
-<section class="wrap list" aria-label="{{ cat.name }} 칼럼 목록">
+<section class="list" aria-label="{{ cat.name }} 칼럼 목록">
   {% if items %}
   <ul class="col-list">
     {% for c in items %}
@@ -15,4 +16,5 @@
   <p class="empty">{{ cat.name }} 칼럼을 준비하고 있어요.</p>
   {% endif %}
 </section>
+</div>
 {% endblock %}
