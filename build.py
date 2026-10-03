@@ -263,9 +263,13 @@ def build(preview: bool) -> list[dict]:
 
     urls = []  # (주소, 수정일, 지문)
 
-    # 칼럼 페이지
+    # 칼럼 페이지 — 서로 연결(함께 볼 글)되므로 주소·분류는 먼저 다 매겨 둔다
     for c in live:
         cat = categories.get(c.get("category"), {"key": "etc", "name": "기타", "intro": ""})
+        c["cat"] = cat
+        c["url_path"] = f"{cat['key']}/{c['slug']}/"
+    for c in live:
+        cat = c["cat"]
         prod_key = c.get("product") or ""
         prod = products.get(prod_key, {"name": "[상품 미정]", "button": "상품 보기", "hook": "", "url": ""})
         rel = f"{cat['key']}/{c['slug']}/index.html"
@@ -279,8 +283,6 @@ def build(preview: bool) -> list[dict]:
                    cta_url={pos: tracked_url(prod.get("url", ""), position=pos, slug=c["slug"], product_key=prod_key)
                             for pos in ("cta_mid", "cta_sticky", "cta_toc")})
         c["body_html"] = render_body(c, env, ctx)
-        c["url_path"] = f"{cat['key']}/{c['slug']}/"
-        c["cat"] = cat
         related = [o for o in live if o is not c and o.get("category") == c.get("category")][:6]
         page = env.get_template("column.html").render(
             **ctx, related=related, canonical=canonical,
