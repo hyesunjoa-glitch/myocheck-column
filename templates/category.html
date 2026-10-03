@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="wrap cat-head">
+  <h1>{{ cat.name }}</h1>
+  <p>{{ cat.intro }}</p>
+</section>
+<section class="wrap list" aria-label="{{ cat.name }} 칼럼 목록">
+  {% if items %}
+  <ul class="col-list">
+    {% for c in items %}
+    <li><a href="{{ root }}{{ c.url_path }}"><span class="col-list-title">{{ c.title }}</span><span class="col-list-sum">{{ c.description }}</span></a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty">{{ cat.name }} 칼럼을 준비하고 있어요.</p>
+  {% endif %}
+</section>
+{% endblock %}

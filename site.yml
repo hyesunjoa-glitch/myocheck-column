@@ -1,0 +1,41 @@
+# ─────────────────────────────────────────────
+# 묘책 칼럼 사이트 설정 — 여기만 바꾸면 사이트 전체에 반영돼요.
+# ─────────────────────────────────────────────
+
+name: 묘책 칼럼
+brand: 묘책
+tagline: 재회·이별·궁합, 사람들이 실제로 묻는 질문에 답합니다
+description: 헤어진 사람의 연락, 이별의 이유, 둘의 궁합. 실제 고민에서 출발해 사주로 풀어보는 묘책의 칼럼입니다.
+language: ko
+
+# 최종 주소 (검색엔진에 알려줄 진짜 주소)
+base_url: https://column.myocheck.kr
+# 묘책 본 사이트 (건드리지 않음. 링크만 걸어요)
+main_site: https://myocheck.kr
+
+# 검색 노출 스위치
+#   false = 검색엔진·AI 봇에게 "아직 보지 마"라고 알림 (도메인 연결 전 시안 단계)
+#   true  = 정식 오픈. 도메인(column.myocheck.kr) 연결이 끝난 뒤에만 켜요.
+allow_indexing: false
+
+# IndexNow — 새 글이 올라가면 빙·네이버 등에 "새 글 있어요" 하고 바로 알리는 장치
+indexnow_key: ba22a96216ed401c42731bf248a0a751
+indexnow_enabled: false   # 정식 오픈 때 true
+
+# 구글 애널리틱스(GA4) 측정 ID. 비워두면 추적 코드를 넣지 않아요. (예: G-XXXXXXX)
+ga4_id: ""
+
+# 칼럼 분류 — 첫 30개: 재회 10 / 이별 원인 10 / 궁합 10
+categories:
+  - key: reunion
+    name: 재회
+    intro: 헤어진 사람과 다시 이어질 수 있을까. 연락, 타이밍, 가능성에 대한 질문들.
+  - key: breakup
+    name: 이별 원인
+    intro: 우리는 왜 헤어졌을까. 같은 이별을 반복하지 않기 위한 질문들.
+  - key: gunghap
+    name: 궁합
+    intro: 그 사람과 나는 잘 맞을까. 두 사람의 관계를 묻는 질문들.
+  - key: newyear-2027
+    name: 2027 신년운세
+    intro: 2027년, 내 연애와 관계는 어떻게 흘러갈까.

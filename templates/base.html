@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ page_desc }}">
+{% if not indexable %}<meta name="robots" content="noindex, nofollow">{% endif %}
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_desc }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:locale" content="ko_KR">
+<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ root }}feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="{{ root }}static/style.css">
+{% block head %}{% endblock %}
+{% if site.ga4_id and not preview %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
+{% endif %}
+</head>
+<body>
+{% if preview %}
+<div class="preview-bar" role="note">시안이에요. 아직 공개되지 않았고, 검색엔진에도 보이지 않아요.</div>
+{% endif %}
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="{{ root }}">{{ site.brand }}<span>칼럼</span></a>
+    <nav class="cats" aria-label="칼럼 분류">
+      {% for c in categories %}<a href="{{ root }}{{ c.key }}/"{% if cat is defined and cat.key == c.key %} aria-current="page"{% endif %}>{{ c.name }}</a>{% endfor %}
+    </nav>
+  </div>
+</header>
+<main id="main">
+{% block main %}{% endblock %}
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="foot-brand">{{ site.brand }}</p>
+    <p>{{ site.description }}</p>
+    <p class="foot-links"><a href="{{ site.main_site }}">묘책 사주 보러 가기</a><a href="{{ root }}about/">칼럼 원칙</a><a href="{{ root }}feed.xml">새 글 받아보기(RSS)</a></p>
+    <p class="foot-note">사주 풀이는 삶의 방향을 돌아보는 참고 자료예요. 중요한 결정은 스스로의 판단과 함께 내려주세요.</p>
+    <p class="foot-copy">© {{ year }} {{ site.brand }}</p>
+  </div>
+</footer>
+<script>
+/* 상품 버튼 클릭 기록 — GA4가 연결돼 있으면 어느 글의 어느 버튼인지 남아요 */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('[data-cta]');
+  if (!a || typeof window.gtag !== 'function') return;
+  window.gtag('event', 'column_cta_click', {
+    cta_position: a.dataset.cta, product: a.dataset.product, column: a.dataset.column
+  });
+});
+</script>
+</body>
+</html>

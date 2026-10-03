@@ -1,0 +1,66 @@
+# 글이 저장소(main)에 올라가면 자동으로: 사이트 만들기 → 공개 → 검색엔진에 새 글 알림
+name: 칼럼 사이트 배포
+
+on:
+  # 시안 승인·GitHub Pages 설정 전까지는 자동 배포를 꺼 둠 (수동 실행만 가능)
+  # 정식 오픈 때 아래 두 줄의 # 을 지워서 다시 켬
+  # push:
+  #   branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install markdown jinja2 pyyaml
+      - name: 사이트 만들기 (승인 + 안전검사 통과한 글만)
+        run: python build.py
+      - name: 바뀐 주소 적어 두기 (IndexNow 준비)
+        run: python scripts/indexnow.py plan
+      - uses: actions/upload-artifact@v4
+        with:
+          name: indexnow-plan
+          path: .indexnow-plan.json
+          include-hidden-files: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install markdown jinja2 pyyaml
+      - run: python build.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: indexnow-plan
+      - name: 검색엔진에 새 글 알리기
+        run: python scripts/indexnow.py send

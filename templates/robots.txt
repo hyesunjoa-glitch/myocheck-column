@@ -1,0 +1,49 @@
+{% if indexable -%}
+# 묘책 칼럼 — 검색엔진과 AI 검색·답변 봇 모두 읽어도 좋아요.
+User-agent: *
+Allow: /
+
+# AI 검색·답변 서비스
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# 국내 검색엔진
+User-agent: Yeti
+Allow: /
+
+User-agent: Daumoa
+Allow: /
+
+Sitemap: {{ site.base_url }}/sitemap.xml
+{%- else -%}
+# 시안 단계 — 정식 오픈 전이라 모든 봇에게 닫아 두었어요. (site.yml의 allow_indexing)
+User-agent: *
+Disallow: /
+{%- endif %}

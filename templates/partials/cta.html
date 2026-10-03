@@ -1,0 +1,5 @@
+<aside class="cta{% if big %} cta-big{% endif %}" aria-label="{{ product.name }}">
+  <p class="cta-hook">{{ (product.closing if big and product.closing else product.hook) }}</p>
+  <a class="cta-btn" href="{{ cta_url[position] }}" data-cta="{{ position }}" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ product.button }}</a>
+  <p class="cta-name">묘책 「{{ product.name }}」{% if not product.url %} <span class="pending">[상품 링크 대기]</span>{% endif %}</p>
+</aside>

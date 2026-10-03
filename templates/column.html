@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block og_type %}article{% endblock %}
+{% block head %}
+<meta property="article:published_time" content="{{ col.date }}">
+<meta property="article:modified_time" content="{{ col.updated }}">
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+{% endblock %}
+{% block main %}
+<article class="wrap column">
+  {% if preview and col.problems %}
+  <aside class="gate" aria-label="발행 전 확인할 것">
+    <p class="gate-title">이 글이 아직 발행되지 않는 이유</p>
+    <ul>{% for p in col.problems %}<li>{{ p }}</li>{% endfor %}</ul>
+  </aside>
+  {% endif %}
+
+  <nav class="crumb" aria-label="위치"><a href="{{ root }}">칼럼</a><span aria-hidden="true">/</span><a href="{{ root }}{{ cat.key }}/">{{ cat.name }}</a></nav>
+  <h1 class="col-title">{{ col.title }}</h1>
+  <p class="col-dates">
+    <time datetime="{{ col.date }}">{{ col.date | kdate }} 작성</time>{% if col.updated and col.updated != col.date %}<time datetime="{{ col.updated }}">{{ col.updated | kdate }} 고침</time>{% endif %}
+  </p>
+
+  <section class="answer" aria-label="짧은 답">
+    <h2 class="answer-label">짧은 답</h2>
+    <div class="answer-body">{{ col.summary | trim }}</div>
+  </section>
+
+  {% if col.concerns %}
+  <section class="letters" aria-label="이 글이 시작된 고민">
+    <h2 class="letters-label">이 고민에서 시작했어요</h2>
+    {% for c in col.concerns %}
+    <figure class="letter">
+      <blockquote>{{ c.text }}</blockquote>
+      <figcaption>{% if c.link %}<a href="{{ c.link }}" rel="nofollow noopener" target="_blank">{{ c.source }}</a>{% else %}{{ c.source }}{% endif %}에 올라온 고민</figcaption>
+    </figure>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if col.toc and col.toc|length > 2 %}
+  <nav class="toc" aria-label="이 글의 순서">
+    <p class="toc-label">이 글의 순서</p>
+    <ol>{% for t in col.toc %}<li><a href="#{{ t.id }}">{{ t.name }}</a></li>{% endfor %}</ol>
+  </nav>
+  {% endif %}
+
+  <div class="prose">{{ col.body_html | safe }}</div>
+
+  {% if col.faq %}
+  <section class="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">자주 묻는 질문</h2>
+    {% for f in col.faq %}
+    <details{% if loop.first %} open{% endif %}>
+      <summary>{{ f.q }}</summary>
+      <div class="faq-a">{{ f.a }}</div>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% with position="cta_bottom", big=True %}{% include "partials/cta.html" %}{% endwith %}
+
+  <footer class="byline">
+    <p><strong>글</strong> {{ site.brand }} 편집팀</p>
+    {% if col.reviewer %}<p><strong>검수</strong> {{ col.reviewer }}</p>{% endif %}
+    <p><strong>기준</strong> 실제로 올라온 고민에서 출발하고, 사주 풀이는 감수 기준 문서를 따라요. <a href="{{ root }}about/">칼럼 원칙 보기</a></p>
+  </footer>
+
+  {% if related %}
+  <section class="related" aria-labelledby="rel-h">
+    <h2 id="rel-h">{{ cat.name }} 칼럼 더 읽기</h2>
+    <ul>{% for r in related %}<li><a href="{{ root }}{{ r.url_path }}">{{ r.title }}</a></li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+</article>
+{% endblock %}
