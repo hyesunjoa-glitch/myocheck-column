@@ -38,6 +38,17 @@ MID_CTA_MARK = "[[상품버튼]]"
 BUBBLE_RE = re.compile(r"\[\[(?P<who>[^\[\]|]+)\|(?P<formal>[^\[\]|]+)\|(?P<casual>[^\[\]|]+)\]\]")
 TONES = ("formal", "casual")
 SAJU_MARK = "[[사주해석]]"
+SAJU_MAX_LINES = 4   # 「사주로 보면」은 항상 3~4줄 이내 (사장님 규칙)
+
+
+def saju_lines(col: dict) -> list:
+    """frontmatter의 saju: (줄 목록 또는 한 덩어리 글) → 줄 목록. 비어 있으면 []"""
+    v = col.get("saju")
+    if not v:
+        return []
+    if isinstance(v, str):
+        return [ln.strip() for ln in v.strip().splitlines() if ln.strip()]
+    return [str(ln).strip() for ln in v if str(ln).strip()]
 APPROVED = "승인"
 
 
@@ -120,8 +131,11 @@ def publish_problems(col: dict, products: dict, categories: dict, characters: di
     texts += all_strings(col.get("situations")) + all_strings(col.get("cover_say"))
     texts += [f"{s.get('label', '')} {s.get('text', '')}" for s in col.get("steps") or []]
     joined = "\n".join(texts)
-    if SAJU_MARK in joined:
+    saju = saju_lines(col)
+    if SAJU_MARK in joined and not saju:
         p.append("사주 해석 자리가 비어 있어요 [감수 자료 대기] — 해석 기준 문서가 오기 전엔 발행 안 해요")
+    if saju and len(saju) > SAJU_MAX_LINES:
+        p.append(f"「사주로 보면」이 {len(saju)}줄이에요 — {SAJU_MAX_LINES}줄 이내로 줄여야 해요")
     for ph in sorted(set(PLACEHOLDER_RE.findall(joined))):
         p.append(f"아직 채우지 않은 자리: {ph}")
     return p
@@ -152,7 +166,11 @@ def render_body(col: dict, env: Environment, ctx: dict) -> str:
                            extension_configs={"toc": {"permalink": False, "slugify": slugify_unicode}})
     body = col["body_md"]
 
-    saju_html = env.get_template("partials/saju_pending.html").render(**ctx)
+    saju = saju_lines(col)
+    if saju:
+        saju_html = env.get_template("partials/saju.html").render(lines=saju, **ctx)
+    else:
+        saju_html = env.get_template("partials/saju_pending.html").render(**ctx)
     mid_html = env.get_template("partials/cta.html").render(position="cta_mid", **ctx)
 
     # 표시를 임시 토큰으로 바꿔 두었다가, 마크다운 변환 뒤에 블록으로 교체

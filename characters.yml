@@ -14,5 +14,5 @@ myohwa:
 yuri:
   name: 유리
   role: 묘책 이별 원인 담당
-  image: static/img/yuri-placeholder.jpg   # [유리 이미지 대기] — 임시 표시, 실제 얼굴 컷으로 바꿔야 함
+  image: static/img/yuri.jpg   # 얼굴 시트에서 자른 컷 (2026-10-04)
   tone: formal     # 존댓말, 묘화와 같게 (2026-10-04 확정)

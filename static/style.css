@@ -139,6 +139,9 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .saju-h { margin: 0 0 12px !important; font-size: 21px; }
 .saju-pending { border: 2px dashed var(--line); border-radius: 14px; padding: 16px 18px; color: var(--soft); font-size: 15px; }
 .saju-pending p { margin: 0 0 6px; }
+.saju-box { border: 1.5px solid var(--mint, #00FDAA); border-radius: 14px; padding: 16px 18px; font-size: 16px; line-height: 1.7; background: rgba(0,253,170,.06); }
+.saju-box p { margin: 0 0 6px; }
+.saju-box p:last-child { margin: 0; }
 
 /* 연결 상품 상자 (본문 안) — 승인된 모양 그대로 */
 .product { display: grid; grid-template-columns: 34% 1fr; gap: 16px; align-items: center; background: var(--ink); color: #fff; border-radius: 16px; padding: 16px; margin: 32px 0; }
