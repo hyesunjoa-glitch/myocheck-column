@@ -215,17 +215,27 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .tile { flex: 0 0 64%; scroll-snap-align: start; text-decoration: none; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .tile-art { width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; object-fit: cover; margin-bottom: 8px; }
 /* 함께 보면 좋은 사주 — 상품 썸네일이 세로형(640×970~1120)이라 세로 비율 칸으로, 잘리지 않게 */
-/* 함께 보면 좋은 사주 — 썸네일 나열이 아니라 "이게 뭐지" 싶은 질문 카드 (2026-10-04) */
-.tile-ask { flex-basis: 62%; }
-.ask-card { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 0; aspect-ratio: 5 / 4.6; background: var(--ink); color: #fff; border-radius: 16px; padding: 14px 15px; margin-bottom: 8px;
-  background-image: radial-gradient(circle at 105% -5%, rgba(0,253,170,.32) 0 26%, transparent 27%), radial-gradient(circle at -10% 110%, rgba(0,253,170,.14) 0 30%, transparent 31%); }
-.ask-tag { font-size: 12px; font-weight: 700; color: var(--mint); letter-spacing: .02em; }
-.ask-q { font-size: 21px; font-weight: 800; line-height: 1.35; letter-spacing: -0.02em; text-wrap: balance; }
-.ask-go { align-self: flex-start; background: var(--mint); color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 800; }
-.ask-face { position: absolute; right: 12px; bottom: 12px; width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 2px solid var(--mint); }
-.is-soon .ask-card { background: #2B2B2B; background-image: radial-gradient(circle at 105% -5%, rgba(255,255,255,.08) 0 26%, transparent 27%); color: #E6E6E6; }
-.ask-soon { display: inline-block; font-size: 11px; font-weight: 800; color: var(--ink); background: var(--mint); border-radius: 4px; padding: 2px 7px; letter-spacing: .08em; margin-left: 6px; vertical-align: 1px; }
-.is-soon .ask-go { background: #444; color: #DDD; }
+/* 함께 보면 좋은 사주 — 한 장씩 크게, 썸네일을 흐린 배경 위에 (2026-10-04) */
+.deck { position: relative; margin-inline: -20px; }
+.deck-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.deck-track::-webkit-scrollbar { display: none; }
+.slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 26px 24px 28px; color: #fff; text-decoration: none; overflow: hidden; isolation: isolate; background: var(--ink); min-width: 0; }
+.slide-bg { position: absolute; inset: -40px; z-index: -1; background: var(--art, none) center / cover no-repeat, var(--ink); filter: blur(28px) saturate(1.2) brightness(.55); transform: scale(1.1); }
+.slide-top { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; text-wrap: balance; text-shadow: 0 2px 10px rgba(0,0,0,.5); }
+.slide-art { width: 58%; max-width: 230px; aspect-ratio: 4 / 7; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px -14px rgba(0,0,0,.7); }
+.slide-art-soon { display: grid; place-items: center; align-content: center; gap: 6px; background: #1E1E1E; border: 1.5px dashed #555; color: #AAA; }
+.slide-art-soon b { font-size: 26px; line-height: 1.05; letter-spacing: .04em; color: var(--mint); }
+.slide-art-soon i { font-style: normal; font-size: 13px; }
+.slide-flag { position: absolute; top: 14px; right: 14px; font-size: 12px; font-weight: 800; color: var(--ink); background: var(--mint); border-radius: 999px; padding: 3px 10px; }
+.slide-name { margin-top: 14px; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+.slide-sub { font-size: 14px; color: #DDD; line-height: 1.5; max-width: 300px; text-wrap: balance; }
+.slide-btn { margin-top: 12px; background: var(--mint); color: var(--ink); font-weight: 800; font-size: 15px; border-radius: 999px; padding: 11px 20px; }
+.is-soon .slide-btn { background: #3A3A3A; color: #DDD; }
+.slide .pending { margin-top: 6px; }
+.deck-next { position: absolute; right: 14px; top: 46%; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ink); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35); display: grid; place-items: center; padding-bottom: 3px; }
+.deck-dots { display: flex; justify-content: center; gap: 6px; padding: 10px 0 0; }
+.deck-dots i { width: 6px; height: 6px; border-radius: 50%; background: #CFCFCF; }
+.deck-dots i.on { background: var(--ink); width: 18px; border-radius: 3px; }
 .tile-q { background: var(--ink); position: relative; overflow: hidden; display: block; background-image: radial-gradient(circle at 100% 100%, rgba(0,253,170,.22) 0 30%, transparent 31%); }
 .tile-q b { position: absolute; left: 16px; top: 8px; color: var(--mint); font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
 .tile-q i { position: absolute; left: 16px; bottom: 14px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink); background: var(--mint); border-radius: 999px; padding: 2px 10px; }

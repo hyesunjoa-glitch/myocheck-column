@@ -5,7 +5,7 @@
     <p class="product-name">{{ product.name }}</p>
     {% if product.edition %}<p class="product-edition">{{ product.edition }}</p>{% endif %}
     <p class="product-hook">{{ product.hook }}</p>
-    <a class="product-btn" href="{{ cta_url[position] }}" data-cta="{{ position }}" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ col.cta_line or product.button }}</a>
+    <a class="product-btn" href="{{ cta_url[position] }}" data-cta="{{ position }}" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ col.cta_line or product.button }} →</a>
     {% if not product.url %}<p class="pending-line"><span class="pending">[상품 링크 대기]</span></p>{% endif %}
   </div>
 </aside>

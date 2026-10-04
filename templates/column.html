@@ -119,7 +119,7 @@
         {% endfor %}
       </div>
       {% if product.delivery %}<p class="toc-note"><span aria-hidden="true">📩</span> {{ product.delivery }}</p>{% endif %}
-      <a class="toc-btn" href="{{ cta_url['cta_toc'] }}" data-cta="cta_toc" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ col.cta_line or product.button }}</a>
+      <a class="toc-btn" href="{{ cta_url['cta_toc'] }}" data-cta="cta_toc" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ col.cta_line or product.button }} →</a>
       {% if col.related_reel or preview %}
       <a class="reel" href="{{ col.related_reel or '#' }}" {% if col.related_reel %}target="_blank" rel="noopener"{% endif %}>
         <span class="reel-play" aria-hidden="true"></span>
@@ -133,20 +133,25 @@
     {% if others %}
     <section class="block" id="others" aria-labelledby="others-h">
       <h2 class="sec-h" id="others-h"><span aria-hidden="true">🔗</span> 함께 보면 좋은 사주</h2>
-      <div class="rail">
-        {% for o in others %}
-        <a class="tile tile-ask{% if not o.url %} is-soon{% endif %}" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
-          <span class="ask-card">
-            <span class="ask-tag">{{ o.tag }}{% if not o.url %}<span class="ask-soon">COMING SOON</span>{% endif %}</span>
-            <span class="ask-q">{{ o.question or o.float_line or o.hook }}</span>
-            <span class="ask-go">{% if o.url %}{{ o.name }} →{% else %}준비 중이에요{% endif %}</span>
-            {% set oc = characters.get(o.character) if o.character else none %}
-            {% if oc and oc.image %}<img class="ask-face" src="{{ root }}{{ oc.image }}" alt="{{ oc.name }}" loading="lazy">{% endif %}
-          </span>
-          <span class="tile-sub">{{ o.hook }}</span>
-          {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
-        </a>
-        {% endfor %}
+      <div class="deck" id="deck">
+        <div class="deck-track" id="deck-track">
+          {% for o in others %}
+          {% set oc = characters.get(o.character) if o.character else none %}
+          <a class="slide{% if not o.url %} is-soon{% endif %}" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}"{% if o.image %} style="--art:url('{{ root }}{{ o.image }}')"{% endif %}>
+            <span class="slide-bg" aria-hidden="true"></span>
+            <span class="slide-top">{{ o.question or o.hook }}</span>
+            {% if o.image %}<img class="slide-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
+            {% else %}<span class="slide-art slide-art-soon"><b>COMING<br>SOON</b><i>{{ o.tag }}</i></span>{% endif %}
+            {% if not o.url %}<span class="slide-flag">준비 중</span>{% endif %}
+            <span class="slide-name">『{{ o.name }}』</span>
+            <span class="slide-sub">{{ o.hook }}</span>
+            <span class="slide-btn">{% if o.url %}{{ o.name }} 보러 가기 →{% else %}준비 중이에요{% endif %}</span>
+            {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
+          </a>
+          {% endfor %}
+        </div>
+        {% if others|length > 1 %}<button class="deck-next" type="button" aria-label="다음 사주 보기">›</button>
+        <div class="deck-dots" aria-hidden="true">{% for o in others %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
       </div>
     </section>
     {% endif %}
@@ -245,6 +250,17 @@
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+
+  /* 함께 보면 좋은 사주 — 한 장씩 넘기기 */
+  (function () {
+    var track = $('#deck-track'); if (!track) return;
+    var next = $('.deck-next'), dots = $$('.deck-dots i');
+    var w = function () { return track.clientWidth; };
+    var idx = function () { return Math.round(track.scrollLeft / Math.max(1, w())); };
+    var n = track.children.length;
+    if (next) next.addEventListener('click', function () { track.scrollTo({ left: ((idx() + 1) % n) * w(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', function () { var i = idx(); dots.forEach(function (d, j) { d.classList.toggle('on', j === i); }); }, { passive: true });
+  })();
 
   /* 내 상황 고르기 */
   $$('.pick').forEach(function (b, i) {
