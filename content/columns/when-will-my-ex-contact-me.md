@@ -5,7 +5,7 @@ slug: when-will-my-ex-contact-me
 category: reunion
 product: reunion
 character: myohwa
-report_chapter: 3          # [3장 제목 대기] — 연락 타이밍 장으로 추정(추측), 결과지 목차 확정 후 확인
+report_chapter: 4          # 4장 지금이 그때인가
 
 cover_say:
   formal: 날짜를 세는 마음, 오늘은 숫자 말고 흐름을 봐요.

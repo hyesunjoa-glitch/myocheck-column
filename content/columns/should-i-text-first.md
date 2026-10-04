@@ -5,7 +5,7 @@ slug: should-i-text-first
 category: reunion
 product: reunion
 character: myohwa
-report_chapter: 5          # 5장 첫 마디와 하면 안 되는 것
+report_chapter: 3          # 3장 지금 연락하면 어떻게 되나
 
 cover_say:
   formal: 쓰고 지우기를 몇 번 했죠. 보낼지 말지보다, 언제 보낼지를 같이 봐요.
