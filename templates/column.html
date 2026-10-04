@@ -101,8 +101,8 @@
     {% if product.toc %}
     {% set hit = (product.toc | selectattr('chapter', 'equalto', col.report_chapter) | list | first) if col.report_chapter else none %}
     <section class="block" id="report" aria-labelledby="report-h">
-      <h2 class="sec-h" id="report-h"><span aria-hidden="true">📑</span> 이 질문, 결과지에서는 여기서 답해요</h2>
-      <p class="sec-sub">「{{ product.name }}」 결과지 목차예요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 이어져요.{% endif %}</p>
+      <h2 class="sec-h" id="report-h"><span aria-hidden="true">📑</span> 결과지에서는 이런 것까지 알 수 있어요</h2>
+      <p class="sec-sub">「{{ product.name }}」에 내 사주와 그 사람 사주를 넣으면 나오는 것들이에요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 풀려요.{% endif %}</p>
       <div class="toc">
         {% for t in product.toc %}
         {% set on = hit and t.chapter == hit.chapter %}
@@ -135,11 +135,12 @@
       <h2 class="sec-h" id="others-h"><span aria-hidden="true">🔗</span> 함께 보면 좋은 사주</h2>
       <div class="rail">
         {% for o in others %}
-        <a class="tile tile-product" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
-          {% if o.image %}<img class="tile-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
-          {% else %}<span class="tile-art tile-name" aria-hidden="true">{{ o.name }}</span>{% endif %}
-          <span class="tile-cat">{{ o.tag }}</span>
-          <span class="tile-title">{{ o.name }}</span>
+        <a class="tile tile-ask{% if not o.url %} is-soon{% endif %}" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
+          <span class="ask-card">
+            <span class="ask-tag">{{ o.tag }}{% if not o.url %}<span class="ask-soon">COMING SOON</span>{% endif %}</span>
+            <span class="ask-q">{{ o.question or o.float_line or o.hook }}</span>
+            <span class="ask-go">{% if o.url %}{{ o.name }} →{% else %}준비 중이에요{% endif %}</span>
+          </span>
           <span class="tile-sub">{{ o.hook }}</span>
           {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
         </a>

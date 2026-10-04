@@ -77,7 +77,7 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 /* 짧은 답 */
 .answer { padding: 26px 20px 20px; border-bottom: 10px solid var(--ground); }
 .answer-h { margin: 0 0 10px; font-size: 15px; font-weight: 800; color: var(--mint-text); }
-.answer-body { margin: 0 0 18px; font-size: 19px; line-height: 1.65; font-weight: 700; letter-spacing: -0.01em; }
+.answer-body { margin: 0 0 18px; font-size: 19px; line-height: 1.55; font-weight: 700; letter-spacing: -0.01em; }
 .meta { list-style: none; margin: 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; color: var(--soft); align-items: center; }
 .share-btn { border: 0; background: var(--mint-pale); color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 14px; font-weight: 700; cursor: pointer; }
 .share-btn.big { padding: 12px 22px; font-size: 16px; background: var(--ink); color: var(--mint); }
@@ -118,10 +118,10 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .pick-go { font-weight: 700; color: var(--mint-text); text-decoration: none; }
 
 /* 본문 */
-.prose { font-size: 17px; line-height: 1.85; }
+.prose { font-size: 17px; line-height: 1.65; }  /* 행간 줄임 (2026-10-04 사장님 요청) */
 .prose h2 { font-size: 21px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; margin: 40px 0 12px; scroll-margin-top: 64px; text-wrap: balance; }
 .prose h2:first-child { margin-top: 0; }
-.prose p, .prose ul, .prose ol { margin: 0 0 1.1em; }
+.prose p, .prose ul, .prose ol { margin: 0 0 1.35em; }
 .prose ul { padding-left: 20px; }
 .prose li { margin-bottom: .5em; }
 .prose li::marker { color: var(--mint-text); }
@@ -215,9 +215,16 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .tile { flex: 0 0 64%; scroll-snap-align: start; text-decoration: none; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .tile-art { width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; object-fit: cover; margin-bottom: 8px; }
 /* 함께 보면 좋은 사주 — 상품 썸네일이 세로형(640×970~1120)이라 세로 비율 칸으로, 잘리지 않게 */
-.tile-product { flex-basis: 48%; }
-.tile-product .tile-art { aspect-ratio: 4 / 7; object-position: center top; }
-.tile-product .tile-name { font-size: 22px; }
+/* 함께 보면 좋은 사주 — 썸네일 나열이 아니라 "이게 뭐지" 싶은 질문 카드 (2026-10-04) */
+.tile-ask { flex-basis: 62%; }
+.ask-card { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 0; aspect-ratio: 5 / 4.6; background: var(--ink); color: #fff; border-radius: 16px; padding: 14px 15px; margin-bottom: 8px;
+  background-image: radial-gradient(circle at 105% -5%, rgba(0,253,170,.32) 0 26%, transparent 27%), radial-gradient(circle at -10% 110%, rgba(0,253,170,.14) 0 30%, transparent 31%); }
+.ask-tag { font-size: 12px; font-weight: 700; color: var(--mint); letter-spacing: .02em; }
+.ask-q { font-size: 21px; font-weight: 800; line-height: 1.35; letter-spacing: -0.02em; text-wrap: balance; }
+.ask-go { align-self: flex-start; background: var(--mint); color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 800; }
+.is-soon .ask-card { background: #2B2B2B; background-image: radial-gradient(circle at 105% -5%, rgba(255,255,255,.08) 0 26%, transparent 27%); color: #E6E6E6; }
+.ask-soon { display: inline-block; font-size: 11px; font-weight: 800; color: var(--ink); background: var(--mint); border-radius: 4px; padding: 2px 7px; letter-spacing: .08em; margin-left: 6px; vertical-align: 1px; }
+.is-soon .ask-go { background: #444; color: #DDD; }
 .tile-q { background: var(--ink); position: relative; overflow: hidden; display: block; background-image: radial-gradient(circle at 100% 100%, rgba(0,253,170,.22) 0 30%, transparent 31%); }
 .tile-q b { position: absolute; left: 16px; top: 8px; color: var(--mint); font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
 .tile-q i { position: absolute; left: 16px; bottom: 14px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink); background: var(--mint); border-radius: 999px; padding: 2px 10px; }

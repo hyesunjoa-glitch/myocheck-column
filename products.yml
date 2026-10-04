@@ -13,6 +13,7 @@ reunion:
   button: 묘화의 재회막차 보러 가기
   hook: 다시 연락이 올 시기와 가능성, 사주로 확인해 보세요.
   float_line: 그 사람 연락, 언제쯤일까?
+  question: 그 사람 연락, 언제쯤 올까?      # 함께 보면 좋은 사주 카드에 크게 들어가는 한 줄
   url: "https://www.myocheck.kr/f/cmujwoetf000104lfp1dzc61l?step=step_intro"
 
   # 📑 결과지 목차 — 상품마다 한 번만 적어요. 칼럼은 report_chapter: 숫자 로 "이 질문에 답하는 장"만 가리켜요.
@@ -77,6 +78,7 @@ breakup:
   button: 우리가 헤어진 진짜 이유 보기
   hook: 같은 이별을 반복하지 않으려면, 이유부터 알아야 해요.
   float_line: 우리는 왜 헤어졌을까?
+  question: 우리, 진짜 왜 헤어진 걸까?       # 함께 보면 좋은 사주 카드에 크게 들어가는 한 줄
   url: "https://www.myocheck.kr/f/cmte4ye1u000104jjhrofyz04?step=step_intro"
 
   # 📑 결과지 목차 — 사장님이 준 결과지 이미지(2026-10-04) 그대로. 5장은 뺐어요.
@@ -144,6 +146,7 @@ gunghap:
   tag: 궁합
   image: ""
   button: 그 사람과 내 궁합 보기
+  question: 우리, 진짜 맞는 사이일까?        # 임시(추정) — 궁합 상품 정해지면 바꿔요
   hook: 두 사람의 사주를 나란히 놓고 보면 보이는 것들이 있어요.
   url: ""          # [상품 링크 대기]
 
@@ -152,5 +155,6 @@ newyear-2027:
   tag: 2027 신년운세
   image: ""
   button: 내 2027년 미리 보기
+  question: 내 2027년엔 누가 들어올까?     # 임시(추정) — 신년운세 상품 정해지면 바꿔요
   hook: 2027년에 들어올 인연과 흐름을 먼저 확인해 보세요.
   url: ""          # [상품 링크 대기]
