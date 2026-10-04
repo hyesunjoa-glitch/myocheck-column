@@ -232,7 +232,14 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .slide { position: relative; flex: 0 0 calc(100% - 64px); scroll-snap-align: start; border-radius: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 26px 24px 28px; color: #fff; text-decoration: none; overflow: hidden; isolation: isolate; background: var(--ink); min-width: 0; }
 .slide-bg { position: absolute; inset: -40px; z-index: -1; background: var(--art, none) center / cover no-repeat, var(--ink); filter: blur(28px) saturate(1.2) brightness(.55); transform: scale(1.1); }
 .slide-top { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; text-wrap: balance; text-shadow: 0 2px 10px rgba(0,0,0,.5); }
-.slide-art { width: 58%; max-width: 230px; aspect-ratio: 4 / 7; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px -14px rgba(0,0,0,.7); }
+.slide-art-wrap { position: relative; width: 58%; max-width: 230px; display: block; }
+.slide-art { width: 100%; aspect-ratio: 4 / 7; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px -14px rgba(0,0,0,.7); display: block; }
+.slide-art-soon { width: 58%; max-width: 230px; aspect-ratio: 4 / 7; border-radius: 12px; }
+/* 썸네일 위 글자 — 사진에 글자가 없는 상품만 (유리 썸네일 모양을 따라 만듦) */
+.art-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 8px 12px; border-radius: 0 0 12px 12px; display: flex; flex-direction: column; align-items: center; gap: 0; background: linear-gradient(to top, rgba(20,16,22,.88) 0%, rgba(20,16,22,.55) 55%, transparent 100%); color: #fff; }
+.art-text small { align-self: flex-start; margin-left: 10%; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; text-shadow: 0 0 6px var(--glow), 0 2px 4px rgba(0,0,0,.6); }
+.art-text b { font-size: 38px; font-weight: 900; line-height: 1.05; letter-spacing: -0.04em; color: #fff; text-shadow: 0 0 2px var(--glow), 0 0 3px var(--glow), 0 0 8px var(--glow), 0 0 16px var(--glow), 0 0 24px var(--glow); }
+.art-text i { margin-top: 6px; font-style: normal; font-size: 12px; font-weight: 700; white-space: nowrap; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
 .slide-art-soon { display: grid; place-items: center; align-content: center; gap: 6px; background: #1E1E1E; border: 1.5px dashed #555; color: #AAA; }
 .slide-art-soon b { font-size: 26px; line-height: 1.05; letter-spacing: .04em; color: var(--mint); }
 .slide-art-soon i { font-style: normal; font-size: 13px; }
@@ -242,7 +249,8 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .slide-btn { margin-top: 12px; background: var(--mint); color: var(--ink); font-weight: 800; font-size: 15px; border-radius: 999px; padding: 11px 20px; }
 .is-soon .slide-btn { background: #3A3A3A; color: #DDD; }
 .slide .pending { margin-top: 6px; }
-.deck-next { position: absolute; right: 26px; top: 46%; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ink); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35); display: grid; place-items: center; padding-bottom: 3px; }
+.deck-prev { position: absolute; left: 26px; top: 46%; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ink); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35); display: grid; place-items: center; padding-bottom: 3px; z-index: 2; }
+.deck-next { z-index: 2; position: absolute; right: 26px; top: 46%; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ink); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35); display: grid; place-items: center; padding-bottom: 3px; }
 .deck-dots { display: flex; justify-content: center; gap: 6px; padding: 10px 0 0; }
 .deck-dots i { width: 6px; height: 6px; border-radius: 50%; background: #CFCFCF; }
 .deck-dots i.on { background: var(--ink); width: 18px; border-radius: 3px; }

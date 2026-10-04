@@ -145,7 +145,7 @@
           <a class="slide{% if not o.url %} is-soon{% endif %}" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}"{% if o.image %} style="--art:url('{{ root }}{{ o.image }}')"{% endif %}>
             <span class="slide-bg" aria-hidden="true"></span>
             <span class="slide-top">{{ o.question or o.hook }}</span>
-            {% if o.image %}<img class="slide-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
+            {% if o.image %}<span class="slide-art-wrap"><img class="slide-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">{% if o.art_big %}<span class="art-text" style="--glow:{{ o.art_glow or '#00FDAA' }}"><small>{{ o.art_small }}</small><b>{{ o.art_big }}</b><i>{{ o.art_sub }}</i></span>{% endif %}</span>
             {% else %}<span class="slide-art slide-art-soon"><b>COMING<br>SOON</b><i>{{ o.tag }}</i></span>{% endif %}
             <span class="slide-name">『{{ o.name }}』</span>
             <span class="slide-sub">{{ o.hook }}</span>
@@ -154,7 +154,7 @@
           </a>
           {% endfor %}
         </div>
-        {% if others|length > 1 %}<button class="deck-next" type="button" aria-label="다음 사주 보기">›</button>
+        {% if others|length > 1 %}<button class="deck-prev" type="button" aria-label="이전 사주 보기">‹</button><button class="deck-next" type="button" aria-label="다음 사주 보기">›</button>
         <div class="deck-dots" aria-hidden="true">{% for o in others %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
       </div>
     </section>
@@ -258,11 +258,12 @@
   /* 함께 보면 좋은 사주 — 한 장씩 넘기기 */
   (function () {
     var track = $('#deck-track'); if (!track) return;
-    var next = $('.deck-next'), dots = $$('.deck-dots i'), chips = $$('.deck-chips .chip');
+    var prev = $('.deck-prev'), next = $('.deck-next'), dots = $$('.deck-dots i'), chips = $$('.deck-chips .chip');
     var w = function () { var s = track.children[0]; return s ? s.getBoundingClientRect().width + 10 : track.clientWidth; };
     var idx = function () { return Math.round(track.scrollLeft / Math.max(1, w())); };
     var n = track.children.length;
     if (next) next.addEventListener('click', function () { track.scrollTo({ left: ((idx() + 1) % n) * w(), behavior: 'smooth' }); });
+    if (prev) prev.addEventListener('click', function () { track.scrollTo({ left: ((idx() - 1 + n) % n) * w(), behavior: 'smooth' }); });
     var mark = function (i) {
       dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
       chips.forEach(function (c, j) { c.classList.toggle('on', j === i); c.setAttribute('aria-selected', j === i); if (j === i && c.scrollIntoView) { var row = c.parentNode; row.scrollTo({ left: c.offsetLeft - (row.clientWidth - c.clientWidth) / 2, behavior: 'smooth' }); } });

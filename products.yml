@@ -168,6 +168,11 @@ gunghap:
   chip: 우리 맞을까?
   tag: 궁합
   image: static/img/gunghap.jpg
+  # 썸네일 위에 얹는 글자 (사진에 글자가 없어서) — 유리 썸네일과 같은 모양
+  art_small: 이설의
+  art_big: 궁합사주
+  art_sub: "궁합 : 다음에 필 꽃편"
+  art_glow: "#F4B78A"
   button: 그 사람과 내 궁합 보기
   question: 우리, 진짜 맞는 사이일까?
   hook: 두 사람의 사주를 나란히 놓고 보면 보이는 것들이 있어요.
@@ -226,6 +231,10 @@ newyear-2027:
   chip: 내년 어떨까?
   tag: 2027 신년운세
   image: static/img/newyear-2027.jpg
+  art_small: 괴짜Z의
+  art_big: 신년운세
+  art_sub: "2027 스포일러편"
+  art_glow: "#B8FF3C"
   button: 내 2027년 미리 보기
   question: 내 2027년, 어떤 해가 될까?
   hook: 2027년에 들어올 인연과 흐름을 먼저 확인해 보세요.
