@@ -132,7 +132,12 @@
     {# ── 🔗 함께 보면 좋은 사주 ── #}
     {% if others %}
     <section class="block" id="others" aria-labelledby="others-h">
-      <h2 class="sec-h" id="others-h"><span aria-hidden="true">🔗</span> 함께 보면 좋은 사주</h2>
+      <h2 class="sec-h" id="others-h"><span aria-hidden="true">🔗</span> 함께 보면 좋은 사주 <span class="sec-count">({{ others|length }}개)</span></h2>
+      {% if others|length > 1 %}
+      <div class="deck-chips" role="tablist" aria-label="사주 고르기">
+        {% for o in others %}<button type="button" class="chip{% if loop.first %} on{% endif %}{% if not o.url %} is-soon{% endif %}" data-go="{{ loop.index0 }}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}"><small>{{ o.chip_top or o.tag }}</small><b>{{ o.chip or o.name }}</b>{% if not o.url %}<i>준비 중</i>{% endif %}</button>{% endfor %}
+      </div>
+      {% endif %}
       <div class="deck" id="deck">
         <div class="deck-track" id="deck-track">
           {% for o in others %}
@@ -142,7 +147,6 @@
             <span class="slide-top">{{ o.question or o.hook }}</span>
             {% if o.image %}<img class="slide-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
             {% else %}<span class="slide-art slide-art-soon"><b>COMING<br>SOON</b><i>{{ o.tag }}</i></span>{% endif %}
-            {% if not o.url %}<span class="slide-flag">준비 중</span>{% endif %}
             <span class="slide-name">『{{ o.name }}』</span>
             <span class="slide-sub">{{ o.hook }}</span>
             <span class="slide-btn">{% if o.url %}{{ o.name }} 보러 가기 →{% else %}준비 중이에요{% endif %}</span>
@@ -254,12 +258,18 @@
   /* 함께 보면 좋은 사주 — 한 장씩 넘기기 */
   (function () {
     var track = $('#deck-track'); if (!track) return;
-    var next = $('.deck-next'), dots = $$('.deck-dots i');
-    var w = function () { return track.clientWidth; };
+    var next = $('.deck-next'), dots = $$('.deck-dots i'), chips = $$('.deck-chips .chip');
+    var w = function () { var s = track.children[0]; return s ? s.getBoundingClientRect().width + 10 : track.clientWidth; };
     var idx = function () { return Math.round(track.scrollLeft / Math.max(1, w())); };
     var n = track.children.length;
     if (next) next.addEventListener('click', function () { track.scrollTo({ left: ((idx() + 1) % n) * w(), behavior: 'smooth' }); });
-    track.addEventListener('scroll', function () { var i = idx(); dots.forEach(function (d, j) { d.classList.toggle('on', j === i); }); }, { passive: true });
+    var mark = function (i) {
+      dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
+      chips.forEach(function (c, j) { c.classList.toggle('on', j === i); c.setAttribute('aria-selected', j === i); if (j === i && c.scrollIntoView) { var row = c.parentNode; row.scrollTo({ left: c.offsetLeft - (row.clientWidth - c.clientWidth) / 2, behavior: 'smooth' }); } });
+    };
+    chips.forEach(function (c) { c.addEventListener('click', function () { track.scrollTo({ left: (+c.dataset.go) * w(), behavior: 'smooth' }); }); });
+    var last = 0;
+    track.addEventListener('scroll', function () { var i = idx(); if (i !== last) { last = i; mark(i); } }, { passive: true });
   })();
 
   /* 내 상황 고르기 */

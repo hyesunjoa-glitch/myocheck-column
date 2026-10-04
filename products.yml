@@ -7,6 +7,8 @@
 
 reunion:
   name: 묘화의 재회막차
+  chip_top: 묘화
+  chip: 재회막차
   character: myohwa
   edition: "연락 타이밍 : 골든타임편"
   tag: 재회
@@ -73,6 +75,8 @@ reunion:
 
 breakup:
   name: 인형의 방
+  chip_top: 유리
+  chip: 인형의 방
   character: yuri
   edition: "이별 원인 : 헤어진 이유편"
   tag: 이별 원인
@@ -145,6 +149,8 @@ breakup:
 
 gunghap:
   name: 궁합
+  chip_top: 이설
+  chip: 궁합
   tag: 궁합
   image: ""
   button: 그 사람과 내 궁합 보기
@@ -154,6 +160,8 @@ gunghap:
 
 newyear-2027:
   name: "[신년운세 상품 이름 확인 필요]"
+  chip_top: 괴짜Z
+  chip: 2027 운세
   tag: 2027 신년운세
   image: ""
   button: 내 2027년 미리 보기
