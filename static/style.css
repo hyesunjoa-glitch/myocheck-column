@@ -217,11 +217,12 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 /* 함께 보면 좋은 사주 — 상품 썸네일이 세로형(640×970~1120)이라 세로 비율 칸으로, 잘리지 않게 */
 /* 함께 보면 좋은 사주 — 썸네일 나열이 아니라 "이게 뭐지" 싶은 질문 카드 (2026-10-04) */
 .tile-ask { flex-basis: 62%; }
-.ask-card { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 0; aspect-ratio: 5 / 4.6; background: var(--ink); color: #fff; border-radius: 16px; padding: 14px 15px; margin-bottom: 8px;
+.ask-card { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 0; aspect-ratio: 5 / 4.6; background: var(--ink); color: #fff; border-radius: 16px; padding: 14px 15px; margin-bottom: 8px;
   background-image: radial-gradient(circle at 105% -5%, rgba(0,253,170,.32) 0 26%, transparent 27%), radial-gradient(circle at -10% 110%, rgba(0,253,170,.14) 0 30%, transparent 31%); }
 .ask-tag { font-size: 12px; font-weight: 700; color: var(--mint); letter-spacing: .02em; }
 .ask-q { font-size: 21px; font-weight: 800; line-height: 1.35; letter-spacing: -0.02em; text-wrap: balance; }
 .ask-go { align-self: flex-start; background: var(--mint); color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 800; }
+.ask-face { position: absolute; right: 12px; bottom: 12px; width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 2px solid var(--mint); }
 .is-soon .ask-card { background: #2B2B2B; background-image: radial-gradient(circle at 105% -5%, rgba(255,255,255,.08) 0 26%, transparent 27%); color: #E6E6E6; }
 .ask-soon { display: inline-block; font-size: 11px; font-weight: 800; color: var(--ink); background: var(--mint); border-radius: 4px; padding: 2px 7px; letter-spacing: .08em; margin-left: 6px; vertical-align: 1px; }
 .is-soon .ask-go { background: #444; color: #DDD; }

@@ -30,6 +30,9 @@ faq:
   - q: 질문
     a: 답
 
+# 🟢 상품 버튼 글자 — 이 글 제목에 맞춘 후킹 한 줄 (비우면 products.yml의 button 사용)
+cta_line:
+
 related_reel:                # 이 글과 짝인 릴스 링크 (릴스 1개 → 칼럼 1개)
 ---
 

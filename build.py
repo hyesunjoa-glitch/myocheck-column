@@ -267,7 +267,7 @@ def build(preview: bool) -> list[dict]:
 
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html", "xml"]))
     env.filters["kdate"] = lambda d: f"{d.year}. {d.month}. {d.day}." if d else ""
-    common = dict(site=site, categories=site["categories"], preview=preview, indexable=indexable,
+    common = dict(site=site, categories=site["categories"], preview=preview, indexable=indexable, characters=characters,
                   year=dt.date.today().year)
 
     def write(rel: str, text: str):

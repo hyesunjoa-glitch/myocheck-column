@@ -119,7 +119,7 @@
         {% endfor %}
       </div>
       {% if product.delivery %}<p class="toc-note"><span aria-hidden="true">📩</span> {{ product.delivery }}</p>{% endif %}
-      <a class="toc-btn" href="{{ cta_url['cta_toc'] }}" data-cta="cta_toc" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ product.button }}</a>
+      <a class="toc-btn" href="{{ cta_url['cta_toc'] }}" data-cta="cta_toc" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ col.cta_line or product.button }}</a>
       {% if col.related_reel or preview %}
       <a class="reel" href="{{ col.related_reel or '#' }}" {% if col.related_reel %}target="_blank" rel="noopener"{% endif %}>
         <span class="reel-play" aria-hidden="true"></span>
@@ -140,6 +140,8 @@
             <span class="ask-tag">{{ o.tag }}{% if not o.url %}<span class="ask-soon">COMING SOON</span>{% endif %}</span>
             <span class="ask-q">{{ o.question or o.float_line or o.hook }}</span>
             <span class="ask-go">{% if o.url %}{{ o.name }} →{% else %}준비 중이에요{% endif %}</span>
+            {% set oc = characters.get(o.character) if o.character else none %}
+            {% if oc and oc.image %}<img class="ask-face" src="{{ root }}{{ oc.image }}" alt="{{ oc.name }}" loading="lazy">{% endif %}
           </span>
           <span class="tile-sub">{{ o.hook }}</span>
           {% if not o.url %}<span class="pending">[상품 링크 대기]</span>{% endif %}
