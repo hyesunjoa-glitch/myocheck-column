@@ -88,7 +88,7 @@ reunion:
   reviews: []
 
 breakup:
-  name: 인형의 방
+  name: 그 사람 속마음          # 타이탄 사주 상품 이름과 맞춤 (2026-10-04)
   chip_top: 이별 원인
   chip: 왜 헤어졌지?
   character: yuri
@@ -114,7 +114,7 @@ breakup:
       gives:
         - 처음 문제가 생긴 이유
         - 상대의 태도가 달라진 시점
-        - 결정적 사건이 있었던 날
+        - 처음 어긋난 시기
     - chapter: 3
       title: 먼저 닳은 쪽
       gives:
@@ -162,23 +162,71 @@ breakup:
   reviews: []
 
 gunghap:
-  name: 궁합
+  name: 다음에 필 꽃          # 타이탄 사주 상품 이름 (이설)
+  character: isel
   chip_top: 궁합
   chip: 우리 맞을까?
   tag: 궁합
-  image: ""
+  image: static/img/gunghap.jpg
   button: 그 사람과 내 궁합 보기
-  question: 우리, 진짜 맞는 사이일까?        # 임시(추정) — 궁합 상품 정해지면 바꿔요
+  question: 우리, 진짜 맞는 사이일까?
   hook: 두 사람의 사주를 나란히 놓고 보면 보이는 것들이 있어요.
-  url: ""          # [상품 링크 대기]
+  url: "https://www.myocheck.kr/f/cmucyw6j7000304l3uuzt3nl2?step=step_intro"
+
+  # 📑 결과지 목차 — 타이탄 사주 결과지 구성 그대로 (2026-10-04 확인)
+  toc:
+    - chapter: 0
+      title: 지금 핀 꽃
+      gives:
+        - 지금 둘의 온도
+        - 지금 가장 선명한 색
+        - 두 사람의 애정과 표현 속도
+    - chapter: 1
+      title: 너의 계절
+      gives:
+        - 나는 사랑할수록 어떤 사람이 되는지
+        - 내가 연인에게 가장 바라는 것
+        - 좋아질수록 내가 예민해지는 지점
+    - chapter: 2
+      title: 그 사람의 계절
+      gives:
+        - 그 사람은 사랑할수록 어떻게 달라지는지
+        - 그 사람이 사랑받는다고 느끼는 방식
+        - 그 사람이 부담을 느끼는 상황
+    - chapter: 3
+      title: 같은 화분에 심으면
+      gives:
+        - 왜 우리는 서로에게 끌렸을까
+        - 둘이 함께 있을 때 유독 잘 맞는 것
+        - 같은 행동, 서로 다르게 받아들이는 지점
+    - chapter: 4
+      title: 다음 철의 색
+      gives:
+        - 갈수록 지금보다 더 좋아지는 것
+        - 오래 만나야 보이는 서로의 모습
+        - 우리 둘이 함께라서 생기는 새로운 강점
+    - chapter: 5
+      title: 계절이 바뀔 때
+      gives:
+        - 익숙해지면 먼저 달라지는 것
+        - 좋았던 부분이 서운함이 되는 순간
+        - 오래 만날수록 맞춰가야 할 지점
+    - chapter: 6
+      title: 오래 피우는 법
+      gives:
+        - 싸웠을 때 어떻게 풀어야 잘 맞는지
+        - 서로에게 필요한 애정 표현은?
+        - 관계를 오래 유지하는 중요한 조건
+  delivery: 결제 후 10분 안에 결과지 전달
 
 newyear-2027:
-  name: "[신년운세 상품 이름 확인 필요]"
+  name: 신년운세          # 타이탄 사주 상품 이름 (괴짜Z)
+  character: geekz
   chip_top: 2027 신년운세
   chip: 내년 어떨까?
   tag: 2027 신년운세
-  image: ""
+  image: static/img/newyear-2027.jpg
   button: 내 2027년 미리 보기
-  question: 내 2027년, 어떤 해가 될까?     # 임시(추정) — 신년운세 상품 정해지면 바꿔요
+  question: 내 2027년, 어떤 해가 될까?
   hook: 2027년에 들어올 인연과 흐름을 먼저 확인해 보세요.
-  url: ""          # [상품 링크 대기]
+  url: "https://www.myocheck.kr/f/cmuqq6qsn000304jox1gznw02?step=step_intro"
