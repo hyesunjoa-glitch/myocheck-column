@@ -77,7 +77,7 @@ breakup:
   button: 우리가 헤어진 진짜 이유 보기
   hook: 같은 이별을 반복하지 않으려면, 이유부터 알아야 해요.
   float_line: 우리는 왜 헤어졌을까?
-  url: ""          # [상품 링크 대기]
+  url: "https://www.myocheck.kr/f/cmte4ye1u000104jjhrofyz04?step=step_intro"
 
   # 📑 결과지 목차 — 사장님이 준 결과지 이미지(2026-10-04) 그대로. 5장은 뺐어요.
   toc:

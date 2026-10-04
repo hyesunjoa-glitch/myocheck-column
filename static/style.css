@@ -214,11 +214,15 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .rail::-webkit-scrollbar { display: none; }
 .tile { flex: 0 0 64%; scroll-snap-align: start; text-decoration: none; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .tile-art { width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; object-fit: cover; margin-bottom: 8px; }
+/* 함께 보면 좋은 사주 — 상품 썸네일이 세로형(640×970~1120)이라 세로 비율 칸으로, 잘리지 않게 */
+.tile-product { flex-basis: 48%; }
+.tile-product .tile-art { aspect-ratio: 4 / 7; object-position: center top; }
+.tile-product .tile-name { font-size: 22px; }
 .tile-q { background: var(--ink); position: relative; overflow: hidden; display: block; background-image: radial-gradient(circle at 100% 100%, rgba(0,253,170,.22) 0 30%, transparent 31%); }
 .tile-q b { position: absolute; left: 16px; top: 8px; color: var(--mint); font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
 .tile-q i { position: absolute; left: 16px; bottom: 14px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink); background: var(--mint); border-radius: 999px; padding: 2px 10px; }
 .is-soon .tile-q i { background: #3A3A3A; color: #D0D0D0; }
-.tile-name { background: var(--mint); color: var(--ink); display: grid; place-items: center; text-align: center; font-weight: 800; font-size: 24px; padding: 12px; letter-spacing: -0.02em; background-image: radial-gradient(circle at 85% 15%, rgba(255,255,255,.55) 0 18%, transparent 19%); }
+.tile-name { background: var(--mint); color: var(--ink); display: grid; place-items: center; text-align: center; font-weight: 800; font-size: 22px; padding: 12px; letter-spacing: -0.02em; background-image: radial-gradient(circle at 85% 15%, rgba(255,255,255,.55) 0 18%, transparent 19%); }
 .tile-cat { font-size: 12px; color: var(--soft); }
 .tile-title { font-size: 16px; font-weight: 800; line-height: 1.45; }
 .tile-sub { font-size: 13px; color: var(--soft); line-height: 1.5; }

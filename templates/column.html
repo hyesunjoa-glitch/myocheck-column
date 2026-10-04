@@ -135,7 +135,7 @@
       <h2 class="sec-h" id="others-h"><span aria-hidden="true">🔗</span> 함께 보면 좋은 사주</h2>
       <div class="rail">
         {% for o in others %}
-        <a class="tile" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
+        <a class="tile tile-product" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}">
           {% if o.image %}<img class="tile-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">
           {% else %}<span class="tile-art tile-name" aria-hidden="true">{{ o.name }}</span>{% endif %}
           <span class="tile-cat">{{ o.tag }}</span>
