@@ -5,15 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{{ page_title }}</title>
 <meta name="description" content="{{ page_desc }}">
-{% if not indexable %}<meta name="robots" content="noindex, nofollow">{% endif %}
-<link rel="canonical" href="{{ canonical }}">
+{% if not indexable or noindex_page %}<meta name="robots" content="noindex, nofollow">{% endif %}
+{% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+{% if site.naver_site_verification %}<meta name="naver-site-verification" content="{{ site.naver_site_verification }}">{% endif %}
+{% if site.google_site_verification %}<meta name="google-site-verification" content="{{ site.google_site_verification }}">{% endif %}
+{% if site.bing_site_verification %}<meta name="msvalidate.01" content="{{ site.bing_site_verification }}">{% endif %}
 <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-<meta property="og:site_name" content="{{ site.name }}">
-<meta property="og:title" content="{{ page_title }}">
+<meta property="og:site_name" content="{{ brand_full }} 칼럼">
+<meta property="og:title" content="{{ og_title | default(page_title) }}">
 <meta property="og:description" content="{{ page_desc }}">
-<meta property="og:url" content="{{ canonical }}">
+{% if canonical %}<meta property="og:url" content="{{ canonical }}">{% endif %}
 <meta property="og:locale" content="ko_KR">
-{% block og_image %}{% endblock %}
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0A0A0A">
 <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ root }}feed.xml">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -34,7 +40,7 @@
 <div class="progress" aria-hidden="true"><span></span></div>
 <header class="site-head">
   <div class="head-row">
-    <a class="brand" href="{{ root }}" aria-label="{{ site.name }} 첫 화면"><img src="{{ root }}static/img/logo.png" alt="MYO:" width="96" height="26"><span>칼럼</span></a>
+    <a class="brand" href="{{ root }}" aria-label="{{ site.name }} 첫 화면"><img src="{{ root }}static/img/logo.png" alt="묘책" width="96" height="26"><span>칼럼</span></a>
   </div>
   <nav class="cats" aria-label="칼럼 분류">
     <a href="{{ root }}"{% if cat is not defined %} aria-current="page"{% endif %}>전체</a>
@@ -48,7 +54,10 @@
   <div class="wrap">
     <p class="foot-links"><a href="{{ site.main_site }}">묘책 사주 보러 가기</a><a href="{{ root }}about/">칼럼 원칙</a><a href="{{ root }}feed.xml">새 글 받아보기(RSS)</a></p>
     <p>{{ site.description }}</p>
-    <p class="foot-copy">© {{ year }} {{ site.brand }}</p>
+    <p class="foot-links foot-legal">{% if site.privacy_url %}<a href="{{ site.privacy_url }}"><b>개인정보처리방침</b></a>{% endif %}{% if site.terms_url %}<a href="{{ site.terms_url }}">이용약관</a>{% endif %}</p>
+    {% set op = site.operator or {} %}
+    {% if op.legal_name %}<p class="foot-biz">상호 {{ op.legal_name }} · 대표 {{ op.ceo }} · 사업자등록번호 {{ op.business_no }}<br>통신판매업 신고 {{ op.mail_order_no }}<br>{{ op.address }} · {{ op.phone }}</p>{% endif %}
+    <p class="foot-copy">© {{ year }} {{ brand_full }}</p>
   </div>
 </footer>
 {% block after %}{% endblock %}

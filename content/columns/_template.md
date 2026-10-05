@@ -3,6 +3,7 @@
 # ── 새 글은 이 파일을 복사해서 영어 주소 이름으로 저장해요. (예: will-my-ex-contact-me.md)
 
 title: 질문 그대로의 제목 (사람들이 검색창에 치는 말)
+seo_title:                    # 검색 결과에 뜨는 제목. 30자 이내, 검색어를 앞쪽에. 제목이 30자 이내면 비워 둬도 돼요
 slug: english-url-name
 category: reunion            # reunion(재회) / breakup(이별 원인) / gunghap(궁합) / newyear-2027
 product: reunion             # products.yml 의 상품 키 — 글마다 연결 상품 하나

@@ -1,5 +1,6 @@
 ---
 title: 오래 사귀고 헤어지는 이유 "미래가 안 보여서", 그게 무슨 뜻이에요?
+seo_title: '장기연애 이별 이유 "미래가 안 보여서"의 뜻'   # 검색 결과용 제목 (30자 이내)
 subtitle: 사랑이 식은 게 아니라, 같이 그리던 그림이 지워진 거예요
 slug: no-future-together-meaning
 category: breakup

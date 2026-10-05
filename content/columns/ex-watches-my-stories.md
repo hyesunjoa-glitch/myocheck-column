@@ -1,5 +1,6 @@
 ---
 title: 연락은 없는데 내 스토리는 다 봐요. 아직 마음 있는 걸까요?
+seo_title: '전남친이 스토리만 봐요, 아직 마음 있을까?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 보는 것과 말 거는 것 사이, 그 간격의 뜻
 slug: ex-watches-my-stories
 category: reunion

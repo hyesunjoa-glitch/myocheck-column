@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block og_type %}article{% endblock %}
 {% block body_class %}has-float{% endblock %}
-{% block og_image %}{% if product.image %}<meta property="og:image" content="{{ site.base_url }}/{{ product.image }}">{% endif %}{% endblock %}
+
 {% block head %}
 <meta property="article:published_time" content="{{ col.date }}">
 <meta property="article:modified_time" content="{{ col.updated }}">
@@ -36,6 +36,7 @@
     <p class="answer-body">{{ col.summary | trim }}</p>
     <ul class="meta">
       <li><span aria-hidden="true">⏱️</span> 약 {{ read_min }}분</li>
+      <li><span aria-hidden="true">✍️</span> {{ site.brand }} 편집팀{% if col.reviewer %} · 검수 {{ col.reviewer }}{% elif preview %} · 검수 <span class="pending">[검수자 대기]</span>{% endif %}</li>
       <li><span aria-hidden="true">🗓️</span> <time datetime="{{ col.date }}">{{ col.date | kdate }}</time>{% if col.updated and col.updated != col.date %} · {{ col.updated | kdate }} 고침{% endif %}</li>
       {% if preview %}<li><span aria-hidden="true">👀</span> 오늘 읽은 사람 <span class="pending">[실제 집계 연결 후 표시]</span></li>{% endif %}
       <li><button type="button" class="share-btn" data-share><span aria-hidden="true">🔗</span> 친구에게 보내기</button></li>
@@ -145,7 +146,7 @@
           <a class="slide{% if not o.url %} is-soon{% endif %}" href="{{ o.track }}" data-cta="rail" data-product="{{ o.key }}" data-column="{{ col.slug }}"{% if o.image %} style="--art:url('{{ root }}{{ o.image }}')"{% endif %}>
             <span class="slide-bg" aria-hidden="true"></span>
             <span class="slide-top">{{ o.question or o.hook }}</span>
-            {% if o.image %}<span class="slide-art-wrap"><img class="slide-art" src="{{ root }}{{ o.image }}" alt="" loading="lazy">{% if o.art_big %}<span class="art-text" style="--glow:{{ o.art_glow or '#00FDAA' }}"><small>{{ o.art_small }}</small><b>{{ o.art_big }}</b><i>{{ o.art_sub }}</i></span>{% endif %}</span>
+            {% if o.image %}<span class="slide-art-wrap"><img class="slide-art" src="{{ root }}{{ o.image }}" alt="{{ o.name }} 썸네일" loading="lazy">{% if o.art_big %}<span class="art-text" style="--glow:{{ o.art_glow or '#00FDAA' }}"><small>{{ o.art_small }}</small><b>{{ o.art_big }}</b><i>{{ o.art_sub }}</i></span>{% endif %}</span>
             {% else %}<span class="slide-art slide-art-soon"><b>COMING<br>SOON</b><i>{{ o.tag }}</i></span>{% endif %}
             <span class="slide-name">『{{ o.name }}』</span>
             <span class="slide-sub">{{ o.hook }}</span>

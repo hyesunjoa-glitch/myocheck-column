@@ -1,5 +1,6 @@
 ---
 title: 서운한 걸 말하지 않다가 헤어졌어요. 왜 말을 안 했을까요?
+seo_title: '서운한 걸 말 안 하다 헤어졌어요, 왜일까요?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 말을 안 한 게 아니라, 말하기를 그만둔 거예요
 slug: i-never-said-i-was-hurt
 category: breakup

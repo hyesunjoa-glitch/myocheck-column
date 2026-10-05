@@ -1,5 +1,6 @@
 ---
 title: '"생각할 시간 좀 갖자"더니 연락이 없어요. 기다려야 하나요?'
+seo_title: '생각할 시간 갖자는 남자, 기다려야 할까요?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 기한 없는 시간은 시간이 아니라 이별의 유예예요
 slug: he-asked-for-time-to-think
 category: breakup

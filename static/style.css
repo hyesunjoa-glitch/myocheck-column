@@ -286,12 +286,16 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .foot-links { display: flex; flex-wrap: wrap; gap: 6px 16px; font-weight: 600; }
 .foot-links a { color: #444; }
 .foot-copy { color: #9A9A9A; }
+.foot-legal { font-weight: 500; }
+.foot-legal b { font-weight: 700; color: #222; }
+.foot-biz { color: #8A8A8A; font-size: 12px; line-height: 1.6; word-break: keep-all; }
 
 /* 첫 화면 · 분류 화면 */
 .page { max-width: var(--col); margin: 0 auto; background: var(--paper); }
 .page-head { padding: 32px 20px 20px; }
 .page-head h1 { margin: 0 0 8px; font-size: 28px; line-height: 1.3; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
 .page-head p { margin: 0; color: var(--soft); }
+.page > .prose { padding: 0 20px 40px; }
 .home-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px 28px; }
 .home-cat { display: block; padding: 16px; background: var(--ground); border-radius: 12px; text-decoration: none; }
 .home-cat-name { display: block; font-weight: 800; font-size: 17px; margin-bottom: 4px; }

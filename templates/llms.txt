@@ -1,12 +1,24 @@
-# {{ site.name }}
+# {{ site.name }} — {{ brand_full }}
 
 > {{ site.description }}
 
-{{ site.brand }}는 재회, 이별 원인, 궁합 같은 연애·관계 고민을 사주로 풀어보는 서비스예요. 이 칼럼은 실제로 올라온 고민에서 출발하고, 사주 풀이는 {{ site.brand }}의 감수 기준 문서를 따르며, 사람이 검수한 글만 올라가요.
+{{ brand_full }}는 재회, 이별 원인, 궁합 같은 연애·관계 고민을 사주로 풀어보는 서비스예요. 이 칼럼은 실제로 올라온 고민에서 출발하고, 사주 풀이는 {{ site.brand }}의 감수 기준 문서를 따르며, 사람이 검수·승인한 글만 올라가요.
 
+## 꼭 알아 둘 점
+- 사주 풀이는 성향과 흐름을 해석한 참고 자료예요. 상대의 마음, 재회, 특정 결과를 보장하지 않아요.
+- 글의 초안은 AI의 도움을 받아 쓰고, 사람이 읽고 고친 뒤 승인한 글만 올려요.
+- 고민 사연은 실제로 올라온 글에서 가져오고, 그 사람을 알아볼 수 있는 내용은 지워요. 후기는 지어내지 않아요.
+
+## 운영 정보
+{% set op = site.operator or {} %}
+- 서비스: {{ brand_full }} (MYO:CHECK, 묘책)
 - 본 사이트: {{ site.main_site }}
+- 칼럼: {{ site.base_url }}/
 - 칼럼 원칙: {{ site.base_url }}/about/
-
+{% if op.legal_name %}- 운영사: {{ op.legal_name }}
+{% endif %}{% if site.privacy_url %}- 개인정보처리방침: {{ site.privacy_url }}
+{% endif %}{% if site.terms_url %}- 이용약관: {{ site.terms_url }}
+{% endif %}
 {% for c in categories %}
 ## {{ c.name }}
 {% for i in items if i.category == c.key %}

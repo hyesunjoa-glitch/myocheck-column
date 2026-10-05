@@ -1,5 +1,6 @@
 ---
 title: '"내가 힘들어서 널 좋아할 여유가 없어" — 상황 때문에 헤어진 거, 진짜 상황 때문일까요?'
+seo_title: '상황이별, 정말 상황 때문에 헤어진 걸까요?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 상황은 이별의 이유가 아니라 이별의 때를 정해요
 slug: breakup-because-of-circumstances
 category: breakup

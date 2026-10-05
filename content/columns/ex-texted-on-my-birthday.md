@@ -1,5 +1,6 @@
 ---
 title: 헤어진 전남친이 내 생일에 연락 왔어요. 미련 있는 거예요?
+seo_title: '전남친 생일 연락, 미련 있는 걸까요?'   # 검색 결과용 제목 (30자 이내)
 subtitle: "\"축하해\" 뒤에 붙은 한 마디가 갈림길이에요"
 slug: ex-texted-on-my-birthday
 category: reunion

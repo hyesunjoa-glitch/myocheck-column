@@ -1,5 +1,6 @@
 ---
 title: 재회 타로·신점 여러 곳 봤는데 다 달라요. 뭘 믿어야 해요?
+seo_title: '재회 타로·신점이 다 달라요, 뭘 믿어야 할까?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 날짜로 들으면 다 틀리고, 흐름으로 들으면 덜 충돌해요
 slug: every-tarot-says-different
 category: reunion

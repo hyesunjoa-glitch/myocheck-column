@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","url":"{{ site.base_url }}/","inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"{{ site.brand }}","url":"{{ site.main_site }}"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","alternateName":"{{ brand_full }} 칼럼","url":"{{ site.base_url }}/","inLanguage":"ko-KR","publisher":{"@id":"{{ site.main_site }}/#org"}}</script>
+<script type="application/ld+json">{{ org_jsonld | safe }}</script>
 {% endblock %}
 {% block main %}
 <div class="page">

@@ -4,6 +4,8 @@
 
 name: 묘책 칼럼
 brand: 묘책
+# 검색 결과 제목 뒤·공유 미리보기·AI용 설명에 쓰는 브랜드 표기 (2026-10-05 확정)
+brand_full: myocheck(묘책사주)
 tagline: 재회·이별·궁합, 사람들이 실제로 묻는 질문에 답합니다
 description: 헤어진 사람의 연락, 이별의 이유, 둘의 궁합. 실제 고민에서 출발해 사주로 풀어보는 묘책의 칼럼입니다.
 language: ko
@@ -11,7 +13,23 @@ language: ko
 # 최종 주소 (검색엔진에 알려줄 진짜 주소)
 base_url: https://column.myocheck.kr
 # 묘책 본 사이트 (건드리지 않음. 링크만 걸어요)
-main_site: https://myocheck.kr
+main_site: https://www.myocheck.kr
+
+# 운영 정보 — 본 사이트(www.myocheck.kr) 푸터에 있는 값을 그대로 옮김 (2026-10-05 확인, 본 사이트는 읽기만)
+operator:
+  legal_name: 디식주의자
+  ceo: 공혜선
+  business_no: 882-87-03375
+  mail_order_no: 제 2026-서울 용산-0904 호
+  address: 서울특별시 서초구 사평대로53길 94
+  phone: 010-2926-9218
+privacy_url: https://www.myocheck.kr/legal/privacy
+terms_url: https://www.myocheck.kr/legal/terms
+
+# 검색엔진 소유 확인 태그 — 등록할 때 받은 값만 붙여 넣으면 모든 페이지 <head>에 들어가요
+naver_site_verification: ""
+google_site_verification: ""
+bing_site_verification: ""
 
 # 검색 노출 스위치
 #   false = 검색엔진·AI 봇에게 "아직 보지 마"라고 알림 (도메인 연결 전 시안 단계)

@@ -1,5 +1,6 @@
 ---
 title: 헤어지고 잘 지내니까 연락 오는 전남친, 무슨 심리예요?
+seo_title: '전남친 연락 심리, 잘 지낼 때 연락 오는 이유'   # 검색 결과용 제목 (30자 이내)
 subtitle: 붙잡을 땐 도망가고, 놓으니까 돌아오는 이유
 slug: ex-contacts-me-when-im-fine
 category: reunion

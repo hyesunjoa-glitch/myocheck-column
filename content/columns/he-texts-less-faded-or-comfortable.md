@@ -1,5 +1,6 @@
 ---
 title: 연락이 갑자기 줄었어요. 마음이 식은 건가요, 편해진 건가요?
+seo_title: '연락 줄어든 남자친구, 식은 걸까 편해진 걸까'   # 검색 결과용 제목 (30자 이내)
 subtitle: 양이 줄어든 건지, 방향이 바뀐 건지를 봐요
 slug: he-texts-less-faded-or-comfortable
 category: breakup

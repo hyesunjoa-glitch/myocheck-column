@@ -1,5 +1,6 @@
 ---
 title: '"마음이 식었어"라고 헤어졌어요. 권태기랑 뭐가 달라요?'
+seo_title: '마음이 식었다는 이별, 권태기와 뭐가 달라요?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 권태기는 둘이 겪는 거고, 식은 건 한쪽만 아는 거예요
 slug: feelings-faded-vs-slump
 category: breakup

@@ -39,6 +39,19 @@ BUBBLE_RE = re.compile(r"\[\[(?P<who>[^\[\]|]+)\|(?P<formal>[^\[\]|]+)\|(?P<casu
 TONES = ("formal", "casual")
 SAJU_MARK = "[[사주해석]]"
 SAJU_MAX_LINES = 4   # 「사주로 보면」은 항상 3~4줄 이내 (사장님 규칙)
+SEO_TITLE_MAX = 30   # 검색 결과에 뜨는 제목은 30자 이내 (2026-10-05 확정)
+
+# 쓰면 안 되는 말 — 발행을 막지는 않고 '확인해 보세요' 경고만 띄워요.
+#   사연 인용이나 과거 일을 묘사한 문장도 걸리기 때문에, 사람이 보고 판단해요.
+WARN_RE = re.compile(
+    r"반드시|무조건|100%|확실히|틀림없이|절대로? ?(돌아|안 ?돼|성공)|액운|저주|흉살|큰일 ?(나|납)"
+    r"|평생 ?(혼자|외롭|안 ?돼)|헤어질 운명|끝났어요|가망 ?없|찾아가(세요|보세요)|계속 연락|부계정|몰래"
+)
+
+
+def seo_title(col: dict) -> str:
+    """검색 결과용 제목: seo_title이 있으면 그것, 없으면 원래 제목"""
+    return str(col.get("seo_title") or col.get("title") or "").strip()
 
 
 def saju_lines(col: dict) -> list:
@@ -138,7 +151,23 @@ def publish_problems(col: dict, products: dict, categories: dict, characters: di
         p.append(f"「사주로 보면」이 {len(saju)}줄이에요 — {SAJU_MAX_LINES}줄 이내로 줄여야 해요")
     for ph in sorted(set(PLACEHOLDER_RE.findall(joined))):
         p.append(f"아직 채우지 않은 자리: {ph}")
+    st = seo_title(col)
+    if st and len(st) > SEO_TITLE_MAX:
+        p.append(f"검색용 제목이 {len(st)}자예요 — {SEO_TITLE_MAX}자 이내로 seo_title을 적어 주세요")
     return p
+
+
+def warn_words(col: dict) -> list[str]:
+    """발행은 막지 않는 경고: 단정·겁주기·집착 조장 말이 들어 있는지"""
+    texts = [col.get("body_md", ""), str(col.get("summary", ""))]
+    texts += [f"{f.get('q', '')} {f.get('a', '')}" for f in col.get("faq") or []]
+    texts += saju_lines(col) + all_strings(col.get("situations")) + all_strings(col.get("cover_say"))
+    out = []
+    for line in "\n".join(texts).splitlines():
+        for m in WARN_RE.finditer(line):
+            s = max(0, m.start() - 15)
+            out.append(f"'{m.group(0)}' — …{line[s:m.end() + 15].strip()}…")
+    return out
 
 
 # ─────────────────────────── 버튼 추적 ───────────────────────────
@@ -205,8 +234,36 @@ def plain(text: str) -> str:
 
 # ─────────────────────────── 구조화 데이터 (AI·검색엔진용 설명표) ───────────────────────────
 
+def org_node(site) -> dict:
+    """운영사 정보 — 푸터에 보이는 값과 똑같이 (보이는 정보만 넣는다는 원칙)"""
+    op = site.get("operator") or {}
+    node = {
+        "@type": "Organization",
+        "@id": site["main_site"].rstrip("/") + "/#org",
+        "name": site.get("brand_full") or site["brand"],
+        "alternateName": [site["brand"], "묘책사주", "MYO:CHECK"],
+        "url": site["main_site"],
+        "logo": site["base_url"] + "/static/img/logo.png",
+    }
+    if op.get("legal_name"):
+        node["legalName"] = op["legal_name"]
+    if op.get("address"):
+        node["address"] = {"@type": "PostalAddress", "streetAddress": op["address"], "addressCountry": "KR"}
+    if op.get("phone"):
+        node["telephone"] = op["phone"]
+    return node
+
+
 def jsonld_for_column(col, site, cat, canonical) -> str:
+    org = org_node(site)
+    page = {"@type": "WebPage", "@id": canonical, "url": canonical, "name": seo_title(col), "inLanguage": "ko-KR"}
+    if col.get("reviewer"):
+        page["reviewedBy"] = {"@type": "Person", "name": str(col["reviewer"])}
+    if col.get("updated"):
+        page["lastReviewed"] = col["updated"].isoformat()
     graph = [
+        org,
+        page,
         {
             "@type": "Article",
             "headline": col["title"],
@@ -215,17 +272,17 @@ def jsonld_for_column(col, site, cat, canonical) -> str:
             "datePublished": col["date"].isoformat() if col.get("date") else None,
             "dateModified": col["updated"].isoformat() if col.get("updated") else None,
             "inLanguage": "ko-KR",
-            "mainEntityOfPage": canonical,
+            "mainEntityOfPage": {"@id": canonical},
             "articleSection": cat["name"],
             "author": {"@type": "Organization", "name": f"{site['brand']} 편집팀", "url": site["base_url"] + "/about/"},
-            "publisher": {"@type": "Organization", "name": site["brand"], "url": site["main_site"]},
+            "publisher": {"@id": org["@id"]},
         },
         {
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": site["name"], "item": site["base_url"] + "/"},
                 {"@type": "ListItem", "position": 2, "name": cat["name"], "item": f"{site['base_url']}/{cat['key']}/"},
-                {"@type": "ListItem", "position": 3, "name": col["title"], "item": canonical},
+                {"@type": "ListItem", "position": 3, "name": seo_title(col), "item": canonical},
             ],
         },
     ]
@@ -256,6 +313,7 @@ def build(preview: bool) -> list[dict]:
     columns = [read_column(p) for p in sorted(CONTENT.glob("*.md")) if not p.name.startswith("_")]
     for c in columns:
         c["problems"] = publish_problems(c, products, categories, characters)
+        c["warnings"] = warn_words(c)
     live = columns if preview else [c for c in columns if not c["problems"]]
     live.sort(key=lambda c: (c.get("date") or dt.date.min), reverse=True)
 
@@ -267,8 +325,11 @@ def build(preview: bool) -> list[dict]:
 
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html", "xml"]))
     env.filters["kdate"] = lambda d: f"{d.year}. {d.month}. {d.day}." if d else ""
+    brand_full = site.get("brand_full") or site["name"]
+    og_default = f"{base}/static/og/default.jpg"
     common = dict(site=site, categories=site["categories"], preview=preview, indexable=indexable, characters=characters,
-                  year=dt.date.today().year)
+                  year=dt.date.today().year, brand_full=brand_full, og_image=og_default,
+                  org_jsonld=json.dumps({"@context": "https://schema.org", **org_node(site)}, ensure_ascii=False).replace("</", "<\\/"))
 
     def write(rel: str, text: str):
         path = OUT / rel
@@ -300,12 +361,14 @@ def build(preview: bool) -> list[dict]:
                    read_min=max(1, round(len(plain(markdown.markdown(c["body_md"]))) / 500)),
                    cta_url={pos: tracked_url(prod.get("url", ""), position=pos, slug=c["slug"], product_key=prod_key)
                             for pos in ("cta_mid", "cta_sticky", "cta_toc")})
+        # 카톡·SNS 공유 미리보기 이미지 — 글 전용(static/og/주소.jpg, scripts/make_og.py로 만듦)이 있으면 그것, 없으면 기본 이미지
+        ctx["og_image"] = f"{base}/static/og/{c['slug']}.jpg" if (STATIC / "og" / f"{c['slug']}.jpg").exists() else og_default
         c["body_html"] = render_body(c, env, ctx)
         related = [o for o in live if o is not c and o.get("category") == c.get("category")][:6]
         page = env.get_template("column.html").render(
             **ctx, related=related, canonical=canonical,
             jsonld=jsonld_for_column(c, site, cat, canonical),
-            page_title=f"{c['title']} | {site['name']}", page_desc=c.get("description", ""))
+            page_title=f"{seo_title(c)} | {brand_full}", og_title=c["title"], page_desc=c.get("description", ""))
         write(rel, page)
         urls.append((canonical, c.get("updated"), hashlib.sha1(page.encode()).hexdigest()[:12]))
 
@@ -316,20 +379,23 @@ def build(preview: bool) -> list[dict]:
         canonical = f"{base}/{cat['key']}/"
         write(rel, env.get_template("category.html").render(
             **common, root=root_for(rel), cat=cat, items=items, canonical=canonical,
-            page_title=f"{cat['name']} 칼럼 | {site['name']}", page_desc=cat["intro"]))
-        urls.append((canonical, max((c["updated"] for c in items if c.get("updated")), default=None), ""))
+            noindex_page=not items,   # 글이 0개인 분류는 검색에서 빼요 (빈 페이지는 사이트 점수를 깎아요)
+            page_title=f"{cat['name']} 칼럼 | {brand_full}", page_desc=cat["intro"]))
+        if items:
+            urls.append((canonical, max((c["updated"] for c in items if c.get("updated")), default=None), ""))
 
     # 첫 화면 / 소개 / 404
     write("index.html", env.get_template("index.html").render(
         **common, root="./", items=live, canonical=base + "/",
-        page_title=f"{site['name']} — {site['tagline']}", page_desc=site["description"]))
+        page_title=f"{site['name']} — {site['tagline']} | {brand_full}", page_desc=site["description"]))
     urls.insert(0, (base + "/", max((c["updated"] for c in live if c.get("updated")), default=None), ""))
     write("about/index.html", env.get_template("about.html").render(
         **common, root="../", canonical=base + "/about/",
-        page_title=f"칼럼 원칙 | {site['name']}", page_desc="묘책 칼럼이 글을 만들고 검수하는 원칙"))
+        page_title=f"칼럼 원칙 | {brand_full}", page_desc="묘책 칼럼이 글을 만들고 검수하는 원칙 — 실제 고민, AI 사용 범위, 사람 검수, 운영사 정보"))
     urls.append((base + "/about/", None, ""))
     write("404.html", env.get_template("404.html").render(
-        **common, root="/", canonical=base + "/", page_title=f"페이지를 찾을 수 없어요 | {site['name']}", page_desc=""))
+        **common, root="/", canonical=None, noindex_page=True,
+        page_title=f"페이지를 찾을 수 없어요 | {brand_full}", page_desc=""))
 
     # robots.txt / sitemap / llms.txt / 피드 / IndexNow 열쇠
     write("robots.txt", env.get_template("robots.txt").render(**common))
@@ -359,6 +425,8 @@ def main():
         print(f"  {mark} {c['file']} — {c.get('title', '')}")
         for prob in c["problems"]:
             print(f"       · {prob}")
+        for w in c.get("warnings") or []:
+            print(f"       ⚠️ 확인해 보세요: {w}")
     print(f"\n결과물: {OUT}")
     if a.check and len(ok) != len(columns):
         sys.exit(1)

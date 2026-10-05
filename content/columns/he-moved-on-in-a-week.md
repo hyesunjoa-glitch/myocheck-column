@@ -1,5 +1,6 @@
 ---
 title: 환승이별 당했어요. 그 사람 마음은 언제부터 떠나 있었을까요?
+seo_title: '환승이별, 그 사람 마음은 언제 떠났을까요?'   # 검색 결과용 제목 (30자 이내)
 subtitle: 일주일 만에 생긴 사람은 일주일 만에 생긴 게 아니에요
 slug: he-moved-on-in-a-week
 category: breakup

@@ -18,6 +18,9 @@
 - 연결 상품이 없거나 상품 링크가 비어 있음
 - `[[사주해석]]` 자리가 남아 있음 → 해석 기준 문서가 오기 전엔 해석 글을 못 올려요
 - `[○○ 대기]` 같은 빈자리가 남아 있음
+- 검색용 제목이 30자를 넘음 → 제목이 길면 `seo_title:`에 30자 이내 제목을 따로 적어요 (화면 큰 제목은 그대로)
+
+발행을 막지는 않고 **⚠️ 확인해 보세요**만 띄우는 것: "무조건·반드시·끝났어요·계속 연락" 같은 단정·집착 조장 말. 사연 인용이면 그대로 둬도 돼요.
 
 `python build.py --check` 를 돌리면 글마다 왜 안 올라가는지 알려줘요.
 
@@ -26,13 +29,17 @@
 - 맨 위: 짧은 답(결론) → 이 고민에서 시작했어요(실제 고민 인용) → 글 순서
 - 가운데: `[[상품버튼]]` 자리에 상품 버튼 (없으면 소제목 가운데쯤에 자동으로 들어감)
 - 맨 아래: 자주 묻는 질문 → 상품 버튼 → 글·검수 정보
-- 버튼마다 추적 태그(UTM)가 붙어요: 어느 글(utm_campaign)의 어느 버튼(utm_medium: cta_mid / cta_bottom)에서 왔는지
+- 버튼마다 추적 태그(UTM)가 붙어요: 어느 글(utm_campaign)의 어느 버튼(utm_medium: cta_mid / cta_toc / cta_sticky / rail)에서 왔는지
 
 ## AI 검색·검색엔진용 장치
 
 - `robots.txt` — 정식 오픈 뒤 ChatGPT·Perplexity·Claude·구글·네이버·다음 봇 모두 허용
 - `sitemap.xml`, `feed.xml`(RSS), `llms.txt`(AI용 사이트 안내서)
-- 글마다 구조화 데이터(Article, FAQPage, BreadcrumbList)
+- 글마다 구조화 데이터(Article, FAQPage, BreadcrumbList) + 운영사(Organization, 푸터와 같은 값) + 검수자(WebPage reviewedBy)
+- 검색 결과 제목: `seo_title(없으면 title) | myocheck(묘책사주)` — 브랜드 표기는 site.yml `brand_full`
+- 글이 0개인 분류 페이지와 404는 검색에서 빼고 sitemap에도 안 넣어요
+- 공유 미리보기 이미지(1200×630): `python3 scripts/make_og.py` 로 글마다 `static/og/주소.jpg`를 만들어요. **새 글을 쓰거나 제목을 바꾸면 한 번 돌려 주세요.** 없으면 기본 이미지로 공유돼요
+- 검색엔진 소유 확인 태그: site.yml `naver_site_verification` / `google_site_verification` / `bing_site_verification`에 값만 붙여 넣기
 
 ## 스위치 (site.yml)
 
