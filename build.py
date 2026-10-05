@@ -49,6 +49,10 @@ WARN_RE = re.compile(
 )
 
 
+# 「사주로 보면」에 쓰지 않는 사주 용어 (docs/review-guide.md 기준 2) — 경고만
+JARGON_RE = re.compile(r"비견|겁재|식신|편재|정재|편관|정관|편인|정인|비겁|식상|재성|관성|인성|일간|일지|월지|대운|세운|월운|용신|신살|격국|공망|원진|천간")
+
+
 def seo_title(col: dict) -> str:
     """검색 결과용 제목: seo_title이 있으면 그것, 없으면 원래 제목"""
     return str(col.get("seo_title") or col.get("title") or "").strip()
@@ -163,6 +167,9 @@ def warn_words(col: dict) -> list[str]:
     texts += [f"{f.get('q', '')} {f.get('a', '')}" for f in col.get("faq") or []]
     texts += saju_lines(col) + all_strings(col.get("situations")) + all_strings(col.get("cover_say"))
     out = []
+    for line in saju_lines(col):
+        for m in JARGON_RE.finditer(line):
+            out.append(f"사주 용어 '{m.group(0)}' — 「사주로 보면」에는 쉬운 말로 (docs/review-guide.md 기준 2)")
     for line in "\n".join(texts).splitlines():
         for m in WARN_RE.finditer(line):
             s = max(0, m.start() - 15)
