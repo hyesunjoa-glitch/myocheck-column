@@ -5,6 +5,7 @@
   python build.py            → 정식 빌드. '승인'된 글 중 안전검사를 통과한 글만 _site/ 에 만들어요.
   python build.py --preview  → 시안 빌드. 모든 글을 '시안' 표시와 함께 만들어요. 검색엔진 차단.
   python build.py --check    → 글마다 발행 가능한지, 안 되면 왜 안 되는지 알려줘요.
+  python build.py --today 2026-10-25 → 그날 기준으로 예약 발행을 미리 돌려 봐요 (확인용)
 
 필요한 것: pip install markdown jinja2 pyyaml
 """
@@ -93,6 +94,47 @@ def read_column(path: Path) -> dict:
             meta[key] = dt.date.fromisoformat(v)
     meta["updated"] = meta.get("updated") or meta.get("date")
     return meta
+
+
+# ─────────────────────────── 예약 발행 ───────────────────────────
+KST = dt.timezone(dt.timedelta(hours=9))
+
+
+def today_kst() -> dt.date:
+    return dt.datetime.now(KST).date()
+
+
+def as_date(v):
+    if isinstance(v, dt.date):
+        return v
+    return dt.date.fromisoformat(str(v)) if v else None
+
+
+def schedule_columns(columns: list[dict], site: dict) -> dict | None:
+    """예약 발행 날짜를 글마다 매겨요 (c["publish_on"]). launch_date가 비어 있으면 예약 발행을 쓰지 않아요(None).
+
+    - publish_order 순서대로 하루(publish_every_days)에 한 칸씩. 칸은 승인 여부와 상관없이 고정이라,
+      어떤 글이 제 날까지 승인되지 않으면 그날은 비고, 승인되는 날 바로 올라가요.
+    - 순서에 없는 글은 목록 뒤에 이어 붙어요(작성일 → 주소 순).
+    - 글 머리말의 publish_on 날짜가 있으면 그 날짜가 우선이에요.
+    """
+    launch = as_date(site.get("launch_date"))
+    if not launch:
+        return None
+    every = int(site.get("publish_every_days") or 1)
+    by_slug = {c["slug"]: c for c in columns}
+    order = [by_slug[s] for s in (site.get("publish_order") or []) if s in by_slug]
+    rest = sorted((c for c in columns if c not in order), key=lambda c: (c.get("date") or dt.date.max, c["slug"]))
+    slot = 0
+    for c in order + rest:
+        fixed = as_date(c.get("publish_on"))
+        if fixed:
+            c["publish_on"] = fixed
+        else:
+            c["publish_on"] = launch + dt.timedelta(days=slot * every)
+            slot += 1
+    unknown = [s for s in (site.get("publish_order") or []) if s not in by_slug]
+    return {"launch": launch, "every": every, "unknown": unknown}
 
 
 # ─────────────────────────── 안전검사 ───────────────────────────
@@ -308,8 +350,9 @@ def jsonld_for_column(col, site, cat, canonical) -> str:
 
 # ─────────────────────────── 빌드 ───────────────────────────
 
-def build(preview: bool) -> list[dict]:
+def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     site = load_yaml(ROOT / "site.yml")
+    today = today or today_kst()
     products = load_yaml(ROOT / "products.yml")
     characters = load_yaml(ROOT / "characters.yml") if (ROOT / "characters.yml").exists() else {}
     categories = {c["key"]: c for c in site["categories"]}
@@ -321,7 +364,18 @@ def build(preview: bool) -> list[dict]:
     for c in columns:
         c["problems"] = publish_problems(c, products, categories, characters)
         c["warnings"] = warn_words(c)
-    live = columns if preview else [c for c in columns if not c["problems"]]
+    sched = schedule_columns(columns, site)
+    if sched is None and site.get("allow_indexing") and not preview:
+        # 정식 오픈인데 예약 날짜가 없으면, 승인된 글이 한꺼번에 쏟아져요 → 빌드를 멈추고 지금 공개된 사이트를 그대로 둬요
+        sys.exit("⛔ allow_indexing이 true인데 site.yml의 launch_date가 비어 있어요. "
+                 "첫 글 발행일을 적어 주세요 (승인된 글이 한꺼번에 나가는 걸 막으려고 빌드를 멈췄어요).")
+    for c in columns:
+        c["waiting"] = bool(sched) and c["publish_on"] > today   # 승인됐지만 아직 차례가 안 온 글
+        if sched and not c["waiting"]:
+            # 화면·검색에 보이는 작성일 = 실제로 올라간 날
+            c["date"] = max(c.get("date") or c["publish_on"], c["publish_on"])
+            c["updated"] = max(c.get("updated") or c["date"], c["date"])
+    live = columns if preview else [c for c in columns if not c["problems"] and not c["waiting"]]
     live.sort(key=lambda c: (c.get("date") or dt.date.min), reverse=True)
 
     if OUT.exists():
@@ -417,6 +471,7 @@ def build(preview: bool) -> list[dict]:
     write("published.json", json.dumps(
         {"generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
          "urls": {u: h for u, _, h in urls if h}}, ensure_ascii=False, indent=1))
+    build.sched, build.today = sched, today
     return columns
 
 
@@ -424,9 +479,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--preview", action="store_true", help="시안 빌드 (모든 글, 검색 차단)")
     ap.add_argument("--check", action="store_true", help="글마다 발행 가능 여부만 확인")
+    ap.add_argument("--today", help="예약 발행을 이 날짜 기준으로 돌려 보기 (예: 2026-10-25)")
     a = ap.parse_args()
 
-    columns = build(preview=a.preview)
+    columns = build(preview=a.preview, today=as_date(a.today))
     ok = [c for c in columns if not c["problems"]]
     print(f"\n글 {len(columns)}개 중 발행 가능 {len(ok)}개" + (" (시안 빌드: 전부 '시안'으로 만듦)" if a.preview else ""))
     for c in columns:
@@ -436,6 +492,23 @@ def main():
             print(f"       · {prob}")
         for w in c.get("warnings") or []:
             print(f"       ⚠️ 확인해 보세요: {w}")
+    sched = build.sched
+    if sched:
+        print(f"\n📅 예약 발행 — 첫 글 {sched['launch']}, {sched['every']}일마다 1편 (오늘 {build.today}, 한국 시간)")
+        for c in sorted(columns, key=lambda c: (c["publish_on"], c["slug"])):
+            if c["problems"]:
+                state = "차례 지남 · 승인되면 바로 올라가요" if c["publish_on"] <= build.today else "아직 발행 못 함 (위 ⛔ 참고)"
+            else:
+                state = "올라가 있음" if not c["waiting"] else "승인됨 · 대기"
+            print(f"  {c['publish_on']}  {c['slug']}  ({state})")
+        late = [c for c in columns if c["problems"] and c["publish_on"] <= build.today]
+        if late:
+            print(f"  ⚠️ 차례가 지났는데 아직 못 올라간 글이 {len(late)}편이에요. 한꺼번에 승인하면 같은 날 여러 편이 올라가요 —"
+                  " 늦은 글은 머리말에 publish_on 날짜를 새로 적어 주세요.")
+        for s_ in sched["unknown"]:
+            print(f"  ⚠️ publish_order에 있는 '{s_}' 글 파일이 없어요")
+    else:
+        print("\n📅 예약 발행 꺼짐 (site.yml launch_date 비어 있음) — 승인된 글은 바로 올라가요. 시안 단계에서만 이렇게 둬요.")
     print(f"\n결과물: {OUT}")
     if a.check and len(ok) != len(columns):
         sys.exit(1)
