@@ -104,9 +104,7 @@
     <section class="block" id="report" aria-labelledby="report-h">
       <h2 class="sec-h" id="report-h"><span aria-hidden="true">📑</span> 결과지에서는 이런 것까지 알 수 있어요</h2>
       <p class="sec-sub">「{{ product.name }}」에 내 사주와 그 사람 사주를 넣으면 나오는 것들이에요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 풀려요.{% endif %}</p>
-      <div class="toc">
-        {% for t in product.toc %}
-        {% set on = hit and t.chapter == hit.chapter %}
+      {% macro toc_item(t, on) %}
         <details class="toc-item{% if on %} is-hit{% endif %}"{% if on %} open{% endif %}>
           <summary>
             <span class="toc-no">{{ t.chapter }}장</span>
@@ -117,8 +115,16 @@
             {% if on %}<p class="toc-lock"><span aria-hidden="true">🔒</span> 이건 내 사주와 그 사람 사주를 넣어야 나와요.</p>{% endif %}
           </div>
         </details>
-        {% endfor %}
-      </div>
+      {% endmacro %}
+      {# 이 글이 답하는 장만 펼쳐 두고, 나머지 장은 '전체 목차 보기' 안에 접어 둬요 (2026-10-05 화면 길이 줄이기) #}
+      {% if hit %}<div class="toc">{{ toc_item(hit, true) }}</div>{% endif %}
+      {% set rest = product.toc | rejectattr('chapter', 'equalto', hit.chapter if hit else none) | list %}
+      {% if rest %}
+      <details class="toc-rest"{% if not hit %} open{% endif %}>
+        <summary>{% if hit %}나머지 {{ rest | length }}개 장도 보기{% else %}결과지 전체 목차 보기{% endif %} <span class="toc-rest-n">총 {{ product.toc | length }}장</span></summary>
+        <div class="toc">{% for t in rest %}{{ toc_item(t, false) }}{% endfor %}</div>
+      </details>
+      {% endif %}
       {% if product.delivery %}<p class="toc-note"><span aria-hidden="true">📩</span> {{ product.delivery }}</p>{% endif %}
       <a class="toc-btn" href="{{ cta_url['cta_toc'] }}" data-cta="cta_toc" data-product="{{ product_key }}" data-column="{{ col.slug }}">{{ col.cta_line or product.button }} →</a>
       {% if col.related_reel or preview %}
