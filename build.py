@@ -322,6 +322,8 @@ def build(preview: bool) -> list[dict]:
     OUT.mkdir(parents=True)
     shutil.copytree(STATIC, OUT / "static")
     (OUT / ".nojekyll").write_text("")
+    if (STATIC / "favicon.ico").exists():   # 검색 결과 옆 사이트 아이콘 — 검색엔진은 주소 맨 앞의 /favicon.ico를 먼저 찾아요
+        shutil.copy(STATIC / "favicon.ico", OUT / "favicon.ico")
 
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html", "xml"]))
     env.filters["kdate"] = lambda d: f"{d.year}. {d.month}. {d.day}." if d else ""
