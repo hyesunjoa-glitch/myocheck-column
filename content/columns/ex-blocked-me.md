@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@dear_unni_/post/DTY0B0Rk-HI
 
 keywords: [헤어지고 차단, 이별 후 차단, 전남친 차단, 차단당했는데 재회, 차단 풀림, 재회 가능성]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   차단은 끝이 아니라 벽이에요. 많은 경우 "너를 지우겠다"보다 "지금은 감당이 안 된다"에 가까워요.

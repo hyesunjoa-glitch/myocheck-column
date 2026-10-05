@@ -37,10 +37,10 @@ next_questions:
     link: https://www.youtube.com/watch?v=-OR8UZZw5P0
 
 keywords: [마음이 식었어, 권태기 마음 식은 차이, 마음이 식은 남자, 마음 식은 사람 특징, 권태기 이별, 마음이 식은 남자 재회]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   권태기는 둘이 같이 겪고, 식은 건 한쪽만 알아요.

@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@kdypuf/post/DdpacxRkglJ
 
 keywords: [장기연애 헤어지는 이유, 오래 사귀고 헤어지는 이유, 미래가 안 보여서 헤어지자, 사랑하지만 헤어지는 이유, 미래가 안 보인다는 말, 장기연애 이별]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   "미래가 안 보여서"는 사랑이 식었다는 말이 아니라, 같이 그리던 그림이 지워졌다는 말이에요.

@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@uzzim0913/post/DbX-desHclP
 
 keywords: [전남친 연락 오는 이유, 전남친 연락 심리, 헤어지고 연락 오는 남자, 헤어진 남친 연락, 남자 이별 후 심리, 재회 연락]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   내가 괜찮아진 뒤에 연락이 오는 건 우연이 아니에요.

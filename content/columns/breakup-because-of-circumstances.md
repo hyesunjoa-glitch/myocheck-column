@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@healthy_mind0o/post/DdrIcqnj8OC
 
 keywords: [상황이별, 상황 때문에 헤어진, 여유가 없어서 헤어지자, 힘들어서 헤어지자는 남자, 상황이별 재회, 상황이별 뜻]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   상황은 이별의 이유라기보다 이별의 때를 정해요.

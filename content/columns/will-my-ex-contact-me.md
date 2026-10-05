@@ -42,7 +42,7 @@ keywords: [헤어진 연락, 재회 가능성, 이별 후 미련, 스토리 확�
 status: 승인
 date: 2026-10-05
 updated:
-reviewer: 공혜진
+reviewer: 공혜선
 
 summary: >
   올 수도, 안 올 수도 있어요. 정답을 정해 주는 신호는 없어요.

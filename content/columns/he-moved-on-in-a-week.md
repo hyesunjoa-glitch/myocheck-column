@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@dain__tarot7/post/DdEFUVSkhob
 
 keywords: [환승이별, 환승이별 뜻, 환승이별 남자 특징, 환승이별 당했어요, 환승이별 후회, 환승이별 재회, 헤어지고 바로 새 여친]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   일주일 만에 생긴 사람은 일주일 만에 생긴 게 아니에요. 마음은 헤어지기 몇 달 전에 이미 옮겨 가 있었어요.

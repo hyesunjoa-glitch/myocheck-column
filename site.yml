@@ -34,7 +34,7 @@ bing_site_verification: ""
 # 검색 노출 스위치
 #   false = 검색엔진·AI 봇에게 "아직 보지 마"라고 알림 (도메인 연결 전 시안 단계)
 #   true  = 정식 오픈. 도메인(column.myocheck.kr) 연결이 끝난 뒤에만 켜요.
-allow_indexing: false
+allow_indexing: true
 
 # 예약 발행 — 승인된 글도 자기 차례 날짜가 와야 사이트에 올라가요 (2026-10-06 확정: 처음 20편은 하루 1편)
 #   매일 밤 0시 10분(한국 시간)에 사이트를 자동으로 다시 만들어서, 그날 차례인 글이 올라가요.
@@ -46,7 +46,7 @@ allow_indexing: false
 #       여기에 없는 글은 목록 뒤로 이어 붙어요.
 #   · 글 머리말에 publish_on: 2026-11-12 처럼 적으면 그 날짜가 우선이에요 (20편 뒤 주 2~3편 속도로 갈 때 써요).
 #   · 미리 보기: python build.py --today 2026-10-25  → 그날 사이트에 뭐가 올라가 있을지 보여 줘요.
-launch_date: ""
+launch_date: 2026-10-06
 publish_every_days: 1
 publish_order:            # 재회·이별을 번갈아
   - will-my-ex-contact-me               # 1  재회
@@ -72,7 +72,7 @@ publish_order:            # 재회·이별을 번갈아
 
 # IndexNow — 새 글이 올라가면 빙·네이버 등에 "새 글 있어요" 하고 바로 알리는 장치
 indexnow_key: ba22a96216ed401c42731bf248a0a751
-indexnow_enabled: false   # 정식 오픈 때 true
+indexnow_enabled: true
 
 # 구글 애널리틱스(GA4) 측정 ID. 비워두면 추적 코드를 넣지 않아요. (예: G-XXXXXXX)
 ga4_id: ""

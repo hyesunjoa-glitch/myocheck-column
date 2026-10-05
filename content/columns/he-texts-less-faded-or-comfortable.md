@@ -37,10 +37,10 @@ next_questions:
     link: https://www.youtube.com/watch?v=hYIkLCrfzLY
 
 keywords: [연락이 줄어든 남자친구, 갑자기 연락이 줄어든 남자친구, 남친 연락 줄었어요, 연락 줄면 마음 식은, 연락 뜸해진 남자, 연락 줄어든 이유]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   연락이 줄었을 때 봐야 할 건 횟수가 아니라 방향이에요.

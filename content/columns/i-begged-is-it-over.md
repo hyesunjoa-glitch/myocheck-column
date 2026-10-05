@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@ccoop_00987/post/Dc1FDYrFBhn
 
 keywords: [헤어질 때 매달림, 매달리면 재회, 헤어진 남친 붙잡는법, 헤어진 남친 잡는 법, 매달리고 후회, 재회 가능성]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   매달렸다고 끝나지는 않아요. 헤어지는 자리에서 붙잡는 건 매달림이 아니라 마음이에요.

@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@ccoop_00987/post/DdQIVfwjpsp
 
 keywords: [전남친 연락 왔을때, 전남친 연락 답장, 전남친 연락 대처, 헤어진 남친 연락, 읽씹 안읽씹, 재회 연락]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   답장해도 돼요. 다만 바로 하지는 마세요. 연락이 온 것과 마음이 돌아온 것은 다른 일이에요.

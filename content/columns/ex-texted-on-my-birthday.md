@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@dain__tarot7/post/DdEFUVSkhob
 
 keywords: [헤어진 남친 생일, 전남친 생일 연락, 생일 축하 연락 미련, 헤어진 전남친 연락, 전남친 생일 카톡, 재회 신호]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   생일을 기억하고 연락했다는 건 분명한 사실이에요. 하지만 예의와 미련은 같은 문장으로 와요.

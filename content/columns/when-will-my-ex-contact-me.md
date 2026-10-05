@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@rlarlaem/post/DY5I3RxkwjX
 
 keywords: [헤어진 남친 연락 오는 시기, 전남친 연락 오는 시기, 재회 연락 시기, 이별 후 연락, 헤어지고 3개월, 재회 골든타임]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   정해진 날짜는 없어요. "2주", "한 달", "석 달"은 연락이 오는 날이 아니라

@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@uzzim0913/post/DbX-desHclP
 
 keywords: [먼저 연락, 재회 먼저 연락, 전남친한테 먼저 연락, 재회 기다려야, 먼저 연락하면 지는, 재회 연락 시기]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   먼저 연락하는 게 지는 건 아니에요. 지는 건 때가 아닐 때 보내는 거예요.

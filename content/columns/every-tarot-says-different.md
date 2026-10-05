@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@dear_unni_/post/DTY0B0Rk-HI
 
 keywords: [재회 타로, 재회 신점, 재회 사주 정확도, 재회 사주 후기, 재회 가능성 사주, 타로 다 다름, 희망고문]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   여러 곳이 다른 말을 하는 건 어느 한 곳이 틀려서라기보다, 묻는 질문과 듣는 방식이 달라서예요.

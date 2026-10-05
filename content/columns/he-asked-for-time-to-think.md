@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@dear_unni_/post/DTY0B0Rk-HI
 
 keywords: [생각할 시간 갖자, 생각할 시간이 필요하다는 남자, 시간 갖자 연락 없음, 생각할 시간 얼마나, 시간 갖자는 말 뜻, 시간 갖자 이별]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   "생각할 시간"은 두 종류예요. 기한이 있는 시간은 돌아오려는 사람의 말이고, 기한이 없는 시간은 결정을 미루는 사람의 말이에요.

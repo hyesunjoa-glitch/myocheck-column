@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@dear_unni_/post/DTY0B0Rk-HI
 
 keywords: [헤어지고 스토리, 전남친 스토리 봄, 헤어진 남친 인스타, 헤어지고 인스타 언팔, 전남친 염탐, 스토리 보는 심리]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   마음이 아예 없으면 보지 않아요. 그건 맞아요.

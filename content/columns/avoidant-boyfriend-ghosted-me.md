@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@yuju_tro/post/Dd3xulZmD6o
 
 keywords: [회피형 남친 잠수, 잠수이별, 잠수이별 대처법, 회피형 남자, 회피형 이별, 잠수 탄 남친, 회피형 재회]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   잠수는 대부분 이별이에요. 다만 말로 하지 못한 이별이에요.

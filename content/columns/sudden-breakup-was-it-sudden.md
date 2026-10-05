@@ -36,10 +36,10 @@ next_questions:
     link: https://www.youtube.com/watch?v=-OR8UZZw5P0
 
 keywords: [갑자기 헤어지자, 갑자기 헤어지자는 남자, 갑자기 헤어지자는 여자친구, 갑작스러운 이별, 이별 통보, 헤어지자고 하는 이유]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   대부분의 "갑자기"는 한쪽에게만 갑자기예요. 말을 꺼낸 사람은 몇 주, 몇 달을 혼자 고민한 뒤에 말해요.

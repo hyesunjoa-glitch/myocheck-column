@@ -37,10 +37,10 @@ next_questions:
     link: https://www.threads.com/@kdypuf/post/DdpacxRkglJ
 
 keywords: [서운한거 말 안하는, 서운한 걸 말하지 않는, 왜 말 안했어, 서운함 쌓여서 이별, 서운한 거 말하면, 이별 원인]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   말을 안 한 게 아니라, 말하기를 그만둔 경우가 대부분이에요.

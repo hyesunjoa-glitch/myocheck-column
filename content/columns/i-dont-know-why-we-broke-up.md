@@ -36,10 +36,10 @@ next_questions:
     link: https://www.threads.com/@kdypuf/post/DdpacxRkglJ
 
 keywords: [헤어진 이유를 모르겠어요, 헤어진 이유 물어보기, 헤어지는 이유 안알려주는, 이유 없는 이별, 이별 이유, 왜 헤어졌는지]
-status: 초안
+status: 승인
 date: 2026-10-04
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   물어볼 수는 있어요. 다만 이유를 말하지 않는 것도 이유예요.
