@@ -52,13 +52,10 @@ description: 헤어진 사람이 연락은 없이 내 스토리만 계속 볼 �
 concerns:
   - text: "헤어진 지 한 달 됐는데 연락은 한 번도 없음. 근데 내 스토리는 올릴 때마다 거의 다 봄. 이러면 솔직히 신경 쓰이지 않음? 아직 마음 있어서 본다 vs 그냥 궁금해서 본다"
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@dain__tarot7/post/DdEFUVSkhob
   - text: "오늘 친구랑 놀러가서 예쁜 사진들을 인스타에 올렸습니다. 평소에는 그냥 스토리 읽기만 하다가 오늘 올린 스토리를 보자마자 언팔을 하더라고요. 그냥 이제 제가 더이상 보기 싫어진거죠?"
     source: 스레드, 2026년 7월
-    link: https://www.threads.com/@lullabyyyyyyy12345/post/DbGh7TgErSc
   - text: "헤어지고 다시 만나는 사람들 특징. 헤어졌는데 계속 서로 인스타 염탐하고 있음ㅋㅋ 확인하고 다시 연락했음"
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@kimdb0818/post/DdDvZKyiRwG
 
 faq:
   - q: 스토리를 본다는 건 아직 마음이 있다는 뜻인가요?

@@ -65,10 +65,13 @@
         {% for c in col.concerns %}
         <figure class="msg">
           <blockquote>{{ c.text }}</blockquote>
-          <figcaption>익명 · {% if c.link %}<a href="{{ c.link }}" rel="nofollow noopener" target="_blank">{{ c.source }}</a>{% else %}{{ c.source }}{% endif %}</figcaption>
+          <figcaption>익명 · {{ c.source }}</figcaption>
         </figure>
         {% endfor %}
       </div>
+      {% if site.myohwa_instagram %}
+      <p class="msgs-more"><a href="{{ site.myohwa_instagram }}" target="_blank" rel="noopener">연애 고민 이야기 더 보기 · 묘화 인스타 <b>@myohwa.room</b> →</a></p>
+      {% endif %}
     </section>
     {% endif %}
 

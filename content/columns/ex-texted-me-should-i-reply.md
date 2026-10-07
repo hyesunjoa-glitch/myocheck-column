@@ -51,13 +51,10 @@ description: 헤어진 전남친에게 갑자기 연락이 왔을 때 답장해�
 concerns:
   - text: "나 헤어지고 조언대로 연락 안하고 재회 생각도 안하려고 꾹 참고 있었는데 진짜 방금 막 연락왔어,, 오만생각이 다 드는데 뭐라고 대답하지ㅠㅠ 아무것도 아니야 라고 할까봐 겁나...."
     source: 스레드, 2026년 8월
-    link: https://www.threads.com/@satangongju/post/DcmgXw6kiUT
   - text: "안좋게 헤어진 전남친 연락왔는데 읽씹 안읽씹 뭐가 더 나을까!"
     source: 스레드, 2026년 8월
-    link: https://www.threads.com/@newdaily_fashion/post/DcF_lS6E40q
   - text: "헤어진 연인이 다시 연락 오면 한 번 더 믿어보기 vs 그냥 끝내기"
     source: 스레드, 2026년 7월
-    link: https://www.threads.com/@daily_mood.zipp/post/Dav2s0-kjLQ
 
 faq:
   - q: 읽씹과 안읽씹 중 뭐가 나아요?

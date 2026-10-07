@@ -52,13 +52,10 @@ description: '"마음이 식었어"라는 말로 헤어졌을 때 권태기와 �
 concerns:
   - text: "제가 전남친을 잡아서 한달만에 다시 만나는데 만나면 말투와 눈빛에서 식은게 보여요. 연락도 그렇고.. 이런 경우 다시 마음이 살아나는 경우는 없을까요..? 정말 헤어지는게 답이겠죠..?"
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@kdypuf/post/DdpacxRkglJ
   - text: "권태기 글을 봤어. 근데 진짜 사랑하는데 권태기가 어케옴. 그냥 식었다는 말을 권태기로 포장한거 잖아,,,,,ㅠ"
     source: 스레드, 2026년 1월
-    link: https://www.threads.com/@b_lux_waxing/post/DT4LmWjEb16
   - text: "얼굴본지 두달이 되어가고 주말에 만나자고도 안하길래 마음이 식엇냐고 물엇다. 대답이 없더라. 그렇게 그냥 헤어졋다. 2년 간의 스토리에 마침표가 찍혔다."
     source: 스레드, 2026년 5월
-    link: https://www.threads.com/@thrir28_pk/post/DYJ73z4kUf5
 
 faq:
   - q: 권태기랑 마음이 식은 건 어떻게 구분해요?

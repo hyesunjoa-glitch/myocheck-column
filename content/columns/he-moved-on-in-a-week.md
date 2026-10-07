@@ -52,13 +52,10 @@ description: 환승이별을 당했을 때 그 사람 마음이 언제부터 떠
 concerns:
   - text: "얘들아 나 4년 만난 남자친구랑 헤어졌는데 일주일 만에 얘가 환승했어. 너무 화가 나는데 새여친한테 디엠 보내도 되려나?"
     source: 스레드, 2026년 8월
-    link: https://www.threads.com/@sollsori001/post/DcfoZCDn9xf
   - text: "전 남친 환승이별 후 새로운 여친이랑 사귀는걸로 아는데.. 헤어지고 정리한 나의 인스타그램에 다시 팔로우 요청하는 심리는 뭘까? 알 수 없네...ㅎ"
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@j_first_try/post/DdeMBV4k6CE
   - text: "환승이별 뜻 / 환승이별 남자 특징 / 환승이별 재회 / 환승이별 후회"
     source: 구글 자동완성, 2026년 10월
-    link:
 
 faq:
   - q: 환승이별이 정확히 뭐예요?

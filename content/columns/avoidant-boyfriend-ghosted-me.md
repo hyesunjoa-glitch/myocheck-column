@@ -51,13 +51,10 @@ description: 회피형 남자친구가 잠수를 탔을 때 헤어진 건지 —
 concerns:
   - text: "헤어지자는 말도 안 하고 잠수 타는 건, 상대가 알아서 떨어져 나가라는 뜻이야? 요즘 주변에 회피형이 왜 이렇게 많냐. 그냥 '헤어지자' 한마디 하는 게 그렇게 어려운 거임?"
     source: 스레드, 2026년 8월
-    link: https://www.threads.com/@muesi_.ria/post/DbkWiP7j0pF
   - text: "분명 몇시간 전까지 사랑한다고, 보고 싶다고 했던 사람인데 갑자기 연락이 안 되고 내가 보낸 말들은 혼자 남아있고. '내가 그렇게 쉽게 정리될 사람이었나?' 이 생각이 제일 아팠던 것 같아요."
     source: 스레드, 2026년 7월
-    link: https://www.threads.com/@dalsai_official/post/Da0CAUFmE6x
   - text: "회피형 남자친구랑 헤어진지 딱 2주됐는데 재회팁이나 방법 성공한 사람 있을까? 회피형만나지마라, 피해라 말고 알고있어도 그래도 재회방법 진심으로 알고싶어. 연락올때까지 기다려야하나?"
     source: 스레드, 2025년 10월
-    link: https://www.threads.com/@sumi__kimg/post/DPb638CEgZG
 
 faq:
   - q: 잠수는 헤어진 거예요, 아니면 시간이 필요한 거예요?

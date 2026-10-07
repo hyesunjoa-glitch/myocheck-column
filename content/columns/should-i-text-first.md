@@ -51,13 +51,10 @@ description: 재회를 원할 때 먼저 연락해야 하는지 기다려야 하
 concerns:
   - text: "재회는 기다리는 게 맞다 vs 내가 먼저 움직여야 한다. 경험상 뭐가 맞았어?"
     source: 스레드, 2026년 1월
-    link: https://www.threads.com/@dear_unni_/post/DTY0B0Rk-HI
   - text: "저는 헤어졌던 사람과 결혼했습니다. 먼저 연락한 건 저였어요. 먼저 연락하면 지는 거라고들 하죠. 안 하고 버틴 게 이기는 거였으면 저는 지금 혼자였을 겁니다. 먼저 하는 게 지는 게 아니라, 때를 모르고 하는 게 지는 거예요."
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@ddangmoa/post/DdYU-HrCXuL
   - text: "전남친 한테 연락오게할수있는 좋은게 뭐가있을까 내가먼저 연락하기는 싫단말야ㅜㅜ"
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@ro____lili/post/DdGF-fEATQO
 
 faq:
   - q: 먼저 연락하면 매달리는 걸로 보이지 않나요?

@@ -54,13 +54,10 @@ description: 헤어진 사람에게 연락이 올지 궁금할 때, 기다리기
 concerns:
   - text: "디엠으로 많이 그리우면 연락할게 하고 끝났어요.. 연락 안오겠죠..?"
     source: Q&A 커뮤니티 아하, 2025년 4월
-    link: https://www.a-ha.io/questions/4d41924264c4a978abfe605b54a43a19
   - text: "그냥 일상적인 내용 들만 주절주절,,, 다시 만나자고 연락이 올까요?"
     source: Q&A 커뮤니티 아하, 2025년 6월
-    link: https://www.a-ha.io/questions/40a98d9d474820b4b238140cf7408664
   - text: "제가 헤어지자 했지만 제가 이별 통보를 받은 느낌이라.."
     source: Q&A 커뮤니티 아하, 2023년 10월
-    link: https://www.a-ha.io/questions/424e9e184353ef74989ae81286ea28b5
 
 faq:
   - q: 헤어지고 얼마나 지나야 연락이 오나요?

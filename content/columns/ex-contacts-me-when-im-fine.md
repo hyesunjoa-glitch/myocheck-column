@@ -53,13 +53,10 @@ description: 헤어지고 내가 잘 지내기 시작하니까 연락 오는 전
 concerns:
   - text: "헤어질 때는 그렇게 단호하더니 내가 진짜 괜찮아질 때쯤 꼭 연락 오더라. 진짜 궁금해서 연락한 건지 내가 아직 자기를 좋아하는지 확인하고 싶은 건지 모르겠어. 왜 남자들은 내가 붙잡을 때는 도망가고 내가 놓으니까 다시 오는 걸까."
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@ccoop_00987/post/Dc1FDYrFBhn
   - text: "헤어진지 2달 좀 넘은 전남친놈이 연락 없다가 이제와서 연락하는 이유는 뭘까? 🤔"
     source: 스레드, 2026년 6월
-    link: https://www.threads.com/@qultrv9032918/post/DaHkerEiSEz
   - text: "전남친이 먼저 연락해줬으면 좋겠는데 막상 오면 무서울 것 같아. 다시 기대하게 될까 봐, 괜찮아졌던 마음이 또 무너질까 봐."
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@ccoop_00987/post/DddjPm-k3bB
 
 faq:
   - q: 내가 잘 지내는 걸 보고 연락한 거면, 아직 마음이 있는 거죠?

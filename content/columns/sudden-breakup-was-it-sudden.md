@@ -50,14 +50,11 @@ description: 갑자기 헤어지자는 말을 들었을 때 정말 갑작스러�
 
 concerns:
   - text: "여자친구가 아무 잔소리도 안 하고 방목하면서 그저 ^____^ 하고 있으면 이제 적응하고 존중해주는구나…! 가 아니라 그냥 이제 해탈하고 맘 접고 있는 거임"
-    source: 유튜브 댓글(주둥이방송 영상, 좋아요 14,758), 2022년
-    link: https://www.youtube.com/watch?v=hYIkLCrfzLY
+    source: 유튜브 댓글(좋아요 14,758), 2022년
   - text: "여자들 입장에서는 몇날 며칠 몇개월을 고민했을 게 보임.. 내가 그랬거든.. 진짜 은연중에 자신도 모르게 툭 하고 감정을 떨어트린 적이 많았을 거여.."
-    source: 유튜브 댓글(주둥이방송 영상, 좋아요 2,876), 2022년
-    link: https://www.youtube.com/watch?v=hYIkLCrfzLY
+    source: 유튜브 댓글(좋아요 2,876), 2022년
   - text: "다들 경험해본 최악의 이별 뭐있어? — 나는 아침에 잘지내자하고 5주년 축하편지받고 오후에 갑자기 헤어지자 한거…"
     source: 스레드, 2025년 8월
-    link: https://www.threads.com/@yoo_yeon____/post/DNM1kgczSUT
 
 faq:
   - q: 정말 아무 신호도 없이 헤어지는 사람도 있나요?

@@ -52,13 +52,10 @@ description: 재회 타로·신점·사주를 여러 곳 봤는데 말이 다 �
 concerns:
   - text: "사주 2군데, 신점 6군데, 타로 8~9군데 정도 봤는데 연락 오는 시기, 재회 가능성, 재회 가능 시기가 큰 틀로 보면 비슷한 곳도 있지만 아예 극단적으로 다른 곳들도 많아,, 어떻게 받아들여야 할까,,, 기대하다가 무너져버릴 것 같다,,"
     source: 스레드, 2026년 5월
-    link: https://www.threads.com/@rlarlaem/post/DY5I3RxkwjX
   - text: "재회 초기도를 하고 있는데 기도 해주시는 선생님은 상대방 마음이 다 풀렸다고 그러고 다른 곳도 체크 받고 싶어서 다른 무당분들 점사를 봤는데 등을 돌렸다 그러는데 누가 맞는 거야..?"
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@rabbit.85687680/post/Ddihp5QAfGz
   - text: "님들은 믿어요? 타로든 신점이든 사주든 재회 관련해서... 스레드에는 다 흐름대로 공수대로 재회 했다 이러는데..ㅠ 나만 이런가싶고..."
     source: 스레드, 2026년 9월
-    link: https://www.threads.com/@nadomorra_/post/DdnTYPpkyuU
 
 faq:
   - q: 여러 곳 말이 다르면 어디를 믿어야 하나요?
