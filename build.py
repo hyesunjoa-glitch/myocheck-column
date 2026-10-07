@@ -40,6 +40,7 @@ BUBBLE_RE = re.compile(r"\[\[(?P<who>[^\[\]|]+)\|(?P<formal>[^\[\]|]+)\|(?P<casu
 TONES = ("formal", "casual")
 SAJU_MARK = "[[사주해석]]"
 SAJU_MAX_LINES = 4   # 「사주로 보면」은 항상 3~4줄 이내 (사장님 규칙)
+CONCERN_MAX = 40     # 「이런 고민이 실제로 올라왔어요」 말풍선 한 개 — 360px 휴대폰에서 2줄 안쪽
 SEO_TITLE_MAX = 30   # 검색 결과에 뜨는 제목은 30자 이내 (2026-10-05 확정)
 
 # 쓰면 안 되는 말 — 발행을 막지는 않고 '확인해 보세요' 경고만 띄워요.
@@ -212,6 +213,10 @@ def warn_words(col: dict) -> list[str]:
     for line in saju_lines(col):
         for m in JARGON_RE.finditer(line):
             out.append(f"사주 용어 '{m.group(0)}' — 「사주로 보면」에는 쉬운 말로 (docs/review-guide.md 기준 2)")
+    for c in col.get("concerns") or []:   # 실제 고민은 휴대폰에서 2줄 이내 (2026-10-07) — 원문에서 후킹 부분만 잘라 '…'로
+        t = str((c or {}).get("text", ""))
+        if len(t) > CONCERN_MAX:
+            out.append(f"실제 고민이 {len(t)}자예요 — 휴대폰에서 2줄을 넘을 수 있어요(약 {CONCERN_MAX}자 이내): {t[:20]}…")
     for line in "\n".join(texts).splitlines():
         for m in WARN_RE.finditer(line):
             s = max(0, m.start() - 15)
