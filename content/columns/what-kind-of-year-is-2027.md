@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [2027년 운세, 2027 신년운세, 정미년, 2027년 띠별 운세, 신년운세 사주, 내년 운세]
-status: 초안
+status: 승인
 date: 2026-10-08
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   2027년은 정미년, 은은한 불과 여름 끝의 마른 흙이 함께 들어오는 해예요.
