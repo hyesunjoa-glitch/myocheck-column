@@ -1,0 +1,31 @@
+# 이미지 다리: urls.txt에 적힌 그림 주소를 깃허브가 대신 받아서 bridge/ 폴더에 넣어 둬요.
+# 칼럼 사이트(main)와는 상관없는 별도 가지예요.
+name: 이미지 다리
+on:
+  push:
+    branches: [image-bridge]
+    paths: ['urls.txt']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 받기
+        run: |
+          mkdir -p bridge
+          while read -r name url; do
+            [ -z "$name" ] && continue
+            echo "GET $name"
+            curl -fsSL --retry 3 -o "bridge/$name" "$url" || echo "FAIL $name"
+          done < urls.txt
+          ls -la bridge
+      - name: 저장
+        run: |
+          git config user.name bridge-bot
+          git config user.email bridge-bot@users.noreply.github.com
+          git add bridge
+          git commit -m "bridge: fetched $(date -u +%Y%m%dT%H%M%SZ)" || echo "nothing"
+          git push
