@@ -471,6 +471,10 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     write("llms.txt", env.get_template("llms.txt").render(**common, items=live, products=products))
     write("feed.xml", env.get_template("feed.xml").render(**common, items=live[:30]))
     write("CNAME", base.split("://", 1)[1])
+    # 구글 서치 콘솔 소유권 확인 파일 (HTML 파일 방식) — 확인 뒤에도 지우면 안 돼요
+    if site.get("google_verify_file"):
+        gname = str(site["google_verify_file"]).removesuffix(".html")
+        write(f"{gname}.html", f"google-site-verification: {gname}.html")
     if site.get("indexnow_key"):
         write(f"{site['indexnow_key']}.txt", site["indexnow_key"])
     write("published.json", json.dumps(

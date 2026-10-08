@@ -31,6 +31,7 @@ terms_url: https://www.myocheck.kr/legal/terms
 # 검색엔진 소유 확인 태그 — 등록할 때 받은 값만 붙여 넣으면 모든 페이지 <head>에 들어가요
 naver_site_verification: ""
 google_site_verification: ""
+google_verify_file: google8879de5e28ce4a9f   # 구글 서치 콘솔 HTML 파일 확인 (2026-10-08) — 지우지 마세요
 bing_site_verification: ""
 
 # 검색 노출 스위치
