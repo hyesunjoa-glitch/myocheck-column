@@ -106,7 +106,7 @@
     {% set hit = (product.toc | selectattr('chapter', 'equalto', col.report_chapter) | list | first) if col.report_chapter else none %}
     <section class="block" id="report" aria-labelledby="report-h">
       <h2 class="sec-h" id="report-h"><span aria-hidden="true">📑</span> 결과지에서는 이런 것까지 알 수 있어요</h2>
-      <p class="sec-sub">「{{ product.name }}」에 내 사주와 그 사람 사주를 넣으면 나오는 것들이에요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 풀려요.{% endif %}</p>
+      <p class="sec-sub">「{{ product.name }}」에 {% if product.solo %}내 사주를{% else %}내 사주와 그 사람 사주를{% endif %} 넣으면 나오는 것들이에요.{% if hit %} 이 글의 질문은 <strong>{{ hit.chapter }}장</strong>에서 풀려요.{% endif %}</p>
       {% macro toc_item(t, on) %}
         <details class="toc-item{% if on %} is-hit{% endif %}"{% if on %} open{% endif %}>
           <summary>
@@ -115,7 +115,7 @@
           </summary>
           <div class="toc-body">
             {% if t.gives %}<ul class="toc-gives">{% for g in t.gives %}<li>{{ g }}</li>{% endfor %}</ul>{% endif %}
-            {% if on %}<p class="toc-lock"><span aria-hidden="true">🔒</span> 이건 내 사주와 그 사람 사주를 넣어야 나와요.</p>{% endif %}
+            {% if on %}<p class="toc-lock"><span aria-hidden="true">🔒</span> 이건 {% if product.solo %}내 사주를{% else %}내 사주와 그 사람 사주를{% endif %} 넣어야 나와요.</p>{% endif %}
           </div>
         </details>
       {% endmacro %}

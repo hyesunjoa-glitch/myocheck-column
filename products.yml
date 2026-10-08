@@ -226,6 +226,7 @@ gunghap:
 
 newyear-2027:
   name: 신년운세          # 타이탄 사주 상품 이름 (괴짜Z)
+  solo: true             # 내 사주만 넣는 상품 — 결과지 안내 문구를 '내 사주'로 (그 사람 사주 X)
   character: geekz
   chip_top: 2027 신년운세
   chip: 내년 어떨까?
