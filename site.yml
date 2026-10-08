@@ -80,7 +80,7 @@ indexnow_key: ba22a96216ed401c42731bf248a0a751
 indexnow_enabled: true
 
 # 구글 애널리틱스(GA4) 측정 ID. 비워두면 추적 코드를 넣지 않아요. (예: G-XXXXXXX)
-ga4_id: ""
+ga4_id: "G-1556YRSQML"   # 2026-10-08 연결 (계정 묘책 · 속성 묘책 칼럼)
 
 # 모든 칼럼에 들어가는 "읽기 전에" 상자 (앞의 두 줄만 보이고 나머지는 '더 보기')
 notice:
