@@ -237,5 +237,21 @@ newyear-2027:
   art_glow: "#B8FF3C"
   button: 내 2027년 미리 보기
   question: 내 2027년, 어떤 해가 될까?
-  hook: 2027년에 들어올 인연과 흐름을 먼저 확인해 보세요.
+  hook: 2027년에 크게 터지는 운과 조심할 함정, 먼저 확인해 보세요.
   url: "https://www.myocheck.kr/f/cmuqq6qsn000304jox1gznw02?step=step_intro"
+  edition: 2027 신년사주 스포일러
+  toc:                    # 결과지 목차 (2026-10-08 사장님이 준 이미지 그대로 — 장마다 설명은 아직 없어 제목만)
+    - chapter: 1
+      title: 2027년 가장 크게 터지는 운
+    - chapter: 2
+      title: 잘되는 척하는 함정
+    - chapter: 3
+      title: 결국, 판이 바뀌는 일
+    - chapter: 4
+      title: 계획에 없던 기회
+    - chapter: 5
+      title: 그냥 보내면 아까운 달 (재물운)
+    - chapter: 6
+      title: 남을 사람, 멀어질 사람 (연애운)
+    - chapter: 7
+      title: Z가 표시해둔 12개월

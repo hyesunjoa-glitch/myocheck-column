@@ -16,3 +16,9 @@ yuri:
   role: 묘책 이별 원인 담당
   image: static/img/yuri.jpg   # 얼굴 시트에서 자른 컷 (2026-10-04)
   tone: formal     # 존댓말, 묘화와 같게 (2026-10-04 확정)
+
+geekz:
+  name: 괴짜Z
+  role: 묘책 2027 신년운세 담당
+  image: static/img/geekz.jpg   # 신년사주 스포일러 목차 이미지에서 자른 얼굴 (2026-10-08) — 원본 고화질로 바꾸면 더 좋아요
+  tone: formal     # 존댓말인데 괴짜스럽게 (2026-10-08 확정: 칼럼은 존댓말)
