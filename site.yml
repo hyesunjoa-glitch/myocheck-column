@@ -102,3 +102,6 @@ categories:
   - key: newyear-2027
     name: 2027 신년운세
     intro: 2027년, 내 연애와 관계는 어떻게 흘러갈까.
+
+# 글 아래 「함께 보면 좋은 사주」 카드 — 2026-10-08 사장님 결정으로 뺌 (버튼이 많으면 어디 누를지 고민하다 안 누르기 쉬워서). 다시 켜려면 true
+show_other_products: false

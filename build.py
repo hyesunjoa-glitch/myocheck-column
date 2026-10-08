@@ -425,7 +425,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
                    character=characters.get(c.get("character") or ""),
                    tone=(characters.get(c.get("character") or "") or {}).get("tone") if (characters.get(c.get("character") or "") or {}).get("tone") in TONES else "formal",
                    others=[dict(v, key=k, track=tracked_url(v.get("url", ""), position="rail", slug=c["slug"], product_key=k))
-                           for k, v in products.items() if k != prod_key and (v.get("url") or preview)],
+                           for k, v in products.items() if k != prod_key and (v.get("url") or preview)] if site.get("show_other_products") else [],
                    read_min=max(1, round(len(plain(markdown.markdown(c["body_md"]))) / 500)),
                    cta_url={pos: tracked_url(prod.get("url", ""), position=pos, slug=c["slug"], product_key=prod_key)
                             for pos in ("cta_mid", "cta_sticky", "cta_toc")})
