@@ -19,6 +19,7 @@
     <p>내용을 고치면 글 위쪽에 고친 날짜를 남겨요.</p>
     <h2>누가 만드나요</h2>
     {% set op = site.operator or {} %}
+    {% if site.brand_definition %}<p><strong>{{ site.brand_definition }}</strong></p>{% endif %}
     <p>{{ brand_full }}을 운영하는 {{ op.legal_name or site.brand }}에서 만들어요. 사주 풀이는 삶의 흐름을 돌아보는 참고 자료이고, 결과를 보장하지 않아요. 중요한 결정은 스스로의 판단과 함께 내려 주세요.</p>
     <p>본 사이트: <a href="{{ site.main_site }}">{{ site.main_site | replace('https://', '') }}</a>{% if site.privacy_url %} · <a href="{{ site.privacy_url }}">개인정보처리방침</a>{% endif %}{% if site.terms_url %} · <a href="{{ site.terms_url }}">이용약관</a>{% endif %}</p>
   </div>

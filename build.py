@@ -299,6 +299,8 @@ def org_node(site) -> dict:
         "url": site["main_site"],
         "logo": site["base_url"] + "/static/img/logo.png",
     }
+    if site.get("brand_definition"):   # 칼럼 원칙 페이지에 화면으로도 보여요
+        node["description"] = site["brand_definition"]
     if op.get("legal_name"):
         node["legalName"] = op["legal_name"]
     if op.get("address"):
