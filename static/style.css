@@ -321,3 +321,30 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .msgs-more{margin:16px 0 0;text-align:center;font-size:14px}
 .msgs-more a{color:var(--mint-text);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .msgs-more a b{color:inherit;font-weight:700}
+
+/* ── 칼럼 원칙: 검수하는 사람 · 글이 올라가는 순서 · 운영 정보 (2026-10-19 시안) ── */
+.person { border: 1.5px solid var(--line); border-radius: 16px; padding: 18px; margin: 0 0 8px; }
+.person-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.person-face { width: 64px; height: 64px; flex: 0 0 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--mint); }
+.person-initial { display: grid; place-items: center; background: var(--ink); color: var(--mint); font-size: 26px; font-weight: 800; }
+.prose .person-name { margin: 0; font-size: 19px; font-weight: 800; line-height: 1.35; }
+.prose .person-role { margin: 2px 0 0; font-size: 14px; color: var(--soft); line-height: 1.5; word-break: keep-all; }
+.person-facts { margin: 0; }
+.person-facts > div, .biz > div { display: grid; grid-template-columns: 7.5em 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
+.person-facts dt, .biz dt { color: var(--soft); font-weight: 600; word-break: keep-all; }
+.person-facts dd, .biz dd { margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
+.prose .person-why { margin: 14px 0 0; padding: 12px 14px; background: var(--mint-pale); border-radius: 12px; font-size: 16px; }
+.prose .person-links { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.person-links a { font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: none; background: var(--ground); border-radius: 999px; padding: 4px 12px; }
+.steps { list-style: none; counter-reset: step; padding: 0 !important; }
+.steps li { counter-increment: step; position: relative; padding: 0 0 18px 44px; margin: 0 !important; }
+.steps li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--mint); font-size: 14px; font-weight: 800; display: grid; place-items: center; }
+.steps li:not(:last-child)::after { content: ""; position: absolute; left: 14px; top: 34px; bottom: 4px; width: 2px; background: var(--line); }
+.steps b { display: block; font-size: 17px; line-height: 1.45; }
+.steps span { display: block; font-size: 15px; color: #4A4A4A; line-height: 1.6; margin-top: 2px; }
+.biz { margin: 0 0 1.35em; border-bottom: 1px solid var(--line); }
+/* 시안 전용: 사장님이 채울 빈칸 */
+.fill-me { border: 2px dashed var(--mint-text); background: #FBFFFD; border-radius: 12px; padding: 10px 14px; margin: 10px 0; font-size: 14px; line-height: 1.55; }
+.fill-me .fill-tag { display: inline-block; font-size: 12px; font-weight: 800; color: var(--mint-text); margin-bottom: 2px; }
+.fill-me b { display: block; font-size: 15px; }
+.fill-me span:last-child { display: block; color: var(--soft); }

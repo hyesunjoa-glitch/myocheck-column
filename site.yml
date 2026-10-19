@@ -24,6 +24,21 @@ operator:
   mail_order_no: 제 2026-서울 용산-0904 호
   address: 서울특별시 서초구 사평대로53길 94
   phone: 010-2926-9218
+# 검수자 소개 — 칼럼 원칙(about) 페이지의 「검수하는 사람」 칸 (2026-10-19 시안, GEO ③)
+#   · 사장님이 「사실만」 적어요. 클로드는 이 칸을 지어내지 않아요.
+#   · 빈칸은 시안(--preview)에서만 「✏️ 적을 곳」으로 보이고, 실제 사이트에는 안 나와요.
+#   · ready: false 인 동안 실제 사이트 about은 지금 모습 그대로예요. 사장님이 다 보고 「올려」 하면 true로 바꿔요.
+reviewer:
+  ready: false
+  name: 공혜선
+  role: 묘책 칼럼 검수 책임 · 디식주의자 대표
+  photo: ""          # static/img/ 안 사진 파일 이름 (예: reviewer.jpg). 없으면 이름 첫 글자 동그라미
+  saju_study: ""     # 사주를 공부한 기간과 방법 (예: 몇 년째, 누구에게·어디서)
+  credentials: ""    # 자격증·수료 (없으면 비워 두면 칸이 안 나와요 — 없는 걸 만들지 않기)
+  work: ""           # 묘책에서 직접 하는 일
+  why: ""            # 이 칼럼을 왜 만드는지, 본인 말로 한두 문장
+  links: []          # 본인 이름으로 된 공개 링크 — 예: [{label: 인스타그램, url: "https://..."}]
+contact: ""          # 문의 창구 (예: 카카오톡 채널 「묘책」 · 주소). 비우면 안 나와요
 # 묘화 인스타 — 칼럼의 「이런 고민이 실제로 올라왔어요」 아래 링크로 이어져요 (2026-10-07)
 myohwa_instagram: https://www.instagram.com/myohwa.room/
 privacy_url: https://www.myocheck.kr/legal/privacy

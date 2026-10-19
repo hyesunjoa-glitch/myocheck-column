@@ -310,11 +310,37 @@ def org_node(site) -> dict:
     return node
 
 
+def reviewer_jsonld(site) -> str:
+    """검수자 소개 — about 화면에 보이는 값만 넣어요 (ready: true일 때만 쓰임)"""
+    rv = site.get("reviewer") or {}
+    if not rv.get("name"):
+        return ""
+    person = {"@context": "https://schema.org", "@type": "Person", "@id": site["base_url"] + "/about/#reviewer",
+              "name": rv["name"], "url": site["base_url"] + "/about/#reviewer",
+              "worksFor": {"@id": site["main_site"].rstrip("/") + "/#org"}}
+    if rv.get("role"):
+        person["jobTitle"] = rv["role"]
+    if rv.get("photo"):
+        person["image"] = site["base_url"] + "/static/img/" + rv["photo"]
+    desc = " ".join(str(rv[k]) for k in ("saju_study", "work") if rv.get(k))
+    if desc:
+        person["description"] = desc
+    if rv.get("credentials"):
+        person["hasCredential"] = {"@type": "EducationalOccupationalCredential", "name": str(rv["credentials"])}
+    links = [l["url"] for l in (rv.get("links") or []) if isinstance(l, dict) and l.get("url")]
+    if links:
+        person["sameAs"] = links
+    return json.dumps(person, ensure_ascii=False).replace("</", "<\\/")
+
+
 def jsonld_for_column(col, site, cat, canonical) -> str:
     org = org_node(site)
     page = {"@type": "WebPage", "@id": canonical, "url": canonical, "name": seo_title(col), "inLanguage": "ko-KR"}
     if col.get("reviewer"):
         page["reviewedBy"] = {"@type": "Person", "name": str(col["reviewer"])}
+        rv = site.get("reviewer") or {}
+        if rv.get("ready") and str(col["reviewer"]) == rv.get("name"):   # 소개 페이지가 공개된 뒤에만 연결
+            page["reviewedBy"] = {"@id": site["base_url"] + "/about/#reviewer"}
     if col.get("updated"):
         page["lastReviewed"] = col["updated"].isoformat()
     graph = [
@@ -460,7 +486,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
         page_title=f"{site['name']} — {site['tagline']} | {brand_full}", page_desc=site["description"]))
     urls.insert(0, (base + "/", max((c["updated"] for c in live if c.get("updated")), default=None), ""))
     write("about/index.html", env.get_template("about.html").render(
-        **common, root="../", canonical=base + "/about/",
+        **common, root="../", canonical=base + "/about/", about_person_jsonld=reviewer_jsonld(site),
         page_title=f"칼럼 원칙 | {brand_full}", page_desc="묘책 칼럼이 글을 만들고 검수하는 원칙 — 실제 고민, AI 사용 범위, 사람 검수, 운영사 정보"))
     urls.append((base + "/about/", None, ""))
     write("404.html", env.get_template("404.html").render(
