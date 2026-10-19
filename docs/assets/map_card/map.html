@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:540px;height:648px;overflow:hidden;position:relative;font-family:"Noto Sans CJK KR",sans-serif;background:url(map.svg)}
+.title{position:absolute;top:50px;isolation:isolate;left:0;right:0;text-align:center;transform:rotate(-4deg)}
+.title p{font-weight:900;letter-spacing:.01em;line-height:1.08;display:inline-block;transform:skewX(-10deg);position:relative}
+.title p::before{content:attr(data-t);position:absolute;left:0;top:0;z-index:-1;-webkit-text-stroke:8px var(--o);color:var(--o);filter:drop-shadow(3px 5px 0 #0A0A0A)}
+.title{z-index:1}
+.t1{font-size:54px;color:#00FDAA;--o:#FF2E93}
+.t2{font-size:56px;color:#FF2E93;--o:#00FDAA;margin-top:4px}
+.star{position:absolute;top:34px;left:428px;width:44px;height:44px;z-index:3;transform:rotate(-4deg)}
+.pin{position:absolute;display:flex;flex-direction:column;align-items:center}
+.pin img{width:70px;height:80px;filter:drop-shadow(2px 3px 0 rgba(0,0,0,.25))}
+.pin span{margin-top:4px;background:#0A0A0A;color:#fff;font-size:16px;font-weight:800;padding:5px 12px;border-radius:999px;letter-spacing:-.03em;white-space:nowrap}
+.bottom{position:absolute;left:0;right:0;bottom:30px;text-align:center}
+.brand{font-size:22px;font-weight:900;color:#0A0A0A;letter-spacing:-.02em}
+.sub{margin-top:4px;font-size:17px;font-weight:700;color:#1A1A1A;letter-spacing:-.03em}
+.btn{margin:14px auto 0;width:400px;padding:14px 0;border-radius:999px;background:linear-gradient(180deg,#FFFFFF,#D7FFF1);border:3px solid #FF2E93;font-size:20px;font-weight:900;color:#FF2E93;letter-spacing:-.03em}
+</style></head><body>
+<svg class="star" viewBox="0 0 40 40"><path d="M20 0 C21.5 13 27 18.5 40 20 C27 21.5 21.5 27 20 40 C18.5 27 13 21.5 0 20 C13 18.5 18.5 13 20 0Z" fill="#FF2E93" stroke="#00FDAA" stroke-width="2.5"/></svg>
+<div class="title"><p class="t1" data-t="띠 운세 말고,">띠 운세 말고,</p><br><p class="t2" data-t="내 사주로 읽는 답">내 사주로 읽는 답</p></div>
+<div class="pin" style="left:46px;top:248px"><img src="pin_msg.svg"><span>연락 올까?</span></div>
+<div class="pin" style="left:214px;top:300px"><img src="pin_heart.svg"><span>우리 맞을까?</span></div>
+<div class="pin" style="left:392px;top:236px"><img src="pin_cal.svg"><span>내년엔?</span></div>
+<div class="bottom">
+ <p class="brand">[묘책 칼럼]</p>
+ <p class="sub">실제 고민에 사주로 답했어요</p>
+ <div class="btn">무료로 읽으러 가기 →</div>
+</div>
+</body></html>
