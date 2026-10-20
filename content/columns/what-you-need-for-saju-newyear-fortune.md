@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [신년운세 사주, 내년 운세 사주, 사주 신년운세 태어난 시간, 태어난 시간 모를 때 사주, 양력 음력 사주, 2027 신년운세]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   사주로 신년운세를 보려면 태어난 해·달·날과 태어난 시간, 그리고 그 생일이 양력인지 음력인지가 필요해요.

@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [2027 토정비결, 2027년 토정비결, 토정비결 사주 차이, 토정비결 신년운세, 2027 신년운세, 신년운세 사주]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   토정비결은 음력 생년월일로 144개 괘 가운데 하나를 골라, 그 괘에 정해진 문장으로 한 해와 달마다 운을 읽어요.

@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [무료 신년운세, 무료 신년운세 2027, 2027년 운세 무료, 내년 운세 무료, 신년운세 사이트, 신년운세 사주]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   무료 신년운세는 띠나 생년월일 일부로 정해진 문장을 보여 주는 경우가 많아서, 같은 띠·같은 생일이면 같은 풀이가 나오기 쉬워요.

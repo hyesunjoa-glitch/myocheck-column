@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [일주 2027년 운세, 2027 일주별 운세, 일주 운세, 일주 뜻, 2027년 운세, 신년운세 사주]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   일주는 태어난 날을 나타내는 두 글자로, 사주에서 '나 자신'에 가장 가까운 자리예요. 60가지로 나뉘어서 12가지인 띠보다 훨씬 나에게 가까워요.
