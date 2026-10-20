@@ -38,10 +38,10 @@ next_questions:
     source: 스레드
 
 keywords: [재회 컨설팅, 재회 상담, 재회 컨설팅 사주 차이, 재회 가능성 진단, 재회 사주, 재회 업체]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   재회 컨설팅은 상담사가 내 사연을 듣고, 연락할지 말지, 무슨 말을 할지 같은 행동 계획을 함께 세워 주는 쪽이에요.

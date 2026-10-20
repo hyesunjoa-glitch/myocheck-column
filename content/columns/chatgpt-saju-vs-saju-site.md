@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [재회 사주 gpt, 재회 사주 프롬프트, 재회 사주 ai, 재회운 프롬프트, 챗GPT 사주, 지피티 사주, 사주 사이트]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   챗GPT 같은 대화형 AI는 사주 이야기를 풀어서 설명해 주는 데는 편하지만, 생년월일을 사주 글자로 바꾸는 계산을 틀릴 때가 있어요. 계산이 틀리면 그 뒤의 풀이도 남의 사주가 돼요.

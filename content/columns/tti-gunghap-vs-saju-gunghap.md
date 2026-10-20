@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [띠 궁합, 띠 궁합 보는 법, 사주 궁합, 사주 궁합 보는 법, 띠 궁합 사주 궁합 차이, 4살 차이 궁합, 원진 띠]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   띠 궁합은 두 사람이 태어난 해, 즉 띠 하나씩만 놓고 서로 어울리는지 봐요. 띠는 12가지뿐이라, 같은 띠 조합을 가진 커플이 계속 겹칠 수밖에 없어요.

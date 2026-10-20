@@ -94,6 +94,13 @@ publish_order:            # 재회·이별을 번갈아
   - no-future-together-meaning          # 18 이별
   - every-tarot-says-different          # 19 재회
   - i-never-said-i-was-hurt             # 20 이별
+  - reunion-tarot-vs-saju                # 비교 ① 재회 (10/20 승인 — 재회·궁합 번갈아)
+  - tti-gunghap-vs-saju-gunghap         # 비교 ② 궁합
+  - reunion-saju-free-vs-paid           # 비교 ③ 재회
+  - mbti-vs-saju-gunghap                # 비교 ④ 궁합
+  - chatgpt-saju-vs-saju-site           # 비교 ⑤ 재회
+  - reunion-consulting-vs-saju          # 비교 ⑥ 재회
+  - reunion-saju-where-and-how          # 재회 대표 글 — 링크하는 글이 다 올라간 뒤 마지막에
 
 # IndexNow — 새 글이 올라가면 빙·네이버 등에 "새 글 있어요" 하고 바로 알리는 장치
 indexnow_key: ba22a96216ed401c42731bf248a0a751

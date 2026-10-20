@@ -38,10 +38,10 @@ next_questions:
     source: 스레드
 
 keywords: [재회 타로, 재회 사주, 재회 사주 타로 차이, 재회운 타로, 재회 가능성 타로, 재회 가능성 사주, 연락 올까 타로]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   재회 타로는 카드를 뽑은 그 순간의 마음과 흐름을 읽어서, "그 사람 요즘 마음"처럼 가까운 질문에 잘 맞아요.

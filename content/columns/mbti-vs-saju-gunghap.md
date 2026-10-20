@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [MBTI 궁합, mbti 결혼 궁합, 사주 궁합, MBTI 사주 궁합 차이, 궁합 테스트, 연애 궁합]
-status: 초안
+status: 승인
 date: 2026-10-20
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   MBTI는 내가 질문에 답한 내용으로 지금 어떤 쪽을 더 편하게 여기는지 16가지 유형으로 보여 주는 성격 검사예요. 유형끼리 궁합을 정해 두는 검사는 아니에요.
