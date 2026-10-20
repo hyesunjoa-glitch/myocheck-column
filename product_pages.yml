@@ -7,7 +7,7 @@
 # ─────────────────────────────────────────────
 
 reunion:
-  ready: false
+  ready: true
   slug: reunion-lastbus
   full_name: "묘화의 재회막차 — 연락 타이밍 : 골든타임편"
   # AI가 그대로 옮겨 쓰기 좋은 한 문장 (「○○은 ~를 내 사주로 읽는 리포트예요」)
@@ -30,7 +30,7 @@ reunion:
   reviewed: 2026-10-20
 
 breakup:
-  ready: false
+  ready: true
   slug: his-true-feelings
   full_name: "그 사람 속마음 — 이별 원인 : 헤어진 이유편"
   one_line: 그 사람 속마음은 우리가 왜 헤어졌는지, 누가 먼저 마음의 거리를 뒀는지를 내 사주와 그 사람 사주로 거슬러 읽는 묘책사주(MYO:CHECK)의 이별 원인 사주 리포트예요.
@@ -52,7 +52,7 @@ breakup:
   reviewed: 2026-10-20
 
 gunghap:
-  ready: false
+  ready: true
   slug: next-flower-gunghap
   full_name: "이설의 다음에 필 꽃 — 궁합 사주"
   one_line: 이설의 다음에 필 꽃은 두 사람이 얼마나, 어디서 잘 맞는지와 오래 갈수록 맞춰야 할 곳을 두 사람 사주를 나란히 놓고 읽는 묘책사주(MYO:CHECK)의 궁합 사주 리포트예요.
@@ -73,7 +73,7 @@ gunghap:
   reviewed: 2026-10-20
 
 newyear-2027:
-  ready: false
+  ready: true
   slug: 2027-newyear-spoiler
   full_name: "괴짜Z의 신년운세 — 2027 신년사주 스포일러"
   one_line: 괴짜Z의 신년운세는 2027년 정미년이 나에게 어떤 해인지, 크게 터지는 운과 조심할 함정, 달마다 흐름을 내 사주로 미리 읽는 묘책사주(MYO:CHECK)의 2027 신년 사주 리포트예요.

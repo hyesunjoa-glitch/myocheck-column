@@ -22,3 +22,9 @@ geekz:
   role: 묘책 2027 신년운세 담당
   image: static/img/geekz.jpg   # 신년사주 스포일러 목차 이미지에서 자른 얼굴 (2026-10-08) — 원본 고화질로 바꾸면 더 좋아요
   tone: formal     # 존댓말인데 괴짜스럽게 (2026-10-08 확정: 칼럼은 존댓말)
+
+isel:
+  name: 이설
+  role: 묘책 궁합 담당
+  image: static/img/isel.jpg   # 사장님이 준 이설 얼굴 그림에서 자름 (2026-10-20)
+  tone: formal     # 따뜻한 언니 같은 존댓말 (2026-10-20 확정: 칼럼은 존댓말)

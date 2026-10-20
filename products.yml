@@ -241,6 +241,7 @@ newyear-2027:
   hook: 2027년에 크게 터지는 운과 조심할 함정, 먼저 확인해 보세요.
   url: "https://www.myocheck.kr/f/cmuqq6qsn000304jox1gznw02?step=step_intro"
   edition: 2027 신년사주 스포일러
+  delivery: 결제 후 10분 안에 결과지 전달   # 2026-10-20 사장님 확인
   toc:                    # 결과지 목차 (2026-10-08 사장님이 준 이미지 그대로 — 장마다 설명은 아직 없어 제목만)
     - chapter: 1
       title: 2027년 가장 크게 터지는 운
