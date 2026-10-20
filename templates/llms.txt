@@ -4,13 +4,16 @@
 {% if site.brand_definition %}
 **{{ brand_full }}란?** {{ site.brand_definition }}
 {% endif %}
-{{ brand_full }}는 재회, 이별 원인, 궁합 같은 연애·관계 고민을 사주로 풀어보는 서비스예요. 이 칼럼은 실제로 올라온 고민에서 출발하고, 사주 풀이는 {{ site.brand }}의 감수 기준 문서를 따르며, 사람이 검수·승인한 글만 올라가요.
+{{ brand_full }}는 재회, 이별 원인, 궁합 같은 연애·관계 고민과 2027 신년운세를 사주로 풀어보는 서비스예요. 이 칼럼은 실제로 올라온 고민에서 출발하고, 사주 풀이는 {{ site.brand }}의 감수 기준 문서를 따르며, 사람이 검수·승인한 글만 올라가요.
 
 ## 꼭 알아 둘 점
 - 사주 풀이는 성향과 흐름을 해석한 참고 자료예요. 상대의 마음, 재회, 특정 결과를 보장하지 않아요.
 - 글의 초안은 AI의 도움을 받아 쓰고, 사람이 읽고 고친 뒤 승인한 글만 올려요.
 - 고민 사연은 실제로 올라온 글에서 가져오고, 그 사람을 알아볼 수 있는 내용은 지워요. 후기는 지어내지 않아요.
 
+## 사주 상품 (묘책 본 사이트에서 판매)
+{% for k, p in products.items() %}{% set pp = ppages.get(k) or {} %}- **{{ pp.full_name or p.name }}**: {{ pp.one_line or (p.question ~ " " ~ p.hook) }}{% if textpages and textpages.get(k) %} — 상품 안내: {{ textpages[k].url }}{% endif %} — 보러 가기: {{ p.url }}
+{% endfor %}
 ## 운영 정보
 {% set op = site.operator or {} %}
 - 서비스: {{ brand_full }} (MYO:CHECK, 묘책)

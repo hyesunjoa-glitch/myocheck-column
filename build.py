@@ -427,6 +427,11 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
                   year=dt.date.today().year, brand_full=brand_full, og_image=og_default,
                   org_jsonld=json.dumps({"@context": "https://schema.org", **org_node(site)}, ensure_ascii=False).replace("</", "<\\/"))
 
+    # 상품 설명 페이지 주소 — 칼럼의 상품 버튼 옆 「자세히」 링크에 써요 (공개된 것만, 시안에선 전부)
+    _pp = load_yaml(ROOT / "product_pages.yml") if (ROOT / "product_pages.yml").exists() else {}
+    common["textpages"] = {k: {"url": f"{base}/saju/{v['slug']}/", "path": f"saju/{v['slug']}/"}
+                           for k, v in (_pp or {}).items() if v and (v.get("ready") or preview)}
+
     def write(rel: str, text: str):
         path = OUT / rel
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -488,8 +493,59 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     urls.insert(0, (base + "/", max((c["updated"] for c in live if c.get("updated")), default=None), ""))
     write("about/index.html", env.get_template("about.html").render(
         **common, root="../", canonical=base + "/about/", about_person_jsonld=reviewer_jsonld(site),
-        page_title=f"칼럼 원칙 | {brand_full}", page_desc="묘책 칼럼이 글을 만들고 검수하는 원칙 — 실제 고민, AI 사용 범위, 사람 검수, 운영사 정보"))
+        page_title=f"칼럼 원칙 | {brand_full}", page_desc="묘책 칼럼이 글을 만들고 검수하는 원칙 — 실제 고민에서 글감을 고르는 법, AI를 쓰는 범위, 사람 검수와 승인, 사주 문장 기준, 운영사 정보를 정리했어요."))
     urls.append((base + "/about/", None, ""))
+    # 상품 설명 페이지(텍스트판) — /saju/주소/ (GEO 기준서 ④). ready: true일 때만 실제 사이트에, 시안에선 다 보여요
+    product_pages = load_yaml(ROOT / "product_pages.yml") if (ROOT / "product_pages.yml").exists() else {}
+    live_textpages = {}
+    for key, pg in (product_pages or {}).items():
+        prod = products.get(key)
+        if not prod or not pg or not (pg.get("ready") or preview):
+            continue
+        rel = f"saju/{pg['slug']}/index.html"
+        canonical = f"{base}/saju/{pg['slug']}/"
+        mine = [c for c in live if c.get("product") == key]
+        voices, seen = [], set()
+        for c in mine:
+            for v in (c.get("concerns") or []):
+                t = str(v.get("text") or "").strip()
+                if t and t not in seen and "대기]" not in t:
+                    seen.add(t); voices.append({"text": t, "source": "익명 · " + str(v.get("source") or "")})
+        # 사람이 쓴 고민(스레드·댓글)을 먼저, 검색어(자동완성)는 모자랄 때만
+        voices = sorted(voices, key=lambda v: "자동완성" in v["source"])[:3]
+        faqs = list(pg.get("faq") or []) + [f for f in (prod.get("buy_faq") or []) if f.get("a")]
+        character = characters.get(prod.get("character") or "") or {"name": {"isel": "이설"}.get(prod.get("character"), ""), "role": "묘책 궁합 담당"}
+        cat_name = {"reunion": "재회", "breakup": "이별 원인", "gunghap": "궁합", "newyear-2027": "2027 신년"}.get(key, "")
+        org = org_node(site)
+        prod_node = {"@type": "Product", "@id": canonical + "#product", "name": pg.get("full_name") or prod["name"],
+                     "description": pg.get("one_line", ""), "brand": {"@id": org["@id"]}, "url": prod.get("url", ""),
+                     "image": f"{base}/{prod['image']}" if prod.get("image") else None, "category": f"{cat_name} 사주 리포트"}
+        if pg.get("price"):
+            prod_node["offers"] = {"@type": "Offer", "price": int(pg["price"]), "priceCurrency": "KRW",
+                                   "availability": "https://schema.org/InStock", "url": prod.get("url", ""), "seller": {"@id": org["@id"]}}
+        prod_node = {k: v for k, v in prod_node.items() if v}
+        graph = [org,
+                 {"@type": "WebPage", "@id": canonical, "url": canonical, "name": pg.get("full_name") or prod["name"], "inLanguage": "ko-KR",
+                  "about": {"@id": prod_node["@id"]}, "dateModified": str(pg.get("reviewed") or "")},
+                 prod_node,
+                 {"@type": "BreadcrumbList", "itemListElement": [
+                     {"@type": "ListItem", "position": 1, "name": site["name"], "item": base + "/"},
+                     {"@type": "ListItem", "position": 2, "name": pg.get("full_name") or prod["name"], "item": canonical}]},
+                 {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f["q"],
+                                                     "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in faqs]}]
+        jsonld = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1, default=str).replace("</", "<\\/")
+        write(rel, env.get_template("product.html").render(
+            **common, root=root_for(rel), canonical=canonical, pg=pg, product=prod, product_key=key, character=character,
+            cat_name=cat_name, voices=voices, faqs=faqs, related=mine[:8], jsonld=jsonld,
+            cta=tracked_url(prod.get("url", ""), position="textpage", slug="saju-" + pg["slug"], product_key=key),
+            page_title=f"{pg.get('full_name') or prod['name']} — 상품 안내 | {brand_full}",
+            page_desc=pg.get("one_line", "")[:120]))
+        if pg.get("ready"):
+            live_textpages[key] = {"url": canonical, "path": f"saju/{pg['slug']}/", "name": pg.get("full_name") or prod["name"],
+                                   "one_line": pg.get("one_line", "")}
+            urls.append((canonical, pg.get("reviewed"), ""))
+    common["textpages"] = live_textpages   # 아래 llms.txt에는 공개된 것만
+
     write("404.html", env.get_template("404.html").render(
         **common, root="/", canonical=None, noindex_page=True,
         page_title=f"페이지를 찾을 수 없어요 | {brand_full}", page_desc=""))
@@ -497,7 +553,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     # robots.txt / sitemap / llms.txt / 피드 / IndexNow 열쇠
     write("robots.txt", env.get_template("robots.txt").render(**common))
     write("sitemap.xml", env.get_template("sitemap.xml").render(urls=urls))
-    write("llms.txt", env.get_template("llms.txt").render(**common, items=live, products=products))
+    write("llms.txt", env.get_template("llms.txt").render(**common, items=live, products=products, ppages=_pp or {}))
     # 피드(RSS)에는 본문 전체를 넣어요 — 네이버 서치어드바이저 권장(2026-10-20). 상대 주소는 전부 절대 주소로 바꿔요
     from urllib.parse import urljoin
     for c in live[:30]:

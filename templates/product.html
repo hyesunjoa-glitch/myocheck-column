@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block head %}<script type="application/ld+json">{{ jsonld | safe }}</script>{% endblock %}
+{% macro blank(label, hint) -%}
+{%- if preview %}<div class="fill-me"><span class="fill-tag">✏️ 사장님이 확인할 곳</span><b>{{ label }}</b><span>{{ hint }}</span></div>{% endif -%}
+{%- endmacro %}
+{% block main %}
+<article class="page product-page">
+  {% if preview and not pg.ready %}<p class="fill-me pp-draft"><span class="fill-tag">✏️ 시안</span><b>아직 실제 사이트에 안 나와요</b><span>가격·넣는 정보·받는 시간이 지금 상품과 같은지 확인해 주시면 공개해요.</span></p>{% endif %}
+  <header class="page-head">
+    <p class="pp-kicker">{{ cat_name }} 사주 · 상품 안내</p>
+    <h1>{{ pg.full_name or product.name }}</h1>
+    <p>{{ product.question }}</p>
+  </header>
+
+  <section class="answer pp-answer" aria-label="한 줄 정의">
+    <p class="answer-body">{{ pg.one_line }}</p>
+  </section>
+
+  <div class="prose">
+    <h2 id="for-whom">이런 분이 봐요</h2>
+    <p>{{ pg.for_whom_intro }}</p>
+    {% if voices %}
+    <p class="pp-sub">실제로 올라온 고민이에요.</p>
+    <ul class="pp-voices">{% for v in voices %}<li>“{{ v.text }}”<span>{{ v.source }}</span></li>{% endfor %}</ul>
+    {% endif %}
+
+    <h2 id="what">결과지에서 무엇을 봐요?</h2>
+    <p>결과지는 {{ product.toc | length }}개 장으로 나뉘어 있어요.</p>
+    <ol class="pp-toc">
+      {% for t in product.toc %}<li><b>{{ t.title }}</b>{% if t.gives %}<span>{{ t.gives | join(' · ') }}</span>{% endif %}</li>{% endfor %}
+    </ol>
+
+    <h2 id="inputs">무엇을 넣어요?</h2>
+    {% if pg.inputs %}<ul>{% for i in pg.inputs %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}
+    {% if not pg.inputs %}{{ blank("넣는 정보", "입력 화면에서 받는 것을 순서대로.") }}{% endif %}
+    <p>사주는 태어난 해·달·날·시간, 네 가지로 봐요. 태어난 시간을 알면 달마다 흐름처럼 세밀한 부분까지 더 자세히 볼 수 있어요.</p>
+
+    <h2 id="price">가격과 받는 시간</h2>
+    <dl class="biz">
+      <div><dt>담당</dt><dd>{{ character.name }} · {{ character.role }}</dd></div>
+      {% if pg.price %}<div><dt>가격</dt><dd>{{ "{:,}".format(pg.price) }}원{% if pg.list_price %} <s>{{ "{:,}".format(pg.list_price) }}원</s>{% endif %}</dd></div>{% endif %}
+      {% if product.delivery %}<div><dt>받는 시간</dt><dd>{{ product.delivery }}</dd></div>{% endif %}
+      <div><dt>보는 사주</dt><dd>{% if product.solo %}내 사주{% else %}내 사주 + 그 사람 사주{% endif %}</dd></div>
+    </dl>
+    {% if pg.price and pg.price_note %}<p class="pp-note">{{ pg.price_note }}</p>{% endif %}
+    {% if not pg.price %}{{ blank("가격", "지금 판매 가격(할인 전 가격이 있으면 같이). 숫자만.") }}{% endif %}
+    {% if not product.delivery %}{{ blank("받는 시간", "결제 후 결과지가 언제 오는지. 예: 결제 후 10분 안에 결과지 전달") }}{% endif %}
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="faq">
+      {% for f in faqs %}<details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">{{ f.a }}</div></details>{% endfor %}
+    </div>
+
+    {% if related %}
+    <h2 id="columns">먼저 읽어 보면 좋은 칼럼</h2>
+    <ul>{% for c in related %}<li><a href="{{ root }}{{ c.url_path }}">{{ c.title }}</a></li>{% endfor %}</ul>
+    {% endif %}
+  </div>
+
+  <div class="pp-foot">
+  <aside class="product" aria-label="상품 보러 가기">
+    {% if product.image %}<img class="product-img" src="{{ root }}{{ product.image }}" alt="{{ product.name }}" loading="lazy">{% endif %}
+    <div class="product-body">
+      <p class="product-kicker">묘책사주 MYO:CHECK</p>
+      <p class="product-name">{{ product.name }}</p>
+      {% if product.edition %}<p class="product-edition">{{ product.edition }}</p>{% endif %}
+      <p class="product-hook">{{ product.hook }}</p>
+      <a class="product-btn" href="{{ cta }}" data-cta="textpage" data-product="{{ product_key }}" data-column="saju-{{ pg.slug }}">{{ product.button }} →</a>
+    </div>
+  </aside>
+
+  <p class="pp-meta">검수 {{ site.reviewer.name if site.reviewer else '' }}{% if pg.reviewed %} · 검토일 {{ pg.reviewed | kdate }}{% endif %} · <a href="{{ root }}about/">칼럼 원칙</a></p>
+  <p class="pp-note">사주 풀이는 삶의 흐름을 돌아보는 참고 자료예요. 결과를 보장하지 않고, 중요한 결정은 스스로의 판단과 함께 내려 주세요.</p>
+  </div>
+</article>
+{% endblock %}
