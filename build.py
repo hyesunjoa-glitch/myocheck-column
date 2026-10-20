@@ -460,6 +460,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
         # 카톡·SNS 공유 미리보기 이미지 — 글 전용(static/og/주소.jpg, scripts/make_og.py로 만듦)이 있으면 그것, 없으면 기본 이미지
         ctx["og_image"] = f"{base}/static/og/{c['slug']}.jpg" if (STATIC / "og" / f"{c['slug']}.jpg").exists() else og_default
         c["body_html"] = render_body(c, env, ctx)
+        c["tone"] = ctx["tone"]
         related = [o for o in live if o is not c and o.get("category") == c.get("category")][:6]
         page = env.get_template("column.html").render(
             **ctx, related=related, canonical=canonical,
@@ -502,6 +503,10 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     for c in live[:30]:
         page_url = f"{base}/{c['url_path']}"
         full = re.sub(r'(\s(?:src|href))="([^"]*)"', lambda m: f'{m.group(1)}="{urljoin(page_url, m.group(2))}"', c["body_html"])
+        # 말풍선: 사이트에선 존댓말/반말 중 하나만 보이지만 RSS엔 꾸밈(CSS)이 없어 둘 다 보여요 → 이 글의 말투 하나만 남기고, 이름 뒤에 「:」
+        drop = "t-casual" if c.get("tone", "formal") == "formal" else "t-formal"
+        full = re.sub(rf'<span class="{drop}">.*?</span>', "", full, flags=re.S)
+        full = re.sub(r'<span class="say-name">(.*?)</span>', r'<b>\1</b>: ', full)
         c["feed_html"] = full.replace("]]>", "]]&gt;")
     write("feed.xml", env.get_template("feed.xml").render(**common, items=live[:30]))
     write("CNAME", base.split("://", 1)[1])
