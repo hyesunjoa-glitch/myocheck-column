@@ -497,6 +497,12 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     write("robots.txt", env.get_template("robots.txt").render(**common))
     write("sitemap.xml", env.get_template("sitemap.xml").render(urls=urls))
     write("llms.txt", env.get_template("llms.txt").render(**common, items=live, products=products))
+    # 피드(RSS)에는 본문 전체를 넣어요 — 네이버 서치어드바이저 권장(2026-10-20). 상대 주소는 전부 절대 주소로 바꿔요
+    from urllib.parse import urljoin
+    for c in live[:30]:
+        page_url = f"{base}/{c['url_path']}"
+        full = re.sub(r'(\s(?:src|href))="([^"]*)"', lambda m: f'{m.group(1)}="{urljoin(page_url, m.group(2))}"', c["body_html"])
+        c["feed_html"] = full.replace("]]>", "]]&gt;")
     write("feed.xml", env.get_template("feed.xml").render(**common, items=live[:30]))
     write("CNAME", base.split("://", 1)[1])
     # 구글 서치 콘솔 소유권 확인 파일 (HTML 파일 방식) — 확인 뒤에도 지우면 안 돼요

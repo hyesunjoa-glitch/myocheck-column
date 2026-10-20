@@ -9,7 +9,7 @@
 <title>{{ c.title }}</title>
 <link>{{ site.base_url }}/{{ c.url_path }}</link>
 <guid>{{ site.base_url }}/{{ c.url_path }}</guid>
-<description>{{ c.description }}</description>
+<description><![CDATA[<p>{{ c.description }}</p>{{ c.feed_html | safe }}]]></description>
 <pubDate>{{ c.date.strftime('%a, %d %b %Y 00:00:00 +0900') }}</pubDate>
 </item>
 {% endfor %}</channel>
