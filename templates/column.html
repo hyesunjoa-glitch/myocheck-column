@@ -65,7 +65,7 @@
         {% for c in col.concerns %}
         <figure class="msg">
           <blockquote>{{ c.text }}</blockquote>
-          <figcaption>익명 · {{ c.source }}</figcaption>
+          <figcaption>{{ c.source | concern_label }}</figcaption>
         </figure>
         {% endfor %}
       </div>
@@ -229,7 +229,7 @@
           <span class="tile-art tile-q" aria-hidden="true"><b>Q.</b><i>준비 중</i></span>
           <span class="tile-cat">{{ categories | selectattr('key', 'equalto', q.category) | map(attribute='name') | first }}</span>
           <span class="tile-title">{{ q.title }}</span>
-          <span class="tile-sub">{{ q.source }}에 실제로 올라온 질문</span>
+          <span class="tile-sub">{% if "구글" in (q.source or "") %}실제로 검색된 질문{% else %}{{ q.source }}에 실제로 올라온 질문{% endif %}</span>
         </div>
         {% endfor %}
       </div>

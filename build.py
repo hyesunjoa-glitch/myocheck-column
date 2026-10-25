@@ -286,6 +286,14 @@ def plain(text: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", text)).strip()
 
 
+def concern_label(source) -> str:
+    """고민 인용 아래 출처 글자 (2026-10-26 사장님: 구글 자동완성·검색은 빼고 「익명」만)"""
+    src = str(source or "").strip()
+    if not src or "구글" in src:
+        return "익명"
+    return "익명 · " + src
+
+
 # ─────────────────────────── 구조화 데이터 (AI·검색엔진용 설명표) ───────────────────────────
 
 def org_node(site) -> dict:
@@ -424,6 +432,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
         shutil.copy(STATIC / "favicon.ico", OUT / "favicon.ico")
 
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html", "xml"]))
+    env.filters["concern_label"] = concern_label
     env.filters["kdate"] = lambda d: f"{d.year}. {d.month}. {d.day}." if d else ""
     brand_full = site.get("brand_full") or site["name"]
     og_default = f"{base}/static/og/default.jpg"
@@ -514,9 +523,9 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
             for v in (c.get("concerns") or []):
                 t = str(v.get("text") or "").strip()
                 if t and t not in seen and "대기]" not in t:
-                    seen.add(t); voices.append({"text": t, "source": "익명 · " + str(v.get("source") or "")})
+                    seen.add(t); voices.append({"text": t, "source": concern_label(v.get("source")), "auto": "자동완성" in str(v.get("source") or "")})
         # 사람이 쓴 고민(스레드·댓글)을 먼저, 검색어(자동완성)는 모자랄 때만
-        voices = sorted(voices, key=lambda v: "자동완성" in v["source"])[:3]
+        voices = sorted(voices, key=lambda v: v["auto"])[:3]
         faqs = list(pg.get("faq") or []) + [f for f in (prod.get("buy_faq") or []) if f.get("a")]
         character = characters.get(prod.get("character") or "") or {"name": {"isel": "이설"}.get(prod.get("character"), ""), "role": "묘책 궁합 담당"}
         cat_name = {"reunion": "재회", "breakup": "이별 원인", "gunghap": "궁합", "newyear-2027": "2027 신년"}.get(key, "")
