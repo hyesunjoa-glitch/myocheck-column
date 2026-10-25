@@ -309,6 +309,8 @@ def org_node(site) -> dict:
         node["address"] = {"@type": "PostalAddress", "streetAddress": op["address"], "addressCountry": "KR"}
     if op.get("phone"):
         node["telephone"] = op["phone"]
+    if op.get("email"):
+        node["email"] = op["email"]
     return node
 
 

@@ -60,7 +60,7 @@
     <p>{{ site.description }}</p>
     <p class="foot-links foot-legal">{% if site.privacy_url %}<a href="{{ site.privacy_url }}"><b>개인정보처리방침</b></a>{% endif %}{% if site.terms_url %}<a href="{{ site.terms_url }}">이용약관</a>{% endif %}</p>
     {% set op = site.operator or {} %}
-    {% if op.legal_name %}<p class="foot-biz">상호 {{ op.legal_name }} · 대표 {{ op.ceo }} · 사업자등록번호 {{ op.business_no }}<br>통신판매업 신고 {{ op.mail_order_no }}<br>{{ op.address }} · {{ op.phone }}</p>{% endif %}
+    {% if op.legal_name %}<p class="foot-biz">상호 {{ op.legal_name }} · 대표 {{ op.ceo }} · 사업자등록번호 {{ op.business_no }}<br>통신판매업 신고 {{ op.mail_order_no }}<br>{{ op.address }} · {{ op.phone }}{% if op.email %} · {{ op.email }}{% endif %}</p>{% endif %}
     <p class="foot-copy">© {{ year }} {{ brand_full }}</p>
   </div>
 </footer>
