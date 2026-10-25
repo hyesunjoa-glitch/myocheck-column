@@ -45,7 +45,7 @@
 
   {# ── 붙어 다니는 메뉴 ── #}
   <nav class="tabs" aria-label="이 글의 차례">
-    {% if col.concerns %}<a href="#concerns">고민</a>{% endif %}
+    {% if col.concerns | human_concerns %}<a href="#concerns">고민</a>{% endif %}
     {% if col.situations %}<a href="#pick">내 상황</a>{% endif %}
     <a href="#body">본문</a>
     <a href="#saju">사주로 보면</a>
@@ -58,11 +58,12 @@
   <div class="sheet">
 
     {# ── 💬 실제 고민 (메시지 모양) ── #}
-    {% if col.concerns %}
+    {% set shown_concerns = col.concerns | human_concerns %}
+    {% if shown_concerns %}
     <section class="block" id="concerns" aria-labelledby="concerns-h">
       <h2 class="sec-h" id="concerns-h"><span aria-hidden="true">💬</span> 이런 고민이 실제로 올라왔어요</h2>
       <div class="msgs">
-        {% for c in col.concerns %}
+        {% for c in shown_concerns %}
         <figure class="msg">
           <blockquote>{{ c.text }}</blockquote>
           <figcaption>{{ c.source | concern_label }}</figcaption>

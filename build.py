@@ -286,6 +286,12 @@ def plain(text: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", text)).strip()
 
 
+def human_concerns(concerns) -> list:
+    """화면에 보이는 고민 — 사람이 직접 쓴 글만 (2026-10-26 사장님: 검색어(구글 자동완성·검색)는 고민이 아니라 화면에서 뺌.
+    글 파일의 concerns에는 그대로 남겨 둠 — 글감 출처 기록·발행 안전검사용)"""
+    return [c for c in (concerns or []) if "구글" not in str((c or {}).get("source", ""))]
+
+
 def concern_label(source) -> str:
     """고민 인용 아래 출처 글자 (2026-10-26 사장님: 구글 자동완성·검색은 빼고 「익명」만)"""
     src = str(source or "").strip()
@@ -433,6 +439,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
 
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html", "xml"]))
     env.filters["concern_label"] = concern_label
+    env.filters["human_concerns"] = human_concerns
     env.filters["kdate"] = lambda d: f"{d.year}. {d.month}. {d.day}." if d else ""
     brand_full = site.get("brand_full") or site["name"]
     og_default = f"{base}/static/og/default.jpg"
@@ -520,7 +527,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
         mine = [c for c in live if c.get("product") == key]
         voices, seen = [], set()
         for c in mine:
-            for v in (c.get("concerns") or []):
+            for v in human_concerns(c.get("concerns")):
                 t = str(v.get("text") or "").strip()
                 if t and t not in seen and "대기]" not in t:
                     seen.add(t); voices.append({"text": t, "source": concern_label(v.get("source")), "auto": "자동완성" in str(v.get("source") or "")})
