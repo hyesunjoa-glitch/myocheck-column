@@ -56,6 +56,7 @@
 <footer class="site-foot">
   <div class="wrap">
     <p class="foot-links"><a href="{{ site.main_site }}">묘책 사주 보러 가기</a><a href="{{ root }}about/">칼럼 원칙</a><a href="{{ root }}feed.xml">새 글 받아보기(RSS)</a></p>
+    {% if site.channels %}<p class="foot-links foot-channels">{% for c in site.channels %}<a href="{{ c.url }}" rel="me noopener" target="_blank">{{ c.label }}</a>{% endfor %}</p>{% endif %}
     <p>{{ site.description }}</p>
     <p class="foot-links foot-legal">{% if site.privacy_url %}<a href="{{ site.privacy_url }}"><b>개인정보처리방침</b></a>{% endif %}{% if site.terms_url %}<a href="{{ site.terms_url }}">이용약관</a>{% endif %}</p>
     {% set op = site.operator or {} %}

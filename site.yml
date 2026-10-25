@@ -5,7 +5,7 @@
 name: 묘책 칼럼
 brand: 묘책
 # 검색 결과 제목 뒤·공유 미리보기·AI용 설명에 쓰는 브랜드 표기 (2026-10-05 확정)
-brand_full: myocheck(묘책사주)
+brand_full: 묘책사주 MYO:CHECK   # 2026-10-26 본 사이트·유튜브·블로그와 같은 표기로 통일 (이전: myocheck(묘책사주))
 brand_definition: "[내 연애의 다음 장, 먼저 읽어드려요] 묘책사주 MYO:CHECK | 그 사람 속마음, 기다리는 연락, 우리 둘의 궁합. 남 얘기 같은 띠 운세 말고 내 사주로 읽는 맞춤 리포트. 재회·궁합·2027 신년운세까지, 막막할 때 꺼내 보는 사주"   # 브랜드 정의 한 줄 (2026-10-11 확정, 본 사이트 검색 설명과 글자 하나까지 똑같이 — 바꿀 땐 두 곳 같이) — AI·검색엔진이 「묘책사주가 뭐야」에 답할 때 쓰는 문장
 tagline: 재회·이별·궁합, 사람들이 실제로 묻는 질문에 답합니다
 description: 헤어진 사람의 연락, 이별의 이유, 둘의 궁합, 2027 신년운세까지. 실제로 올라온 고민에서 출발해 사주로 풀고, 사람이 검수한 글만 올리는 묘책사주의 칼럼이에요.   # 80~120자 (2026-10-20, 강의 기준)
@@ -39,6 +39,11 @@ reviewer:
   why: ""            # 이 칼럼을 왜 만드는지, 본인 말로 한두 문장
   links: []          # 본인 이름으로 된 공개 링크 — 예: [{label: 인스타그램, url: "https://..."}]
 contact: ""          # 문의 창구 (예: 카카오톡 채널 「묘책」 · 주소). 비우면 안 나와요
+# 묘책사주 공식 채널 — 푸터·칼럼 원칙 페이지에 링크로 보이고, AI·검색엔진용 소개표(sameAs)에도 들어가요 (2026-10-26, 신태순 전자책 「채널끼리 서로 연결」)
+channels:
+  - {label: 유튜브, name: 묘책사주 MYO:CHECK, url: "https://www.youtube.com/@myocheck_saju"}
+  - {label: 네이버 블로그, name: 묘책사주 칼럼, url: "https://blog.naver.com/kongdri"}
+  - {label: 인스타그램, name: 묘화 @myohwa.room, url: "https://www.instagram.com/myohwa.room/"}
 # 묘화 인스타 — 칼럼의 「이런 고민이 실제로 올라왔어요」 아래 링크로 이어져요 (2026-10-07)
 myohwa_instagram: https://www.instagram.com/myohwa.room/
 privacy_url: https://www.myocheck.kr/legal/privacy

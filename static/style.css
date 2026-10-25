@@ -369,3 +369,12 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .pp-foot .product { margin-top: 8px; }
 .pp-draft { margin: 12px 20px 0 !important; }
 .product-page > .prose { padding-bottom: 8px; }
+
+/* 비교표 (2026-10-26) — 휴대폰에서 넘치면 옆으로 밀어 보기 */
+.prose table{display:block;width:100%;overflow-x:auto;border-collapse:collapse;margin:18px 0 22px;font-size:14.5px;line-height:1.5}
+.prose th,.prose td{border:1px solid var(--line,#e3e3e3);padding:9px 10px;text-align:left;vertical-align:top;min-width:88px}
+.prose thead th{background:#0a0a0a;color:#fff;font-weight:700}
+.prose thead th:first-child{background:transparent;border-color:transparent}
+.prose tbody td:first-child{background:#f4fbf8;white-space:nowrap}
+.foot-channels a{font-weight:600}
+.channel-list{list-style:none;padding:0}.channel-list li{padding:6px 0;border-bottom:1px solid var(--line,#eee)}.channel-list b{display:inline-block;min-width:96px}

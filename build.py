@@ -295,10 +295,12 @@ def org_node(site) -> dict:
         "@type": "Organization",
         "@id": site["main_site"].rstrip("/") + "/#org",
         "name": site.get("brand_full") or site["brand"],
-        "alternateName": [site["brand"], "묘책사주", "MYO:CHECK"],
+        "alternateName": [site["brand"], "묘책사주", "MYO:CHECK", "myocheck"],
         "url": site["main_site"],
         "logo": site["base_url"] + "/static/img/logo.png",
     }
+    if site.get("channels"):   # 푸터·칼럼 원칙 페이지에 보이는 공식 채널 = 같은 브랜드라고 알려 줌
+        node["sameAs"] = [c["url"] for c in site["channels"]]
     if site.get("brand_definition"):   # 칼럼 원칙 페이지에 화면으로도 보여요
         node["description"] = site["brand_definition"]
     if op.get("legal_name"):
