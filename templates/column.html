@@ -34,13 +34,6 @@
   <section class="answer" id="answer" aria-labelledby="answer-h">
     <h2 class="answer-h" id="answer-h"><span aria-hidden="true">✅</span> 짧은 답</h2>
     <p class="answer-body">{{ col.summary | trim }}</p>
-    <ul class="meta">
-      <li><span aria-hidden="true">⏱️</span> 약 {{ read_min }}분</li>
-      <li><span aria-hidden="true">✍️</span> {{ site.brand }} 편집팀 · <a href="{{ root }}about/#process">AI 초안, 사람 검수</a>{% if col.reviewer %} · 검수 {{ col.reviewer }}{% elif preview %} · 검수 <span class="pending">[검수자 대기]</span>{% endif %}</li>
-      <li><span aria-hidden="true">🗓️</span> <time datetime="{{ col.date }}">{{ col.date | kdate }}</time>{% if col.updated and col.updated != col.date %} · {{ col.updated | kdate }} 고침{% endif %}</li>
-      {% if preview %}<li><span aria-hidden="true">👀</span> 오늘 읽은 사람 <span class="pending">[실제 집계 연결 후 표시]</span></li>{% endif %}
-      <li><button type="button" class="share-btn" data-share><span aria-hidden="true">🔗</span> 친구에게 보내기</button></li>
-    </ul>
   </section>
 
   {# ── 붙어 다니는 메뉴 ── #}
@@ -241,6 +234,13 @@
     {% if col.keywords %}
     <ul class="tags" aria-label="이 글의 키워드">{% for k in col.keywords %}<li>#{{ k }}</li>{% endfor %}</ul>
     {% endif %}
+
+    <ul class="meta meta-end" aria-label="글 정보">
+      <li><span aria-hidden="true">⏱️</span> 약 {{ read_min }}분</li>
+      <li><span aria-hidden="true">✍️</span> {{ site.brand }} 편집팀 · <a href="{{ root }}about/#process">AI 초안, 사람 검수</a>{% if col.reviewer %} · 검수 {{ col.reviewer }}{% elif preview %} · 검수 <span class="pending">[검수자 대기]</span>{% endif %}</li>
+      <li><span aria-hidden="true">🗓️</span> <time datetime="{{ col.date }}">{{ col.date | kdate }}</time>{% if col.updated and col.updated != col.date %} · {{ col.updated | kdate }} 고침{% endif %}</li>
+      {% if preview %}<li><span aria-hidden="true">👀</span> 오늘 읽은 사람 <span class="pending">[실제 집계 연결 후 표시]</span></li>{% endif %}
+    </ul>
 
     <div class="share-end">
       <p>이 글이 도움이 됐다면, 같은 고민을 하는 친구에게 보내 주세요.</p>

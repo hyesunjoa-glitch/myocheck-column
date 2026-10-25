@@ -378,3 +378,6 @@ html[data-tone="formal"] .t-casual, html[data-tone="casual"] .t-formal { display
 .prose tbody td:first-child{background:#f4fbf8;white-space:nowrap}
 .foot-channels a{font-weight:600}
 .channel-list{list-style:none;padding:0}.channel-list li{padding:6px 0;border-bottom:1px solid var(--line,#eee)}.channel-list b{display:inline-block;min-width:96px}
+
+/* 글 정보(읽는 시간·작성·날짜) — 2026-10-26 사장님: 맨 아래로 */
+.meta-end { margin: 24px 20px 0; padding-top: 16px; font-size: 13.5px; }
