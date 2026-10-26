@@ -107,6 +107,30 @@ publish_order:            # 재회·이별을 번갈아
   - chatgpt-saju-vs-saju-site           # 비교 ⑤ 재회
   - reunion-consulting-vs-saju          # 비교 ⑥ 재회
   - reunion-saju-where-and-how          # 재회 대표 글 — 링크하는 글이 다 올라간 뒤 마지막에
+  # ── 11월 (10/26 사장님 「키워드에 맞춰 11월 한 달치, 신년 비중 높여」 — 신년 14·궁합 7·재회 2, 초안 → 승인되면 그날 올라감)
+  - samjae-2027                         # 11/8  신년 — 2027 삼재띠
+  - bad-gunghap-marriage                # 11/9  궁합
+  - tti-starts-ipchun-or-seollal        # 11/10 신년 — 띠 기준
+  - red-sheep-year-2027                 # 11/11 신년 — 붉은 양의 해
+  - reunion-after-two-years             # 11/12 재회
+  - love-fortune-2027                   # 11/13 신년 — 연애운
+  - lucky-tti-2027                      # 11/14 신년 — 대박 띠
+  - wonjin-gunghap                      # 11/15 궁합
+  - how-to-get-through-samjae           # 11/16 신년 — 삼재 피하는 법
+  - newyear-fortune-accuracy            # 11/17 신년 — 정확도
+  - on-off-again-gunghap                # 11/18 궁합
+  - daeun-change-2027                   # 11/19 신년 — 대운
+  - tojeongbigyeol-table-2027           # 11/20 신년 — 토정비결 조견표
+  - gunghap-question-list               # 11/21 궁합
+  - wedding-date-2027                   # 11/22 신년 — 결혼 길일
+  - newyear-fortune-prompt              # 11/23 신년 — 프롬프트
+  - four-year-age-gap-gunghap           # 11/24 궁합
+  - job-change-timing-2027              # 11/25 신년 — 이직
+  - how-to-read-newyear-fortune         # 11/26 신년 — 보는 법
+  - ex-texts-at-christmas               # 11/27 재회 — 연말 연락
+  - spark-bad-match                     # 11/28 궁합
+  - ahopsu-and-samjae                   # 11/29 신년 — 아홉수
+  - comfortable-vs-exciting             # 11/30 궁합
 
 # IndexNow — 새 글이 올라가면 빙·네이버 등에 "새 글 있어요" 하고 바로 알리는 장치
 indexnow_key: ba22a96216ed401c42731bf248a0a751
