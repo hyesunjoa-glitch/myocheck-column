@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [신년운세 프롬프트, 챗지피티 신년운세 프롬프트, 제미나이 신년운세 프롬프트, gpt 신년운세 프롬프트, 챗GPT 신년운세, 2027 신년운세]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   챗GPT나 제미나이로 신년운세를 보는 건 괜찮아요. 다만 프롬프트를 그대로 붙여 넣기 전에, 내 정보가 빠짐없이 들어갔는지와 AI가 계산한 사주 글자가 맞는지를 먼저 확인해야 해요.

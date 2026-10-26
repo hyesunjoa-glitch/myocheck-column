@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [궁합 질문 리스트, 사주 궁합 질문 리스트, 궁합 볼때 질문, 궁합 질문 추천, 커플 궁합 질문, 연애 궁합 질문, 사주 궁합 질문, 챗지피티 궁합 질문]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   궁합 볼 때는 「우리 잘 맞아요?」보다 「어떤 일에서, 언제」 맞고 부딪히는지를 물어야 내 상황에 쓸 답이 나와요.

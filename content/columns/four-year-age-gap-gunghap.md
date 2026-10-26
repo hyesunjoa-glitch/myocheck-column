@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [궁합도 안보는 4살차이, 4살 차이 궁합, 궁합도 안보는 나이차이, 나이 차이 궁합, 띠 궁합, 사주 궁합, 삼합 띠]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   「4살 차이는 궁합도 안 본다」는 말은 띠 궁합에서 나왔어요. 네 칸씩 떨어진 띠끼리 잘 어울린다고 보는 전통 풀이 때문이에요.

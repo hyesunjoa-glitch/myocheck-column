@@ -38,10 +38,10 @@ next_questions:
     source: 유튜브 댓글
 
 keywords: [스파크 튀는 사람, 첫눈에 반한 사람 악연, 스파크 악연, 첫눈에 끌리는 사람 궁합, 강하게 끌리는 궁합, 악연 궁합, 사주 궁합]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   첫눈에 스파크가 튀는 사람을 악연이라고 하는 건, 끌림이 너무 세서 서로 안 맞는 부분이 처음엔 잘 안 보이기 때문이에요.

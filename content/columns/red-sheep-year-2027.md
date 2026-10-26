@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [붉은 양의 해, 붉은 양의 해 의미, 2027년 붉은 양의 해, 2027 양띠 색, 2027 년 무슨 양띠, 2027년 양띠 운세, 붉은 양띠 특징]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   2027년이 붉은 양의 해인 건, 해 이름인 정미년의 '정'이 불과 붉은색을, '미'가 양을 뜻하기 때문이에요.

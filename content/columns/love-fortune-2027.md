@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [2027 연애운, 2027년 연애운, 새해 연애운, 연애운 사주, 언제 연애할까, 헤어지고 언제 연애, 2027 신년운세]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   사주로 연애운을 볼 때는 연인을 뜻하는 자리와 오래 곁에 둘 짝의 자리를 찾고, 2027년 흐름이 그 두 곳에 언제 닿는지 봐요.

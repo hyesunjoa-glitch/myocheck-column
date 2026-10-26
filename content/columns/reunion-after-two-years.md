@@ -35,10 +35,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [이별 2년 후 재회, 헤어진 지 2년 재회, 2년 만에 재회, 오래 지난 재회, 몇 년 만에 재회, 재회 가능성, 재회 사주]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   헤어진 지 2년이 지났어도 재회해도 돼요. 다만 2년 뒤의 재회는 끊긴 연애를 이어 가는 게 아니라, 2년 동안 달라진 두 사람이 다시 시작하는 일이에요.

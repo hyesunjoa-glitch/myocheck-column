@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [대운 바뀌는 시기, 대운 바뀌는 징조, 대운 바뀌는 해, 2027 대운, 대운 뜻, 대운수 계산, 2027 신년운세]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   대운은 사주에서 10년마다 바뀌는 큰 흐름이에요. 첫 대운이 시작되는 나이가 사람마다 달라서, 대운이 바뀌는 해도 사람마다 달라요.

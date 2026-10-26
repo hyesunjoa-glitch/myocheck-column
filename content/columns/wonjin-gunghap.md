@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [원진살 궁합, 원진살, 원진살이란, 원진살 띠, 원진살 연애, 원진살 결혼, 원진살 장점]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   원진살은 쥐와 양, 소와 말, 호랑이와 닭, 토끼와 원숭이, 용과 돼지, 뱀과 개처럼 띠끼리 서로 꺼리는 짝으로 알려진 것이에요.

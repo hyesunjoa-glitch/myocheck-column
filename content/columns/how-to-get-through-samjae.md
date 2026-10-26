@@ -38,10 +38,10 @@ next_questions:
     source: 구글 자동완성
 
 keywords: [삼재 피하는 법, 삼재 부적, 삼재 부적 효과, 날삼재 조심, 양띠 삼재 피하는 법, 삼재 부적 뜻, 삼재 2027]
-status: 초안
+status: 승인
 date: 2026-10-27
 updated:
-reviewer:
+reviewer: 공혜선
 
 summary: >
   삼재는 태어난 해의 띠로 정해진 3년이라, 그 해를 건너뛰는 방법은 없어요. 옛 풍속도 삼재를 없애기보다 탈 없이 지나가길 비는 쪽이었어요.
