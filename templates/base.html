@@ -28,9 +28,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="{{ root }}static/style.css">
 {% block head %}{% endblock %}
-{% if site.ga4_id and not preview %}
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
+{% set ga_ids = ([site.ga4_id] + (site.ga4_extra_ids or [])) | select | unique | list %}
+{% if ga_ids and not preview %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_ids[0] }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());window.GA_IDS={{ ga_ids | tojson }};window.GA_IDS.forEach(function(id){gtag('config',id);});</script>
 {% endif %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -88,7 +89,8 @@ document.addEventListener('click', function (e) {
   var a = e.target.closest('[data-cta]');
   if (!a || typeof window.gtag !== 'function') return;
   window.gtag('event', 'column_cta_click', {
-    cta_position: a.dataset.cta, product: a.dataset.product, column: a.dataset.column
+    cta_position: a.dataset.cta, product: a.dataset.product, column: a.dataset.column,
+    send_to: window.GA_IDS
   });
 });
 </script>

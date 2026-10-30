@@ -63,6 +63,7 @@
 - `allow_indexing: false` → 시안 단계. 모든 봇 차단. **도메인 연결 뒤에 true로**
 - `indexnow_enabled: false` → 정식 오픈 때 true로
 - `ga4_id` → 구글 애널리틱스 ID를 넣으면 버튼 클릭이 기록돼요
+- `ga4_extra_ids` → 같은 방문·버튼 클릭을 함께 받을 GA4 ID 목록(지금은 판매 사이트 G-JK8DDSXFXX). 속성마다 1번씩만 가요
 
 ## 상품 링크 (products.yml)
 
