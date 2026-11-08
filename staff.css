@@ -1,0 +1,90 @@
+/* 직원 명부 — 창고(.store) 뼈대를 그대로 쓰고, 명부에만 있는 부품을 더한다. 시안 ⑬(2026-11-08). */
+.studio .store.staff{position:relative}
+.studio .store.staff .submenu .brand{border:0;background:none;text-align:left;width:100%;cursor:pointer}
+.studio .store.staff .submenu .brand:hover{color:var(--spink3)}
+.studio .store.staff .submenu .grp{display:block;padding:8px 12px 4px;font-size:11px;font-weight:700;color:var(--smuted);letter-spacing:.04em}
+.studio .store.staff .submenu .sp{flex:1}
+.studio .store.staff .submenu a.sub{text-decoration:none;color:var(--smuted);font-size:13px}
+.studio .store.staff .submenu a.sub:hover{color:var(--spink3)}
+.studio .store.staff .search .clr{border:0;background:none;padding:0 2px;font-size:12px;font-weight:600;color:var(--smuted)}
+.studio .store.staff .search .clr:hover{color:var(--spink3)}
+.studio .store.staff .intro{margin:-6px 0 0;max-width:780px;align-self:center;text-align:center;color:#3B4250;line-height:1.65}
+.studio .store.staff section>.hd .hint{font-size:12px;color:var(--smuted)}
+.studio .store.staff section>h2{margin:0;font-size:18px;font-weight:600}
+.studio .store.staff .asof{margin:auto 0 0;padding-top:12px;font-size:11px;color:#9AA0AA;text-align:center}
+
+/* 일의 흐름 */
+.studio .store.staff .flow{padding:16px 18px;border:1px solid var(--sline);border-radius:12px;background:#FAFAFC;gap:10px}
+.studio .store.staff .flow h2{font-size:14px;color:var(--smuted)}
+.studio .store.staff .chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px}
+.studio .store.staff .chain .step,.studio .store.staff .chain .alt{display:inline-flex;align-items:center;gap:4px}
+.studio .store.staff .chain .arr{color:#9AA0AA;font-size:13px;padding:0 2px}
+.studio .store.staff .flow small{font-size:12px;color:var(--smuted);line-height:1.55}
+.studio .store.staff .chip{display:inline-flex;align-items:center;min-height:30px;padding:0 11px;border:1px solid var(--sline2);border-radius:999px;background:#fff;font-size:13px;font-weight:600;color:var(--sink)}
+.studio .store.staff .chip:hover{border-color:var(--spink);color:var(--spink3);background:var(--spink2)}
+.studio .store.staff .chips{display:inline-flex;flex-wrap:wrap;gap:6px}
+
+/* 직원 줄 + 펼침 */
+.studio .store.staff .list{display:flex;flex-direction:column;gap:6px}
+.studio .store.staff .ev{border:1px solid var(--sline);border-radius:12px;background:#fff;overflow:hidden;border-left:4px solid var(--tc,#E8549C)}
+.studio .store.staff .ev.open{box-shadow:0 4px 14px rgba(20,24,31,.08)}
+.studio .store.staff .ev.flash{animation:staffFlash 1.4s ease-out}
+@keyframes staffFlash{0%,40%{box-shadow:0 0 0 4px var(--spink2),0 0 0 6px var(--spink)}100%{box-shadow:0 4px 14px rgba(20,24,31,.08)}}
+.studio .store.staff .ev .row{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:10px 14px;border:0;background:none;text-align:left;color:var(--sink);border-radius:0}
+.studio .store.staff .ev .row:hover{background:var(--sbg)}
+.studio .store.staff .ev .no{width:28px;flex:none;font-size:12px;font-weight:700;color:#9AA0AA;font-variant-numeric:tabular-nums}
+.studio .store.staff .ev .ic{width:36px;height:36px;border-radius:8px;border:1px solid var(--sline);background:#F1F2F5;flex:none;display:grid;place-items:center}
+.studio .store.staff .ev .ic svg{width:18px;height:18px;stroke:#3B4250;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.studio .store.staff .ev .nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;white-space:normal;font-weight:400}
+.studio .store.staff .ev .h4{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:15px;font-weight:700}
+.studio .store.staff .ev .h4 em{font-style:normal;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;line-height:1.2}
+.studio .store.staff .ev .h4 .new{background:var(--spink2);color:var(--spink3)}
+.studio .store.staff .ev .h4 .wait{background:#FEF3C7;color:#92400E}
+.studio .store.staff .ev .h4 .money{background:#E0F2FE;color:#075985}
+.studio .store.staff .ev .h4 .tk{background:#F1F2F5;color:#3B4250}
+.studio .store.staff .ev .one{font-size:13px;color:#3B4250;line-height:1.5}
+.studio .store.staff .ev .chev{flex:none;width:22px;height:22px;display:grid;place-items:center;color:#9AA0AA;transition:transform .2s}
+.studio .store.staff .ev .chev svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.studio .store.staff .ev.open .chev{transform:rotate(180deg)}
+.studio .store.staff .detail{padding:4px 18px 18px 56px;display:flex;flex-direction:column;gap:16px;border-top:1px dashed var(--sline)}
+.studio .store.staff .detail .d{margin:14px 0 0;line-height:1.7;color:#3B4250}
+.studio .store.staff .sec{display:flex;flex-direction:column;gap:8px}
+.studio .store.staff .sec h5{margin:0;font-size:12px;font-weight:700;color:var(--smuted);letter-spacing:.03em}
+.studio .store.staff .abil{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.studio .store.staff .abil li{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:9px 12px;border:1px solid var(--sline);border-radius:10px;background:#FAFAFC;font-size:13.5px;line-height:1.55}
+.studio .store.staff .abil li>span{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.studio .store.staff .abil li b{font-weight:700;color:var(--spink3);margin-right:4px}
+.studio .store.staff q{quotes:"「" "」";font-size:13px;color:var(--spink3);font-weight:600}
+.studio .store.staff .saybox{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid var(--sline2);border-radius:10px;background:#fff}
+.studio .store.staff .saybox q{font-size:14px}
+.studio .store.staff .saybox.big{border-color:var(--spink);background:var(--spink2)}
+.studio .store.staff .ex{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.studio .store.staff .cpy{flex:none;display:inline-flex;align-items:center;gap:5px;min-height:30px;padding:0 10px;border:1px solid var(--sline2);border-radius:8px;background:#fff;font-size:12px;font-weight:600;color:var(--sink)}
+.studio .store.staff .cpy:hover{background:var(--shover)}
+.studio .store.staff .cpy svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.studio .store.staff .meta{margin:0;display:grid;grid-template-columns:92px 1fr;gap:8px 14px;font-size:13.5px;line-height:1.55}
+.studio .store.staff .meta dt{font-weight:700;color:var(--smuted);font-size:12px;padding-top:2px}
+.studio .store.staff .meta dd{margin:0;color:var(--sink)}
+.studio .store.staff .meta code{font:600 12.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:#F1F2F5;padding:2px 6px;border-radius:5px}
+.studio .store.staff .detail .ib{align-self:flex-start;text-decoration:none;color:var(--sink)}
+
+/* 디자인은 누가? */
+.studio .store.staff .dz{display:flex;flex-direction:column;gap:6px}
+.studio .store.staff .drow{display:grid;grid-template-columns:200px 1fr;gap:6px 16px;align-items:center;padding:12px 14px;border:1px solid var(--sline);border-radius:10px;background:#fff}
+.studio .store.staff .drow b{font-size:14px;font-weight:700}
+.studio .store.staff .drow small{grid-column:2;font-size:12px;color:var(--smuted)}
+
+.studio .store.staff .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:rgba(20,24,31,.92);color:#fff;font-size:13px;font-weight:600;padding:10px 16px;border-radius:999px;z-index:30;pointer-events:none}
+
+@media (max-width:720px){
+  .studio .store.staff .submenu .grp,.studio .store.staff .submenu .sp,.studio .store.staff .submenu a.sub{display:none}
+  .studio .store.staff .ev .row{gap:10px;padding:10px 10px}
+  .studio .store.staff .ev .no{width:22px}
+  .studio .store.staff .detail{padding:4px 12px 16px 12px}
+  .studio .store.staff .meta{grid-template-columns:1fr}
+  .studio .store.staff .meta dt{padding-top:6px}
+  .studio .store.staff .drow{grid-template-columns:1fr}
+  .studio .store.staff .drow small{grid-column:1}
+  .studio .store.staff .abil li{flex-direction:column}
+  .studio .store.staff .saybox{flex-direction:column;align-items:flex-start}
+}

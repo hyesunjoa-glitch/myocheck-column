@@ -2,7 +2,7 @@
 // 고칠 때는 노션 「직원 명부」와 같이 고쳐요.
 export type TeamKey = "reels" | "ad" | "page" | "content" | "column" | "admin";
 export type Team = { k: TeamKey; n: string; d: string; c: string; intro: string; isNew?: boolean };
-export type HelpItem = { k: "manual" | "design" | "help"; n: string; d: string; icon: string };
+export type HelpItem = { k: "manual" | "design" | "help"; n: string; d: string; icon: "book" | "brush" | "help" };
 /** [능력 설명, 이렇게 말하세요(없으면 "")] */
 export type Ability = [string, string];
 export type Staff = {
