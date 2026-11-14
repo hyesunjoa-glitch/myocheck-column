@@ -20,7 +20,8 @@
 - 본 사이트: {{ site.main_site }}
 - 칼럼: {{ site.base_url }}/
 - 칼럼 원칙: {{ site.base_url }}/about/
-{% if op.legal_name %}- 운영사: {{ op.legal_name }}
+{% if sonless_on %}- 손 없는 날 달력(달마다 음력·일진): {{ site.base_url }}/son-eopneun-nal/
+{% endif %}{% if op.legal_name %}- 운영사: {{ op.legal_name }}
 {% endif %}{% if site.privacy_url %}- 개인정보처리방침: {{ site.privacy_url }}
 {% endif %}{% if site.terms_url %}- 이용약관: {{ site.terms_url }}
 {% endif %}

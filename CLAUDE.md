@@ -99,6 +99,11 @@
    - (10/19 시안) ③ 검수자 소개: 청월당·타이트사주 모두 따로 된 소개 페이지는 없음(청월당=글마다 캐릭터 작성자+푸터 사업자 정보, 타이트=글 끝 브랜드 한 줄·언론 보도·면책 문구). about 페이지에 「검수하는 사람·글이 올라가기까지·사주 문장 기준·운영 정보」 시안을 만듦. 빈칸은 site.yml `reviewer:`·`contact:`에 사장님이 사실만 적음. `reviewer.ready: false`인 동안 실제 사이트 about은 예전 그대로, 시안(--preview)에서만 보임. ready: true가 되면 칼럼의 reviewedBy가 about의 검수자 소개(#reviewer)로 연결됨.
    - (끝남 10/19) 강의 진단표 67항목: 41점 「GEO 유망주」. 결과 `research/geo/묘책_GEO_진단표67_2026-10-19.xlsx`(만드는 코드 `research/geo/build_checklist.py`, 판정 `checklist67_answers.py`). 0%: 유튜브·PR·리뷰. 10/19 사장님 답: 유튜브 채널 없음·본 사이트 후기 없음·myocheck.kr이 www로 안 바뀜. 남은 확인 1개(인스타 프로필에 칼럼 링크). 현실 최대치 약 90점(위키·지도·링크드인·레딧·유료 툴 7개는 하지 않음). 다음 측정 2026-11(같은 세트·새 계정·임시 채팅).
 
+## 2026-11-14 — 손 없는 날 달력 초안 (브랜치 sonless-calendar-draft, 공개 안 됨)
+- 청월당 「손 없는 날 달력」 같은 검색용 페이지를 우리 문장으로 새로 씀: /son-eopneun-nal/ + 2026-01~2027-12 24장. 끝에 괴짜Z 신년운세 버튼(utm_campaign=son-eopneun-nal-YYYY-M).
+- site.yml `sonless_calendar.enabled: false` → 실제 사이트엔 0장(시안에서만). 사장님 「올려」 뒤에 true + `updated` 날짜. 자세한 건 README 「손 없는 날 달력」.
+- 날짜 검산: scripts/verify_sonless.py(천문 계산) 730일 모두 일치, 바깥 달력 사이트 2027년 2월과도 일치.
+
 ## 자주 쓰는 명령
 - `python3 build.py --check` — 글마다 왜 안 올라가는지 + 예약표
 - `python3 build.py --today 2026-10-20` — 그날 사이트에 뭐가 올라가 있을지

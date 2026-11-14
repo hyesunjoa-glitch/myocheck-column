@@ -447,6 +447,9 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
                   year=dt.date.today().year, brand_full=brand_full, og_image=og_default,
                   org_jsonld=json.dumps({"@context": "https://schema.org", **org_node(site)}, ensure_ascii=False).replace("</", "<\\/"))
 
+    # 손 없는 날 달력이 켜져 있는지 — 푸터 링크·llms.txt에 쓰여요 (꺼져 있으면 실제 사이트 어디에도 링크가 안 생겨요)
+    common["sonless_on"] = bool((site.get("sonless_calendar") or {}).get("enabled")) or preview
+
     # 상품 설명 페이지 주소 — 칼럼의 상품 버튼 옆 「자세히」 링크에 써요 (공개된 것만, 시안에선 전부)
     _pp = load_yaml(ROOT / "product_pages.yml") if (ROOT / "product_pages.yml").exists() else {}
     common["textpages"] = {k: {"url": f"{base}/saju/{v['slug']}/", "path": f"saju/{v['slug']}/"}
@@ -565,6 +568,14 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
                                    "one_line": pg.get("one_line", "")}
             urls.append((canonical, pg.get("reviewed"), ""))
     common["textpages"] = live_textpages   # 아래 llms.txt에는 공개된 것만
+
+    # 손 없는 날 달력 (2026-11-14 초안) — site.yml sonless_calendar.enabled가 false면 실제 사이트엔 아무것도 안 나와요(시안에서만 보임)
+    import sonless
+    son = sonless.build_pages(env=env, common=common,
+                              site=site, products=products, live=live, write=write, root_for=root_for, urls=urls,
+                              preview=preview, org=org_node(site), tracked_url=tracked_url)
+    if not son and (OUT / "static" / "sonless.css").exists():
+        (OUT / "static" / "sonless.css").unlink()   # 꺼져 있으면 전용 꾸밈 파일도 남기지 않아요
 
     write("404.html", env.get_template("404.html").render(
         **common, root="/", canonical=None, noindex_page=True,

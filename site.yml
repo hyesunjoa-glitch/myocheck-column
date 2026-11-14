@@ -166,3 +166,16 @@ categories:
 
 # 글 아래 「함께 보면 좋은 사주」 카드 — 2026-10-08 사장님 결정으로 뺌 (버튼이 많으면 어디 누를지 고민하다 안 누르기 쉬워서). 다시 켜려면 true
 show_other_products: false
+
+# ─────────────────────────────────────────────
+# 손 없는 날 달력 — /son-eopneun-nal/ (목록) · /son-eopneun-nal/2027/3/ (달마다)  (2026-11-14 초안)
+#   · enabled: false → 실제 사이트에 페이지·사이트맵·푸터 링크·llms.txt 줄이 하나도 안 나와요. 시안(--preview)에서만 보여요.
+#   · 사장님이 시안을 보고 「올려」 하면 true로 바꾸고, updated를 그날로 적어요(검색엔진에 보이는 작성·확인일).
+#   · product: 페이지 끝 상품 버튼 (newyear-2027 = 괴짜Z 신년운세 / gunghap = 이설 다음에 필 꽃)
+#   · 날짜는 sonless.py가 한국천문연구원 음력표로 계산해요. 범위를 늘릴 땐 end만 바꾸면 돼요(라이브러리 한계 2050년).
+sonless_calendar:
+  enabled: false
+  start: 2026-1
+  end: 2027-12
+  product: newyear-2027
+  updated: 2026-11-14

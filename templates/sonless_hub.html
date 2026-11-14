@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ root }}static/sonless.css?v={{ css_ver }}">
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+{% endblock %}
+{% block main %}
+<article class="column son">
+  <header class="cover">
+    <span class="cover-cat">달력</span>
+    <h1 class="cover-title">손 없는 날 달력 {{ years[0] }}·{{ years[-1] }}</h1>
+    <p class="cover-sub">달마다 손 없는 날을 음력·요일·일진과 함께 정리했어요</p>
+  </header>
+
+  <section class="answer" aria-labelledby="answer-h">
+    <h2 class="answer-h" id="answer-h"><span aria-hidden="true">✅</span> 짧은 답</h2>
+    <p class="answer-body">손 없는 날은 음력 날짜 끝자리가 9나 0인 날(9·10·19·20·29·30일)이에요. {{ years[0] }}~{{ years[-1] }}년에는 한 달에 {{ count_min }}~{{ count_max }}일씩 있어요.</p>
+    <p class="son-answer-sub">민속에서 이사·혼례 날을 잡을 때 참고해 온 기준이에요. 아래에서 달을 누르면 그 달 달력과 날짜 목록이 나와요.</p>
+  </section>
+
+  <div class="sheet">
+    {% for y in years %}
+    <section class="block" id="y{{ y }}" aria-labelledby="y{{ y }}-h">
+      <h2 class="sec-h" id="y{{ y }}-h">{{ y }}년 손 없는 날</h2>
+      <ul class="son-months">
+        {% for yy, mm in ms if yy == y %}{% set mi = data[(yy, mm)] %}
+        <li><a href="{{ root }}son-eopneun-nal/{{ yy }}/{{ mm }}/">
+          <span class="son-m">{{ mm }}월</span>
+          <span class="son-m-days">{{ mi.son | map(attribute='date') | map(attribute='day') | join('·') }}일</span>
+        </a></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+
+    <section class="block" aria-labelledby="what-h">
+      <h2 class="sec-h" id="what-h"><span aria-hidden="true">💡</span> 손 없는 날이 뭐예요?</h2>
+      <div class="prose">
+        <p>「손」은 날짜에 따라 자리를 옮겨 다니며 사람이 하는 일을 방해한다고 여긴 민속 속 존재예요. 음력 9·0일엔 하늘로 올라가 어디에도 없다고 봐서, 이 날을 손 없는 날이라고 불러요.</p>
+        <p>음력으로 정하는 날이라 양력 날짜는 달마다 바뀌어요. 누구에게나 같은 날이고, 이 날에 꼭 큰일을 해야 한다는 규칙은 없어요.</p>
+      </div>
+    </section>
+
+    <ul class="meta meta-end" aria-label="글 정보">
+      <li><span aria-hidden="true">✍️</span> {{ site.brand }} 편집팀 · 날짜는 한국천문연구원 음력 기준으로 계산했어요</li>
+      <li><span aria-hidden="true">🗓️</span> <time datetime="{{ updated }}">{{ updated | kdate }}</time> 확인</li>
+    </ul>
+  </div>
+</article>
+{% endblock %}
