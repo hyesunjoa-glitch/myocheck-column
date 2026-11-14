@@ -224,6 +224,7 @@
     <ul class="meta meta-end" aria-label="글 정보">
       <li><span aria-hidden="true">⏱️</span> 약 {{ read_min }}분</li>
       <li><span aria-hidden="true">✍️</span> {{ site.brand }} 편집팀 · <a href="{{ root }}about/#process">AI 초안, 사람 검수</a>{% if col.reviewer %} · 검수 {{ col.reviewer }}{% elif preview %} · 검수 <span class="pending">[검수자 대기]</span>{% endif %}</li>
+      <li class="note"><span aria-hidden="true">🔖</span> 사주 풀이는 삶의 흐름을 돌아보는 <a href="{{ root }}about/#disclaimer">참고 자료</a>예요. 결과를 보장하지 않아요.</li>
       <li><span aria-hidden="true">🗓️</span> <time datetime="{{ col.date }}">{{ col.date | kdate }}</time>{% if col.updated and col.updated != col.date %} · {{ col.updated | kdate }} 고침{% endif %}</li>
       {% if preview %}<li><span aria-hidden="true">👀</span> 오늘 읽은 사람 <span class="pending">[실제 집계 연결 후 표시]</span></li>{% endif %}
     </ul>

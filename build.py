@@ -217,6 +217,11 @@ def warn_words(col: dict) -> list[str]:
         t = str((c or {}).get("text", ""))
         if len(t) > CONCERN_MAX:
             out.append(f"실제 고민이 {len(t)}자예요 — 휴대폰에서 2줄을 넘을 수 있어요(약 {CONCERN_MAX}자 이내): {t[:20]}…")
+    # 강의 Part 4 Ch03-03 p.8 「발행 전 체크 5개」 중 「구체적 수치·출처」 (2026-11-14) — 막지는 않고 알려만 줘요.
+    # 출처는 글 주제에 맞는 공공·학술 자료일 때만. 지어낸 출처·숫자는 절대 금지.
+    outside = [u for u in re.findall(r"\]\((https?://[^)\s]+)\)", col.get("body_md", "")) if "myocheck.kr" not in u]
+    if not outside:
+        out.append("바깥 출처 링크가 0개예요 — 글 주제에 맞는 공공·학술 자료가 있으면 1개 이상 붙여 주세요(없으면 그대로 둬요, 지어내기 금지)")
     for line in "\n".join(texts).splitlines():
         for m in WARN_RE.finditer(line):
             s = max(0, m.start() - 15)
