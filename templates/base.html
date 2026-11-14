@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" data-tone="{{ tone|default('formal') }}">
+<html lang="ko"{% if preview %} data-tone="{{ tone|default('formal') }}"{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -75,7 +75,8 @@
     bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
   }
   window.addEventListener('scroll', upd, { passive: true }); upd();
-  /* 시안 전용: 말투 바꿔 보기 */
+{% if preview %}
+  /* 시안 전용: 말투 바꿔 보기 (배포본에는 안 들어가요 — 2026-11-14) */
   [].forEach.call(document.querySelectorAll('[data-set-tone]'), function (b) {
     b.setAttribute('aria-pressed', document.documentElement.dataset.tone === b.dataset.setTone);
     b.addEventListener('click', function () {
@@ -83,6 +84,7 @@
       [].forEach.call(document.querySelectorAll('[data-set-tone]'), function (o) { o.setAttribute('aria-pressed', o === b); });
     });
   });
+{% endif %}
 })();
 /* 상품 버튼 클릭 기록 — GA4가 연결돼 있으면 어느 글의 어느 버튼인지 남아요 */
 document.addEventListener('click', function (e) {

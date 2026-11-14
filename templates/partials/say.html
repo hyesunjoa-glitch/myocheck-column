@@ -1,4 +1,4 @@
 {% if character %}<div class="say">
   <img class="say-face" src="{{ root }}{{ character.image }}" alt="" width="44" height="44" loading="lazy">
-  <p class="say-text"><span class="say-name">{{ character.name }}</span><span class="t-formal">{{ formal }}</span><span class="t-casual">{{ casual }}</span></p>
+  <p class="say-text"><span class="say-name">{{ character.name }}</span>{% if preview %}<span class="t-formal">{{ formal }}</span><span class="t-casual">{{ casual }}</span>{% else %}{{ casual if tone == "casual" else formal }}{% endif %}</p>
 </div>{% endif %}

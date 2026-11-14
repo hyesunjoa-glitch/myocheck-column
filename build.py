@@ -399,6 +399,24 @@ def jsonld_for_column(col, site, cat, canonical) -> str:
     return json.dumps(data, ensure_ascii=False, indent=1, default=str).replace("</", "<\\/")
 
 
+def jsonld_for_category(cat, items, site, canonical) -> str:
+    """분류 페이지 설명표 (2026-11-14): 이 분류의 칼럼 목록(CollectionPage) + 위치(BreadcrumbList). 화면에 보이는 값만."""
+    base = site["base_url"]
+    graph = [
+        {"@type": "CollectionPage", "@id": canonical, "url": canonical, "name": f"{cat['name']} 칼럼",
+         "description": cat.get("description") or cat.get("intro", ""), "inLanguage": "ko-KR",
+         "isPartOf": {"@type": "WebSite", "name": site["name"], "url": base + "/"},
+         "publisher": {"@id": site["main_site"].rstrip("/") + "/#org"},
+         "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": [
+             {"@type": "ListItem", "position": i, "url": f"{base}/{c['url_path']}", "name": c["title"]}
+             for i, c in enumerate(items, 1)]}},
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": site["name"], "item": base + "/"},
+            {"@type": "ListItem", "position": 2, "name": cat["name"], "item": canonical}]},
+    ]
+    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1).replace("</", "<\\/")
+
+
 # ─────────────────────────── 빌드 ───────────────────────────
 
 def build(preview: bool, today: dt.date | None = None) -> list[dict]:
@@ -502,7 +520,8 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
         write(rel, env.get_template("category.html").render(
             **common, root=root_for(rel), cat=cat, items=items, canonical=canonical,
             noindex_page=not items,   # 글이 0개인 분류는 검색에서 빼요 (빈 페이지는 사이트 점수를 깎아요)
-            page_title=f"{cat['name']} 칼럼 | {brand_full}", page_desc=cat["intro"]))
+            jsonld=jsonld_for_category(cat, items, site, canonical),
+            page_title=f"{cat['name']} 칼럼 | {brand_full}", page_desc=cat.get("description") or cat["intro"]))
         if items:
             urls.append((canonical, max((c["updated"] for c in items if c.get("updated")), default=None), ""))
 
@@ -537,9 +556,12 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
         character = characters.get(prod.get("character") or "") or {"name": {"isel": "이설"}.get(prod.get("character"), ""), "role": "묘책 궁합 담당"}
         cat_name = {"reunion": "재회", "breakup": "이별 원인", "gunghap": "궁합", "newyear-2027": "2027 신년"}.get(key, "")
         org = org_node(site)
+        # 2026-11-14 구글 서치 콘솔 「판매자 목록」 경고 고침:
+        #   brand가 운영사(Organization)를 가리켜 「brand 개체 유형이 잘못됨」 → Brand 개체로 / category 값 경고 → 칸을 뺌
+        #   후기 별점(aggregateRating·review)·반품·배송 칸은 실제 후기·정해진 정책이 없어서 넣지 않아요 (지어내지 않기)
         prod_node = {"@type": "Product", "@id": canonical + "#product", "name": pg.get("full_name") or prod["name"],
-                     "description": pg.get("one_line", ""), "brand": {"@id": org["@id"]}, "url": prod.get("url", ""),
-                     "image": f"{base}/{prod['image']}" if prod.get("image") else None, "category": f"{cat_name} 사주 리포트"}
+                     "description": pg.get("one_line", ""), "brand": {"@type": "Brand", "name": brand_full}, "url": prod.get("url", ""),
+                     "image": f"{base}/{prod['image']}" if prod.get("image") else None}
         if pg.get("price"):
             prod_node["offers"] = {"@type": "Offer", "price": int(pg["price"]), "priceCurrency": "KRW",
                                    "availability": "https://schema.org/InStock", "url": prod.get("url", ""), "seller": {"@id": org["@id"]}}
@@ -579,7 +601,7 @@ def build(preview: bool, today: dt.date | None = None) -> list[dict]:
     for c in live[:30]:
         page_url = f"{base}/{c['url_path']}"
         full = re.sub(r'(\s(?:src|href))="([^"]*)"', lambda m: f'{m.group(1)}="{urljoin(page_url, m.group(2))}"', c["body_html"])
-        # 말풍선: 사이트에선 존댓말/반말 중 하나만 보이지만 RSS엔 꾸밈(CSS)이 없어 둘 다 보여요 → 이 글의 말투 하나만 남기고, 이름 뒤에 「:」
+        # 말풍선: 배포본은 처음부터 한 말투만 들어가요(2026-11-14). 시안엔 두 말투가 다 있어서 → 이 글의 말투 하나만 남기고, 이름 뒤에 「:」
         drop = "t-casual" if c.get("tone", "formal") == "formal" else "t-formal"
         full = re.sub(rf'<span class="{drop}">.*?</span>', "", full, flags=re.S)
         full = re.sub(r'<span class="say-name">(.*?)</span>', r'<b>\1</b>: ', full)

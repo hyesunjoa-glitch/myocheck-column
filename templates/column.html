@@ -25,7 +25,7 @@
     {% if character and col.cover_say %}
     <div class="cover-say">
       <img src="{{ root }}{{ character.image }}" alt="{{ character.name }}" width="52" height="52">
-      <p><span class="say-name">{{ character.name }}</span><span class="t-formal">{{ col.cover_say.formal }}</span><span class="t-casual">{{ col.cover_say.casual }}</span></p>
+      <p><span class="say-name">{{ character.name }}</span>{% if preview %}<span class="t-formal">{{ col.cover_say.formal }}</span><span class="t-casual">{{ col.cover_say.casual }}</span>{% else %}{{ col.cover_say.casual if tone == "casual" else col.cover_say.formal }}{% endif %}</p>
     </div>
     {% endif %}
   </header>
@@ -179,29 +179,15 @@
     {# ── ❓ 질문 두 묶음 ── #}
     <section class="block" id="faq" aria-labelledby="faq-h">
       <h2 class="sec-h" id="faq-h"><span aria-hidden="true">❓</span> 자주 묻는 질문</h2>
-      {% if product.buy_faq %}
-      <div class="seg" role="tablist" aria-label="질문 묶음">
-        <button type="button" role="tab" aria-selected="true" data-faq="a">고민 질문</button>
-        <button type="button" role="tab" aria-selected="false" data-faq="b">사주 보기 전 질문</button>
-      </div>
-      {% endif %}
-      <div class="faq" data-faq-panel="a">
+      {# 2026-11-14: 구매 안내 질문(넣을 정보·시간 모름·결제·결과지 받기)은 칼럼에서 빼고 상품 안내 페이지(/saju/…)에만 둬요.
+         글마다 같은 문장이 반복돼서(같은 문장 비율 평균 21%). 칼럼 주제 질문(col.faq)만 남기고, 상품 안내로 가는 링크 한 줄. #}
+      <div class="faq">
         {% for f in col.faq %}
         <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">{{ f.a }}</div></details>
         {% endfor %}
       </div>
-      {% if product.buy_faq %}
-      <div class="faq" data-faq-panel="b" hidden>
-        {% for f in product.buy_faq %}
-        <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">
-          {% if f.steps %}
-          <ol class="flow">
-            {% for p in f.steps %}<li><span class="flow-ico" aria-hidden="true">{{ p.icon }}</span><div><p class="flow-step">{{ p.step }}</p><p class="flow-text">{% if '대기]' in p.text %}<span class="pending">{{ p.text }}</span>{% else %}{{ p.text }}{% endif %}</p></div></li>{% endfor %}
-          </ol>
-          {% elif '대기]' in f.a %}<span class="pending">{{ f.a }}</span>{% else %}{{ f.a }}{% endif %}
-        </div></details>
-        {% endfor %}
-      </div>
+      {% if product.buy_faq and textpages and textpages.get(product_key) %}
+      <p class="faq-more"><a href="{{ root }}{{ textpages[product_key].path }}">넣을 정보·결과지 받는 법은 상품 안내에서 볼 수 있어요 →</a></p>
       {% endif %}
     </section>
 
@@ -290,14 +276,6 @@
       $$('.pick').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
       $$('.pick-panel').forEach(function (p, j) { p.hidden = j !== i; });
       var h = $('.pick-hint'); if (h) h.hidden = true;
-    });
-  });
-
-  /* 질문 묶음 */
-  $$('[data-faq]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      $$('[data-faq]').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
-      $$('[data-faq-panel]').forEach(function (p) { p.hidden = p.dataset.faqPanel !== b.dataset.faq; });
     });
   });
 
