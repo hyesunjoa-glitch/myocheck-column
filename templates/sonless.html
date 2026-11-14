@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block og_type %}article{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ root }}static/sonless.css?v={{ css_ver }}">
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+{% endblock %}
+{% block main %}
+{% set y = mi.y %}{% set m = mi.m %}
+<article class="column son">
+
+  <header class="cover">
+    <a class="cover-cat" href="{{ root }}son-eopneun-nal/">손 없는 날 달력</a>
+    <h1 class="cover-title">{{ title }}</h1>
+    <p class="cover-sub">{{ lunar_span }} · 음력·일진 함께 보기</p>
+  </header>
+
+  <section class="answer" id="answer" aria-labelledby="answer-h">
+    <h2 class="answer-h" id="answer-h"><span aria-hidden="true">✅</span> 짧은 답</h2>
+    <p class="answer-body">{{ y }}년 {{ m }}월 손 없는 날은 {{ join_days(mi.son) }}, 모두 {{ mi.son | length }}일이에요.</p>
+    <p class="son-answer-sub">음력 날짜 끝자리가 9나 0인 날이에요.{% if weekend_son %} 이 중 주말(토·일)은 {{ join_days(weekend_son) }}이에요.{% else %} 이번 달 손 없는 날 중 주말(토·일)은 없어요.{% endif %}</p>
+  </section>
+
+  <div class="sheet">
+
+    <section class="block" id="calendar" aria-labelledby="cal-h">
+      <h2 class="sec-h" id="cal-h"><span aria-hidden="true">🗓️</span> {{ y }}년 {{ m }}월 달력</h2>
+      <p class="sec-sub">칸 아래 작은 숫자는 음력이에요. <span class="son-key">민트 칸</span>이 손 없는 날이에요.</p>
+      <table class="cal">
+        <caption class="sr-only">{{ y }}년 {{ m }}월 달력 — 손 없는 날 표시</caption>
+        <thead><tr>{% for w in "일월화수목금토" %}<th scope="col"{% if loop.first %} class="sun"{% elif loop.last %} class="sat"{% endif %}>{{ w }}</th>{% endfor %}</tr></thead>
+        <tbody>
+        {% for week in mi.weeks %}<tr>
+          {% for d in week %}{% if d %}<td class="{% if d.son %}is-son{% endif %}{% if loop.first %} sun{% elif loop.last %} sat{% endif %}"{% if d.son %} aria-label="{{ d.date.day }}일 손 없는 날"{% endif %}>
+            <span class="cal-d">{{ d.date.day }}</span>
+            <span class="cal-l">{% if d.ld == 1 %}{% if d.leap %}윤{% endif %}{{ d.lm }}.1{% else %}{{ d.ld }}{% endif %}</span>
+            {% if d.holiday %}<span class="cal-h">{{ d.holiday }}</span>{% endif %}
+          </td>{% else %}<td class="empty"></td>{% endif %}{% endfor %}
+        </tr>{% endfor %}
+        </tbody>
+      </table>
+      <p class="son-note">음력 초하루(1일)는 「달.1」로 적었어요. 예: 2.1 = 음력 2월 1일</p>
+    </section>
+
+    <section class="block" id="list" aria-labelledby="list-h">
+      <h2 class="sec-h" id="list-h"><span aria-hidden="true">📋</span> {{ y }}년 {{ m }}월 손 없는 날 목록</h2>
+      <p class="sec-sub">일진은 그날에 붙는 60가지 이름(간지)이에요. 민속에서 날을 고를 때 함께 적어 왔어요.</p>
+      <table class="son-list">
+        <thead><tr><th scope="col">양력</th><th scope="col">요일</th><th scope="col">음력</th><th scope="col">일진</th></tr></thead>
+        <tbody>
+        {% for d in mi.son %}<tr{% if d.weekend %} class="we"{% endif %}>
+          <td>{{ m }}월 {{ d.date.day }}일</td><td>{{ d.wd }}</td><td>{{ '윤' if d.leap else '' }}{{ d.lm }}월 {{ d.ld }}일</td><td>{{ d.ganji }}일 <small>{{ d.ganji_hj }}</small></td>
+        </tr>{% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block" id="what" aria-labelledby="what-h">
+      <h2 class="sec-h" id="what-h"><span aria-hidden="true">💡</span> 손 없는 날이 뭐예요?</h2>
+      <div class="prose">
+        <p>민속에서 이사·혼례 날을 잡을 때 참고해 온 기준이에요. 「손」은 날짜에 따라 동·서·남·북으로 자리를 옮겨 다니며 사람이 하는 일을 방해한다고 여긴 존재예요.</p>
+        <p>전해 오는 이야기로는 음력 끝자리 1·2일엔 동쪽, 3·4일엔 남쪽, 5·6일엔 서쪽, 7·8일엔 북쪽에 있고, <strong>9·0일엔 하늘로 올라가 어디에도 없다</strong>고 봤어요. 그래서 음력 9·10·19·20·29·30일을 「손 없는 날」이라고 불러요.</p>
+        <p>음력 날짜로 정하는 날이라 양력 날짜는 해마다, 달마다 달라져요. 누구에게나 같은 날이고, 어느 한 사람에게 맞춘 날은 아니에요.</p>
+      </div>
+    </section>
+
+    <nav class="block son-nav" aria-labelledby="nav-h">
+      <h2 class="sec-h" id="nav-h"><span aria-hidden="true">↔️</span> 다른 달도 보기</h2>
+      <div class="son-pn">
+        {% if prev_ym %}<a class="son-pn-a" href="{{ root }}son-eopneun-nal/{{ prev_ym[0] }}/{{ prev_ym[1] }}/" rel="prev"><small>이전 달</small>← {{ prev_ym[0] }}년 {{ prev_ym[1] }}월</a>{% else %}<span></span>{% endif %}
+        {% if next_ym %}<a class="son-pn-a next" href="{{ root }}son-eopneun-nal/{{ next_ym[0] }}/{{ next_ym[1] }}/" rel="next"><small>다음 달</small>{{ next_ym[0] }}년 {{ next_ym[1] }}월 →</a>{% endif %}
+      </div>
+      {% if same %}<p class="son-same">같은 {{ m }}월 다른 해: {% for yy, mm in same %}<a href="{{ root }}son-eopneun-nal/{{ yy }}/{{ mm }}/">{{ yy }}년 {{ mm }}월 손 없는 날</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+      <p class="son-same"><a href="{{ root }}son-eopneun-nal/">전체 달 한눈에 보기 →</a></p>
+    </nav>
+
+    <section class="block" id="faq" aria-labelledby="faq-h">
+      <h2 class="sec-h" id="faq-h"><span aria-hidden="true">❓</span> 자주 묻는 질문</h2>
+      <div class="faq">
+        {% for f in faqs %}
+        <details{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><div class="faq-a">{{ f.a }}{% if loop.last and wedding %} <a href="{{ root }}{{ wedding.url_path }}">칼럼 보러 가기 →</a>{% endif %}</div></details>
+        {% endfor %}
+      </div>
+    </section>
+
+    {% if product %}
+    <section class="block" id="more" aria-labelledby="bridge-h">
+      <h2 class="sec-h" id="bridge-h"><span aria-hidden="true">🔮</span> 날짜는 모두에게 같지만</h2>
+      {% if product.solo %}
+      <p class="son-bridge">손 없는 날은 누구에게나 같은 날이에요. 하지만 내 2027년에 어느 달 흐름이 좋고 어느 달을 조심하면 좋을지는 사람마다 달라요. 큰일을 앞두고 있다면, 날짜와 함께 내 흐름도 한번 살펴보세요.</p>
+      {% else %}
+      <p class="son-bridge">손 없는 날은 누구에게나 같은 날이에요. 하지만 두 사람에게 맞는 시기와 서로 맞춰 가야 할 곳은 사람마다 달라요. 결혼이나 함께 사는 일을 앞두고 있다면, 날짜와 함께 두 사람 흐름도 한번 살펴보세요.</p>
+      {% endif %}
+      <div class="prose">{% set position = "cta_mid" %}{% set textpages = {product_key: textpage} if textpage else {} %}{% include "partials/cta.html" %}</div>
+    </section>
+    {% endif %}
+
+    <ul class="meta meta-end" aria-label="글 정보">
+      <li><span aria-hidden="true">✍️</span> {{ site.brand }} 편집팀 · 날짜는 한국천문연구원 음력 기준으로 계산했어요</li>
+      <li><span aria-hidden="true">🗓️</span> <time datetime="{{ updated }}">{{ updated | kdate }}</time> 확인</li>
+    </ul>
+  </div>
+</article>
+{% endblock %}

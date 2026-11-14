@@ -65,6 +65,14 @@
 - `ga4_id` → 구글 애널리틱스 ID를 넣으면 버튼 클릭이 기록돼요
 - `ga4_extra_ids` → 같은 방문·버튼 클릭을 함께 받을 GA4 ID 목록(지금은 판매 사이트 G-JK8DDSXFXX). 속성마다 1번씩만 가요
 
+## 손 없는 날 달력 (2026-11-14 초안 — 아직 공개 안 됨)
+
+- 주소: `/son-eopneun-nal/`(목록) · `/son-eopneun-nal/2027/3/`(달마다). 2026년 1월~2027년 12월 24개월 + 목록 1장.
+- 켜는 곳: site.yml `sonless_calendar.enabled`. **false면 실제 사이트에 페이지·사이트맵·푸터 링크·llms.txt 줄이 하나도 안 나와요.** `python3 build.py --preview`에서만 보여요.
+- 날짜 계산: `sonless.py` — 한국천문연구원 음력표(korean_lunar_calendar 0.4.0, `vendor/` 안 휠을 그대로 읽음, 설치 필요 없음). 손 없는 날 = 음력 끝자리 9·0.
+- 검산: `pip install ephem` 후 `python3 scripts/verify_sonless.py` (천문 계산으로 초하루를 따로 구해 하루씩 맞춰 봄). 한 달 자세히: `… verify_sonless.py 2027-3`
+- 범위를 늘릴 땐 `end`만 바꿔요(라이브러리 한계 2050년). 켤 때 `updated`를 그날로.
+
 ## 상품 링크 (products.yml)
 
 상품 링크가 비어 있어요. 링크가 들어가기 전에는 그 상품에 연결된 글은 발행되지 않아요.
